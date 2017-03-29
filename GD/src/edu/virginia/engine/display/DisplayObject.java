@@ -108,6 +108,16 @@ public class DisplayObject extends EventDispatcher {
 		}
 	}
 	
+	//public float getAlpha(){
+		//return this.alpha;
+	//}
+	
+	//public void setAlpha(float newAlpha) {
+		//this.alpha = newAlpha;
+	//}
+	
+	
+	
 	public void setVisible(boolean b) {
 		if (b) {
 			this.visible = AlphaComposite.SRC_OVER;

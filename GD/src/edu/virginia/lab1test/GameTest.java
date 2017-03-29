@@ -274,7 +274,7 @@ public class GameTest extends Game implements MouseListener {
 		//System.out.println("mouse: " + clicked.getX() + " " + clicked.getY());
 		//System.out.println(character.getDisplayImage().getWidth());
 	    //Rectangle bounds = new Rectangle(250, 250, character.getDisplayImage().getWidth(), character.getDisplayImage().getHeight());
-		Rectangle bounds = new Rectangle(character.getXPos(), character.getYPos(), character.getDisplayImage().getWidth()-25, character.getDisplayImage().getHeight()-20);
+		Rectangle bounds = new Rectangle();
 		
 		//System.out.println("mouse: " + clicked.getX() + " " + clicked.getY());
 		//System.out.println("character: " + xPos + " " + yPos);
