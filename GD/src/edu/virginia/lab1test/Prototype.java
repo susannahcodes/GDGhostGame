@@ -26,6 +26,7 @@ import edu.virginia.engine.display.TweenTransition;
 import edu.virginia.engine.display.VertWallSprite;
 import edu.virginia.engine.display.WallSprite;
 import edu.virginia.engine.display.coinSprite;
+import edu.virginia.engine.display.ghostSprite;
 import edu.virginia.engine.display.marioSprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
@@ -38,7 +39,9 @@ public class Prototype extends Game {
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
 	
-	marioSprite mario1 = new marioSprite("MarioOne");
+	//marioSprite mario1 = new marioSprite("MarioOne");
+	
+	ghostSprite mario1 = new ghostSprite("ghostie");
 	Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
@@ -88,7 +91,9 @@ public class Prototype extends Game {
 		
 		mario1.setTrans(0.0f);
 		mario1.setXPos(3);
-		mario1.setYPos(800-mario1.getUnscaledHeight()-25);
+		//mario1.setXScale(3);
+		//mario1.setYScale(3);
+		mario1.setYPos(800-mario1.getScaledHeight());
 		marioTween.doTween(true);
 		marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
 		//marioTween.doTween(false);

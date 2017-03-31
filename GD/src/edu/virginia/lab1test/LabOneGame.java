@@ -26,6 +26,7 @@ import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.display.dinoSprite;
+import edu.virginia.engine.display.ghostSprite;
 import edu.virginia.engine.util.GameClock;
 
 /**
@@ -52,7 +53,8 @@ public class LabOneGame extends Game implements MouseListener {
 	//private MouseAdapter mouse;
 
 	/* Create a sprite object for our game. We'll use character */
-	Sprite character = new Sprite("Mario", "Mario.png");
+	//Sprite character = new Sprite("Mario", "Mario.png");
+	ghostSprite character = new ghostSprite("ghost");
 	//AnimatedSprite character = new AnimatedSprite("pegasus", "pegasus.png");
 	//dinoSprite character = new dinoSprite("Jesus riding a dino");
 	
@@ -68,6 +70,11 @@ public class LabOneGame extends Game implements MouseListener {
 		deltaAlpha = (float) 0.05;
 		degree = 0.03;
 		//int elaps = (int) clock.getElapsedTime()/1000;
+		
+		character.setXScale(4);
+		character.setYScale(4);
+		
+		this.getScenePanel().setBackground(Color.DARK_GRAY);
 		
 		health = 100;
 		time = 30;
