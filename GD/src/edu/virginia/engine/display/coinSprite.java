@@ -6,8 +6,8 @@ import edu.virginia.engine.events.IEventListener;
 public class coinSprite extends Sprite {
 
 	public coinSprite(String id) {
-		super(id, "Star_Coin.png");
-		super.setXScale(.01);
-		super.setYScale(.01);
+		super(id, "orange.png");
+		super.setXScale(.45);
+		super.setYScale(.5);
 	}
 }

@@ -93,7 +93,7 @@ public class LabSixGame extends Game {
 		
 		//coin1.setXPos(this.getScenePanel().getWidth()/2);
 		//coin1.setYPos(700);
-		coin1.setXPos(500);
+		coin1.setXPos(400);
 		coin1.setYPos(400);
 		coin1.addEventListener(myQuestManager, null);
 		

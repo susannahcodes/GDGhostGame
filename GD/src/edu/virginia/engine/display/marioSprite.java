@@ -6,7 +6,7 @@ import edu.virginia.engine.events.IEventListener;
 public class marioSprite extends Sprite implements IEventListener {
 
 	public marioSprite(String id) {
-		super(id, "mario.png");
+		super(id, "ghostSprite.png");
 	}
 
 	@Override

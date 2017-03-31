@@ -7,7 +7,7 @@ public class WallSprite extends Sprite {
 
 	public WallSprite(String id) {
 		super(id, "platform.png");
-		super.setXScale(.1);
-		super.setYScale(.1);
+		//super.setXScale(.1);
+		//super.setYScale(.1);
 	}
 }
