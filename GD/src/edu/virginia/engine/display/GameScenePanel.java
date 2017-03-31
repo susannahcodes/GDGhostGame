@@ -22,6 +22,7 @@ public class GameScenePanel extends JPanel {
 		this.setLayout(null);
 		this.setGameRef(gameRef);
 		this.setBounds(0,0,gameRef.getUnscaledWidth(), gameRef.getUnscaledHeight());
+		this.setBackground(Color.gray);
 	}
 
 	public Game getGameRef() {
