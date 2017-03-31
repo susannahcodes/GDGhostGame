@@ -30,7 +30,7 @@ import edu.virginia.engine.display.marioSprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
 
-public class LabSixGame extends Game {
+public class Prototype extends Game {
 
 	coinSprite coin1 = new coinSprite("Coin One");
 	WallSprite wall = new WallSprite("testWall");
@@ -78,7 +78,7 @@ public class LabSixGame extends Game {
 	//
 	
 
-	public LabSixGame() {
+	public Prototype() {
 		
 		super("Lab Six Test Game", 1200, 800);
 		
@@ -321,10 +321,10 @@ public class LabSixGame extends Game {
 
 	public static void main(String[] args) {
 
-		LabSixGame game = new LabSixGame();
+		Prototype game = new Prototype();
 		game.start();
 
-		System.out.println("GAME SIX TEST");
+		System.out.println("PROTOTYPE TEST");
 	}
 }
 

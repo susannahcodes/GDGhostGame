@@ -52,9 +52,9 @@ public class LabOneGame extends Game implements MouseListener {
 	//private MouseAdapter mouse;
 
 	/* Create a sprite object for our game. We'll use character */
-	//Sprite character = new Sprite("Mario", "Mario.png");
+	Sprite character = new Sprite("Mario", "Mario.png");
 	//AnimatedSprite character = new AnimatedSprite("pegasus", "pegasus.png");
-	dinoSprite character = new dinoSprite("Jesus riding a dino");
+	//dinoSprite character = new dinoSprite("Jesus riding a dino");
 	
 	/**
 	 * Constructor. See constructor in Game.java for details on the parameters given
