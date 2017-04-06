@@ -26,9 +26,11 @@ import edu.virginia.engine.display.TweenTransition;
 import edu.virginia.engine.display.VertWallSprite;
 import edu.virginia.engine.display.WallSprite;
 import edu.virginia.engine.display.coinSprite;
+import edu.virginia.engine.display.enemySprite;
 import edu.virginia.engine.display.marioSprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
+import edu.virginia.lab1test.AStar.Cell;
 
 public class LabSixGame extends Game {
 
@@ -42,6 +44,8 @@ public class LabSixGame extends Game {
 	Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
+	
+	enemySprite enemy = new enemySprite("EnemyOne");
 	
 	//TweenTransition fadeIn = new TweenTransition.fadeIn((float)0.0);
 	Tween marioTween = new Tween(mario1, new TweenTransition() );
@@ -77,6 +81,13 @@ public class LabSixGame extends Game {
 	private boolean zPress = false;
 	//
 	
+	public int room1x = 400;
+	public int room1y = 375;
+	public ArrayList<Cell> path;
+	public ArrayList<Cell> fPath = new ArrayList<Cell>();
+	public int enemyMoveCounter = 1;
+	private boolean initializeRoute=true;
+	public Rectangle room1 = new Rectangle();
 
 	public LabSixGame() {
 		
@@ -99,20 +110,21 @@ public class LabSixGame extends Game {
 		coin1.setYPos(400);
 		coin1.addEventListener(myQuestManager, null);
 		
-		wall.setXPos(300);
-		wall.setYPos(500);
-		wall.addEventListener(myQuestManager, null);
-		
-		wall3.setXPos(300+wall.getScaledWidth());
-		wall3.setYPos(500);
-		wall3.addEventListener(myQuestManager, null);
+//		wall.setXPos(300);
+//		wall.setYPos(500);
+//		wall.addEventListener(myQuestManager, null);
+//		
+//		
+//		wall3.setXPos(300+wall.getScaledWidth());
+//		wall3.setYPos(500);
+//		wall3.addEventListener(myQuestManager, null);
 		
 		wall2.setXPos(300);
 		wall2.setYPos(500-vwall.getScaledHeight()-wall.getScaledHeight());
 		wall2.addEventListener(myQuestManager, null);
 		
-		wall4.setXPos(300+wall.getScaledWidth());
-		wall4.setYPos(500-vwall.getScaledHeight()-wall.getScaledHeight());
+		wall4.setXPos(300+wall2.getScaledWidth());
+		wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
 		wall4.addEventListener(myQuestManager, null);
 		
 		vwall.setXPos(300);
@@ -135,16 +147,102 @@ public class LabSixGame extends Game {
 		questConfirm.setXScale(.5);
 		questConfirm.setYScale(.5);
 		questConfirm.setVisible(false);
+		
+		//enemy code
+		enemy.setTrans(1.0f);
+		enemy.setXPos(800);
+		enemy.setYPos(100);
+		
+		//room rectangle
+		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
+		
+		//setting the list of blocked pixels the AI can't walk over, and figuring out a specific path
+		
+		ArrayList<int[]> blockedList = new ArrayList<int[]>();//{{300,95},{300,96},{300,97},{300,98},{300,99},{300,100},{300,101},{300,102},{300,103},{300,104},{300,105}};
+		
+		//set the top wall of box to be blocked
+		int wstart = 500-vwall.getScaledHeight()-wall.getScaledHeight();
+		for(int c = wstart-enemy.getScaledHeight(); c<=wstart+wall2.getScaledHeight();c++){	
+			for(int x = 300-enemy.getScaledWidth();x<=300+(wall2.getScaledWidth()*2);x++){
+				int[] e = new int[]{x,c};
+				blockedList.add(e);
+			}
+		}
+		//set the left vertical wall of the box to be blocked
+		for(int vy =500-vwall.getScaledHeight(); vy<=500; vy++){
+			for(int vx=300-enemy.getScaledWidth(); vx<= 300+vwall.getScaledWidth(); vx++){
+				int[] e = new int[]{vx,vy};
+				blockedList.add(e);
+			}
+		}
+		
+		//set the Right vertical wall of the box to be blocked
+				for(int vy2 =500-vwall.getScaledHeight(); vy2<=500; vy2++){
+					for(int vx2=300-enemy.getScaledWidth()+(2*wall.getScaledWidth())-vwall.getScaledWidth(); vx2<= 300+(2*wall.getScaledWidth()); vx2++){
+						int[] e = new int[]{vx2,vy2};
+						blockedList.add(e);
+					}
+				}
+		
+		path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y, blockedList);
+		//System.out.println(path);
+		int pLen = path.size();
+		int q=pLen-1;
+		while(q>=0){
+			//System.out.println("LOOOOOOOOOOOOOOK HEEEEEEEEEREEEEEEEEEE "+path.get(q).i);
+			Cell temp = new Cell(path.get(q).i,path.get(q).j);
+			fPath.add(temp);
+			q-=1;
+		}
+		//System.out.println("GOTHERE");
+		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
+		initializeRoute = false;
+		
+		
+		
+		
+		
+		
+//		Cell nextMove = path.get(pLen-2);
+//		int xnm = nextMove.i;
+//		int ynm = nextMove.j;
+//		
+//		double enemyMoveX = enemy.getXPos() - xnm;
+//		double enemyMoveY = enemy.getYPos() - ynm;
+//		
+//		enemy.setXPos(enemyMoveX);
+//		enemy.setYPos(enemyMoveY);
+		
 	}
 
 	public void update(ArrayList<String> pressedKeys) {
 		
 		super.update(pressedKeys);
-
+		
 		if (mario1 != null) {
 			if (coin1 != null) {
 				
 				juggler.nextFrame();
+				
+				
+				//path finding code
+				if(initializeRoute==false && enemyMoveCounter<fPath.size()){
+				//System.out.println(fPath);
+				Cell moveTo = fPath.get(enemyMoveCounter);
+				
+				
+				int xm = moveTo.i;
+				int ym = moveTo.j;
+				
+				enemy.setXPos(xm);
+				enemy.setYPos(ym);
+				//controls the speed of the enemy
+				enemyMoveCounter+=2;
+				}
+				
+				
+				
+				
 				
 				//collision detection
 				
@@ -199,6 +297,14 @@ public class LabSixGame extends Game {
 					
 					
 				}
+				
+				//enemy in the same room as player detection
+				if(enemy.getHitBox().intersects(room1) && mario1.getHitBox().intersects(room1)&&ghostAbilities==false){
+					System.out.println("ENEMY FOUND YOU! GAME OVER");
+				}
+				
+				
+				
 				
 				if(collisionOccured == false){
 					stopL =false;
@@ -309,6 +415,7 @@ public class LabSixGame extends Game {
 		
 		if (mario1 != null) {
 			mario1.draw(g);
+			enemy.draw(g);
 		}
 		if(wall != null){
 			
@@ -324,7 +431,7 @@ public class LabSixGame extends Game {
 		LabSixGame game = new LabSixGame();
 		game.start();
 
-		System.out.println("GAME SIX TEST");
+		//System.out.println("GAME SIX TEST");
 	}
 }
 
