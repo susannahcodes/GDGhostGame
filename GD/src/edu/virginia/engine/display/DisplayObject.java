@@ -39,7 +39,7 @@ public class DisplayObject extends EventDispatcher {
 	private double acceleration = 0;
 	private double speediness= 0;
 	private DisplayObjectContainer parent;
-	private Rectangle hitBox = new Rectangle();
+	protected Rectangle hitBox = new Rectangle();
 	
 
 	/* All DisplayObject have a unique id */
@@ -217,6 +217,7 @@ public class DisplayObject extends EventDispatcher {
 			System.err.println("[DisplayObject.setImage] ERROR: " + imageName + " does not exist!");
 		}
 	}
+	
 	
 	public Rectangle getHitBox() {
 		this.hitBox.setBounds((int)xPos, (int)yPos, getScaledWidth(), getScaledHeight());

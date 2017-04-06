@@ -2,6 +2,7 @@ package edu.virginia.engine.display;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import edu.virginia.engine.events.Event;
@@ -20,6 +21,8 @@ public class ghostSprite extends Sprite implements IEventListener {
 		sprites = new BufferedImage[5];
 		int frame = 0;
 		subWidth = super.getUnscaledWidth()/2;
+		//System.out.println("subWidth: " +subWidth);
+		//System.out.println("subHeaight: " + subHeight);
 		subHeight = super.getUnscaledHeight()/3;
 		
 		for (int j=0; j<3; j++) {
@@ -57,6 +60,12 @@ public class ghostSprite extends Sprite implements IEventListener {
 			
 			super.reverseTransformations(g2d);
 		}
+	}
+	
+	@Override
+	public Rectangle getHitBox() {
+		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth-20, subHeight-5);
+		return hitBox;
 	}
 
 	@Override

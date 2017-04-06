@@ -40,8 +40,9 @@ public class Prototype extends Game {
 	WallSprite wall4 = new WallSprite("testWall4");
 	
 	//marioSprite mario1 = new marioSprite("MarioOne");
+	//marioSprite mario1 = new marioSprite("ghostie");
+	ghostSprite mario1 = new ghostSprite("ghostie");
 	
-	marioSprite mario1 = new marioSprite("ghostie");
 	Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
@@ -84,6 +85,9 @@ public class Prototype extends Game {
 	public Prototype() {
 		
 		super("Lab Six Test Game", 1200, 800);
+		
+		System.out.println("hitbox width: " + mario1.getHitBox().getWidth());
+		System.out.println("hitbox height: " + mario1.getHitBox().getHeight());
 		
 		clock = new GameClock();
 		
