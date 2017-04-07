@@ -6,13 +6,14 @@ public class AStar {
     public static final int DIAGONAL_COST = 14;
     public static final int V_H_COST = 10;
     
-    static class Cell{  
+    public static class Cell{  
         int heuristicCost = 0; //Heuristic cost
         int finalCost = 0; //G+H
-        int i, j;
+        public int i;
+		public int j;
         Cell parent; 
         
-        Cell(int i, int j){
+        public Cell(int i, int j){
             this.i = i;
             this.j = j; 
         }
