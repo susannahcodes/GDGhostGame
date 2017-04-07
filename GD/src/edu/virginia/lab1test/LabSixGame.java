@@ -27,6 +27,7 @@ import edu.virginia.engine.display.VertWallSprite;
 import edu.virginia.engine.display.WallSprite;
 import edu.virginia.engine.display.coinSprite;
 import edu.virginia.engine.display.enemySprite;
+import edu.virginia.engine.display.ghostSprite;
 import edu.virginia.engine.display.marioSprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
@@ -40,7 +41,8 @@ public class LabSixGame extends Game {
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
 	
-	marioSprite mario1 = new marioSprite("MarioOne");
+	//marioSprite mario1 = new marioSprite("MarioOne");
+	ghostSprite mario1 = new ghostSprite("ghost");
 	Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
