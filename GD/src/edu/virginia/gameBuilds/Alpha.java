@@ -16,6 +16,7 @@ import edu.virginia.engine.display.LongWallSprite;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.display.VertWallSprite;
 import edu.virginia.engine.display.WallSprite;
+import edu.virginia.engine.display.cherrySprite;
 import edu.virginia.engine.display.enemySprite;
 import edu.virginia.engine.display.fruitSprite;
 import edu.virginia.engine.display.ghostSprite;
@@ -36,6 +37,7 @@ public class Alpha extends Game {
 	public int healthWidth = 0;
 	private boolean collected = true;
 	fruitSprite fruit = new fruitSprite("fruit");
+	cherrySprite cherry = new cherrySprite("cherry");
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
 	WallSprite wall3 = new WallSprite("testWall3");
@@ -57,7 +59,8 @@ public class Alpha extends Game {
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
 	Tween marioTween = new Tween(ghost, new TweenTransition() );
-	Tween coinTween = new Tween(fruit, new TweenTransition() );
+	Tween fruitTween = new Tween(fruit, new TweenTransition() );
+	Tween cherryTween = new Tween(cherry, new TweenTransition());
 	
 	TweenJuggler juggler = new TweenJuggler();
 	
@@ -113,6 +116,10 @@ public class Alpha extends Game {
 		fruit.setYPos(300);
 		fruit.addEventListener(myQuestManager, null);
 		
+		cherry.setXPos(400);
+		cherry.setYPos(600);
+		cherry.addEventListener(myQuestManager, null);
+		
 		lowerLeft.setXPos(100);
 		lowerLeft.setYPos(400);
 		
@@ -152,13 +159,21 @@ public class Alpha extends Game {
 		//wall.setXPos(300);
 		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
 
-		coinTween.addEventListener(myQuestManager, null);
+		fruitTween.addEventListener(myQuestManager, null);
 		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
 		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
-		coinTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		fruitTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		cherryTween.addEventListener(myQuestManager, null);
+		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
+		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
+		cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		
 		
 		juggler.add(marioTween);
-		juggler.add(coinTween);
+		juggler.add(fruitTween);
+		juggler.add(cherryTween);
 		
 //		questConfirm.setXScale(.5);
 //		questConfirm.setYScale(.5);
@@ -309,7 +324,11 @@ public class Alpha extends Game {
 
 
 					if (myQuestManager.questCompleted) {
-						coinTween.doTween(myQuestManager.tweenComplete);
+						if (collected == true) {
+							fruitTween.doTween(myQuestManager.tweenComplete);
+						}
+						else cherryTween.doTween(myQuestManager.tweenComplete);
+					
 						//questConfirm.setVisible(true);		
 					}
 
@@ -379,13 +398,22 @@ public class Alpha extends Game {
 					}	
 
 
-					if (ghost.collidesWith(fruit)&& ghostAbilities==false) {
+					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						if (healthWidth < 200) {
 						healthWidth += 100;}
-						coinTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, coinTween));
+						collected = true;
+						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-
+					if ((ghost.collidesWith(cherry) && ghostAbilities == false)) {
+						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
+						if (healthWidth < 200) {
+							healthWidth += 100; }
+						collected = false;
+							cherryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
+							//makes orange tween even though it's the cherry that's being overlapped
+						}
+					
 
 				}
 
@@ -427,6 +455,10 @@ public class Alpha extends Game {
 		if (fruit != null) {
 			fruit.draw(g);
 //>>>>>>> Stashed changes
+		}
+		
+		if (cherry != null) {
+			cherry.draw(g);
 		}
 		
 		g.setColor(Color.red);
