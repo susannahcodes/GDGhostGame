@@ -52,7 +52,7 @@ public class Alpha extends Game {
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
 	
 	ghostSprite ghost = new ghostSprite("ghost");
-	Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
+	//Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
@@ -145,9 +145,9 @@ public class Alpha extends Game {
 		juggler.add(marioTween);
 		juggler.add(coinTween);
 		
-		questConfirm.setXScale(.5);
-		questConfirm.setYScale(.5);
-		questConfirm.setVisible(false);
+//		questConfirm.setXScale(.5);
+//		questConfirm.setYScale(.5);
+//		questConfirm.setVisible(false);
 		
 		//enemy code
 		enemy.setTrans(1.0f);
@@ -295,7 +295,7 @@ public class Alpha extends Game {
 
 					if (myQuestManager.questCompleted) {
 						coinTween.doTween(myQuestManager.tweenComplete);
-						questConfirm.setVisible(true);		
+						//questConfirm.setVisible(true);		
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
@@ -422,9 +422,9 @@ public class Alpha extends Game {
 			enemy.draw(g);
 		}
 		
-		if (questConfirm != null) {
-			questConfirm.draw(g);
-		}
+//		if (questConfirm != null) {
+//			questConfirm.draw(g);
+//		}
 		
 		for ( Sprite wall : collDects ) {
 			if ( wall != null ) {
