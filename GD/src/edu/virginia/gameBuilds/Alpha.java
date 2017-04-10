@@ -40,6 +40,8 @@ import edu.virginia.lab1test.QuestManager;
 
 public class Alpha extends Game {
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
+	public int healthWidth = 0;
+	private boolean collected = true;
 	fruitSprite fruit = new fruitSprite("fruit");
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
@@ -358,6 +360,8 @@ public class Alpha extends Game {
 
 					if (ghost.collidesWith(fruit)&& ghostAbilities==false) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
+						if (healthWidth < 200) {
+						healthWidth += 100;}
 						coinTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, coinTween));
 					}
 
@@ -367,6 +371,8 @@ public class Alpha extends Game {
 			}
 		}
 	}
+	
+	
 
 	/**
 	 * Engine automatically invokes draw() every frame as well. If we want to make sure ghost gets drawn to
@@ -397,7 +403,7 @@ public class Alpha extends Game {
 		}
 		
 		g.setColor(Color.red);
-		g.fillRect(20, 30, 100, 22);
+		g.fillRect(20, 30, healthWidth, 22);
 		healthBar.draw(g);
 		
 		
