@@ -24,6 +24,7 @@ import edu.virginia.engine.display.coinSprite;
 import edu.virginia.engine.display.enemySprite;
 import edu.virginia.engine.display.fruitSprite;
 import edu.virginia.engine.display.ghostSprite;
+import edu.virginia.engine.display.healthBarSprite;
 import edu.virginia.engine.display.marioSprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.tween.Tween;
@@ -38,7 +39,7 @@ import edu.virginia.lab1test.AStar.Cell;
 import edu.virginia.lab1test.QuestManager;
 
 public class Alpha extends Game {
-
+	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	fruitSprite fruit = new fruitSprite("fruit");
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
@@ -97,7 +98,8 @@ public class Alpha extends Game {
 		clock = new GameClock();
 		
 		this.getScenePanel().setBackground(Color.gray);
-
+		healthBar.setXPos(10);
+		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
 		ghost.setYPos(780-ghost.getScaledHeight());
@@ -393,6 +395,11 @@ public class Alpha extends Game {
 			fruit.draw(g);
 //>>>>>>> Stashed changes
 		}
+		
+		g.setColor(Color.red);
+		g.fillRect(20, 30, 100, 22);
+		healthBar.draw(g);
+		
 		
 		if (ghost != null) {
 			ghost.draw(g);
