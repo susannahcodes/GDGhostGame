@@ -403,10 +403,15 @@ public class Alpha extends Game {
 	public void draw(Graphics g) {
 		super.draw(g);
 //<<<<<<< Updated upstream
-		
-		g.drawRect (100, 500, 1000, 200);//entryway
-		g.drawRect (100, 200, 500, 300); //leftroom
-		g.drawRect (600, 200, 500, 300);
+		g.setColor(Color.blue);
+		g.drawRect (100, 500, 1000, 20);
+		g.fillRect(100, 500, 1000, 200);
+		g.setColor(Color.green);//entryway
+		g.drawRect (100, 197, 500, 303);
+		g.fillRect(100, 197, 500, 303);
+		g.setColor(Color.orange);//leftroom
+		g.drawRect (600, 197, 500, 303);
+		g.fillRect(600, 197, 500, 303);
 		if (fruit != null) {
 			fruit.draw(g);
 			//wall.draw(g);
