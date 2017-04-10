@@ -11,26 +11,19 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import edu.virginia.engine.display.DisplayObjectContainer;
+import edu.virginia.engine.display.LongWallSprite;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.display.VertWallSprite;
 import edu.virginia.engine.display.WallSprite;
-import edu.virginia.engine.display.coinSprite;
 import edu.virginia.engine.display.enemySprite;
 import edu.virginia.engine.display.fruitSprite;
 import edu.virginia.engine.display.ghostSprite;
 import edu.virginia.engine.display.healthBarSprite;
-import edu.virginia.engine.display.marioSprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.tween.Tween;
 import edu.virginia.engine.tween.TweenEvent;
 import edu.virginia.engine.tween.TweenJuggler;
-import edu.virginia.engine.tween.TweenParam;
 import edu.virginia.engine.tween.TweenTransition;
 import edu.virginia.engine.tween.TweenableParam;
 import edu.virginia.engine.util.GameClock;
@@ -52,6 +45,13 @@ public class Alpha extends Game {
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
 	
 	ghostSprite ghost = new ghostSprite("ghost");
+	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
+	VertWallSprite lowerRight = new VertWallSprite("lowerRight");
+	LongWallSprite rightTop = new LongWallSprite("rightTop");
+	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
+	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
+	
+	
 	//Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
@@ -113,6 +113,22 @@ public class Alpha extends Game {
 		fruit.setYPos(300);
 		fruit.addEventListener(myQuestManager, null);
 		
+		lowerLeft.setXPos(100);
+		lowerLeft.setYPos(400);
+		
+		lowerRight.setXPos(1062);
+		lowerRight.setYPos(400);
+		
+		rightTop.setXPos(600);
+		rightTop.setYPos (156);
+		
+		leftBottom.setXPos(100);
+		leftBottom.setYPos(700);
+		
+		rightBottom.setXPos(600);
+		rightBottom.setYPos(700);
+		
+		
 		wall2.setXPos(300);
 		wall2.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
 		wall2.addEventListener(myQuestManager, null);
@@ -124,7 +140,6 @@ public class Alpha extends Game {
 		vwall.setXPos(100);
 		vwall.setYPos(500-vwall.getScaledHeight());
 		vwall.addEventListener(myQuestManager, null);
-		
 		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
 		vwall2.setYPos(500-vwall.getScaledHeight());
 		vwall2.addEventListener(myQuestManager, null);
@@ -420,6 +435,13 @@ public class Alpha extends Game {
 		
 		if (enemy != null) {
 			enemy.draw(g);
+		}
+		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null) {
+			lowerLeft.draw(g);
+			lowerRight.draw(g);
+			rightTop.draw(g);
+			leftBottom.draw(g);
+			rightBottom.draw(g);
 		}
 		
 //		if (questConfirm != null) {
