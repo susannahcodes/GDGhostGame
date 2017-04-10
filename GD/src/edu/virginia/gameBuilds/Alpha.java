@@ -38,6 +38,9 @@ public class Alpha extends Game {
 	private boolean collected = true;
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
+	
+	ghostSprite ghost = new ghostSprite("ghost");
+	
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
 	WallSprite wall3 = new WallSprite("testWall3");
@@ -46,12 +49,14 @@ public class Alpha extends Game {
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
 	
-	ghostSprite ghost = new ghostSprite("ghost");
 	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
 	VertWallSprite lowerRight = new VertWallSprite("lowerRight");
 	LongWallSprite rightTop = new LongWallSprite("rightTop");
 	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
+	//for collision detection
+	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom));
 	
 	
 	//Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
@@ -73,14 +78,11 @@ public class Alpha extends Game {
 
 	QuestManager myQuestManager = new QuestManager();
 
-	private int dx =7;
-	private int dy =7;
+	private int dx =4;
+	private int dy =4;
 	
 	
 	private boolean ghostAbilities = false;
-	//for collision detection
-	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4));
 	private boolean collisionOccured = false;
 	private boolean stopR = false;
 	private boolean stopL = false;
@@ -215,9 +217,12 @@ public class Alpha extends Game {
 					}
 				}
 		
-		path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y, blockedList);
+		//path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y, blockedList);
+		path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen = path.size();
 		int q=pLen-1;
+		
+		/** prints the path **/
 		while(q>=0){
 			Cell temp = new Cell(path.get(q).i,path.get(q).j);
 			fPath.add(temp);
@@ -252,8 +257,8 @@ public class Alpha extends Game {
 						enemy.setYPos(ym);
 						enemyMoveCounter+=2;
 					}
-
-					for(Sprite wall : collDects){
+					
+					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
 
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
 							collisionOccured = true;
@@ -262,42 +267,59 @@ public class Alpha extends Game {
 
 							double wcenterx = wall.getHitBox().getCenterX();
 							double wcentery = wall.getHitBox().getCenterY();
-
-
+							
 							double marioT = ghost.getYPos();
-							double marioB = (ghost.getYPos()+ ghost.getUnscaledHeight());
+							
+							//double marioB = (ghost.getYPos()+ ghost.getUnscaledHeight());
+							double marioB = (ghost.getYPos()+ ghost.getScaledHeight());		//changed from unscaled to scaled
+							
 							double wallT = wall.getYPos();
-							double wallB = (wall.getYPos()+ wall.getUnscaledHeight());
+							
+							//double wallB = (wall.getYPos()+ wall.getUnscaledHeight());
+							double wallB = (wall.getYPos()+ wall.getScaledHeight());				//changed from unscaled to scaled
 
-							double marioR = ghost.getXPos() + ghost.getUnscaledWidth();
+							//double marioR = ghost.getXPos() + ghost.getUnscaledWidth();
+							double marioR = ghost.getXPos() + ghost.getScaledWidth();			//changed from unscaled to scaled
+							
 							double marioL = ghost.getXPos();
-							double wallR = wall.getXPos() + wall.getUnscaledWidth();
+							
+							//double wallR = wall.getXPos() + wall.getUnscaledWidth();
+							double wallR = wall.getXPos() + wall.getScaledWidth();		//changed from unscaled to scaled
+							
 							double wallL = wall.getXPos();
 
-							if(marioR - wallL >=0 && marioL<wcenterx){
+							if(marioR - wallL >=0 && marioL<wcenterx){		
 								stopR = true;
-
 							}
 							if(wallR-marioL>=0 && marioL>wcenterx){
 								stopL=true;
-
 							}
-
 							if(marioB - wallT>=0 && marioB<wallB){
 								stopD = true;
-
-
 							}
+							
 							if(wallB-marioT>=0 && marioT>wallT){
 								stopU = true;
-
 							}
-
-							break;
+							
+							/*** experimental fixes to the ghost "sticking on walls (that so far were unsuccessful...) ***/
+							/*if(wallB-marioT>=0 && marioT>wallT){
+								if (!stopR && !stopD) {
+									stopU = true;
+								}
+							}*/
+							/*
+							if ( wallB - marioT >= 0 ) {									// check to see if collision is occurring when ghost wants to go up
+								if ( (wallL >= marioL && wallR <= marioR) || (wallL <= marioL && wallR >= marioR) ) {	// if wall is directly above ghost, stop movement
+									stopU = true;
+								}
+							}*/
+							/***************/
+							
+							break;		// what does this break do?
 						}
-
-
 					}
+					
 
 					//enemy in the same room as player detection
 					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){

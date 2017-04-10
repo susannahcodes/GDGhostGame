@@ -21,9 +21,9 @@ public class ghostSprite extends Sprite implements IEventListener {
 		sprites = new BufferedImage[5];
 		int frame = 0;
 		subWidth = super.getUnscaledWidth()/2;
-		//System.out.println("subWidth: " +subWidth);
-		//System.out.println("subHeaight: " + subHeight);
 		subHeight = super.getUnscaledHeight()/3;
+		System.out.println("subWidth: " +subWidth);
+		System.out.println("subHeaight: " + subHeight);
 		
 		for (int j=0; j<3; j++) {
 			for (int i=0; i<2; i++) {
@@ -64,7 +64,7 @@ public class ghostSprite extends Sprite implements IEventListener {
 	
 	@Override
 	public Rectangle getHitBox() {
-		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth-20, subHeight-10);
+		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth-25, subHeight);
 		return hitBox;
 	}
 	
