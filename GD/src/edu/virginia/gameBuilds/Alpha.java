@@ -351,7 +351,10 @@ public void update(ArrayList<String> pressedKeys) {
 	public void draw(Graphics g){
 		
 		super.draw(g);
-
+		
+		g.drawRect (100, 500, 1000, 200);//entryway
+		g.drawRect (100, 200, 500, 300); //leftroom
+		g.drawRect (600, 200, 500, 300);
 		if (coin1 != null) {
 			coin1.draw(g);
 			wall.draw(g);
