@@ -92,6 +92,8 @@ public class Alpha extends Game {
 	
 	
 	public int room1x = 400;
+	public boolean trippedCherry = false;
+	public boolean trippedFruit = false;
 	public int room1y = 375;
 	public ArrayList<Cell> path;
 	public ArrayList<Cell> fPath = new ArrayList<Cell>();
@@ -422,15 +424,20 @@ public class Alpha extends Game {
 
 					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
-						if (healthWidth < 200) {
-						healthWidth += 100;}
 						collected = true;
+						if (healthWidth < 340 && trippedFruit == false) {
+						healthWidth += 170;
+						trippedFruit = true;
+						}
+						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
 					if ((ghost.collidesWith(cherry) && ghostAbilities == false)) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
-						if (healthWidth < 200) {
-							healthWidth += 100; }
+						if (healthWidth < 340 && trippedCherry == false) {
+							healthWidth += 170; 
+							trippedCherry = true;
+							}
 						collected = false;
 							cherryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
 							//makes orange tween even though it's the cherry that's being overlapped
