@@ -1,4 +1,4 @@
-package edu.virginia.engine.display;
+package edu.virginia.engine.tween;
 
 import edu.virginia.engine.events.Event;
 

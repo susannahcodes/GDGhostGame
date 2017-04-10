@@ -64,8 +64,18 @@ public class ghostSprite extends Sprite implements IEventListener {
 	
 	@Override
 	public Rectangle getHitBox() {
-		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth-20, subHeight-5);
+		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth-20, subHeight-10);
 		return hitBox;
+	}
+	
+	@Override
+	public int getScaledHeight() {
+		return subHeight;
+	}
+	
+	@Override
+	public int getScaledWidth() {
+		return subWidth;
 	}
 
 	@Override

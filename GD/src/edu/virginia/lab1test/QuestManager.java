@@ -1,9 +1,9 @@
 package edu.virginia.lab1test;
 
-import edu.virginia.engine.display.TweenEvent;
 import edu.virginia.engine.display.coinSprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.events.IEventListener;
+import edu.virginia.engine.tween.TweenEvent;
 
 public class QuestManager  implements IEventListener {
 

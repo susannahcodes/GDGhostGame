@@ -18,17 +18,18 @@ import javax.swing.JPanel;
 
 import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.Sprite;
-import edu.virginia.engine.display.Tween;
-import edu.virginia.engine.display.TweenEvent;
-import edu.virginia.engine.display.TweenJuggler;
-import edu.virginia.engine.display.TweenParam;
-import edu.virginia.engine.display.TweenTransition;
 import edu.virginia.engine.display.VertWallSprite;
 import edu.virginia.engine.display.WallSprite;
 import edu.virginia.engine.display.coinSprite;
 import edu.virginia.engine.display.ghostSprite;
 import edu.virginia.engine.display.marioSprite;
 import edu.virginia.engine.events.Event;
+import edu.virginia.engine.tween.Tween;
+import edu.virginia.engine.tween.TweenEvent;
+import edu.virginia.engine.tween.TweenJuggler;
+import edu.virginia.engine.tween.TweenParam;
+import edu.virginia.engine.tween.TweenTransition;
+import edu.virginia.engine.tween.TweenableParam;
 import edu.virginia.engine.util.GameClock;
 
 public class Prototype extends Game {

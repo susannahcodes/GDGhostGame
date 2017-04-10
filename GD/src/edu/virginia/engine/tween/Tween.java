@@ -1,9 +1,9 @@
-package edu.virginia.engine.display;
+package edu.virginia.engine.tween;
 
 import java.util.ArrayList;
 
+import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.events.EventDispatcher;
-import edu.virginia.lab1test.TweenableParam;
 
 public class Tween extends EventDispatcher{
 	private DisplayObjectContainer displayObject;

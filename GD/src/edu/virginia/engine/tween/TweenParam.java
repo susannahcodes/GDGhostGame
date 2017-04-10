@@ -1,6 +1,4 @@
-package edu.virginia.engine.display;
-
-import edu.virginia.lab1test.TweenableParam;
+package edu.virginia.engine.tween;
 
 public class TweenParam {
 	private TweenableParam tweenableParam;
