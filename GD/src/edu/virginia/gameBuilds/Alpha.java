@@ -49,6 +49,7 @@ public class Alpha extends Game {
 	WallSprite wall4 = new WallSprite("testWall4");
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
+	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
 	
 	ghostSprite ghost = new ghostSprite("ghost");
 	Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
@@ -120,13 +121,18 @@ public class Alpha extends Game {
 		wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
 		wall4.addEventListener(myQuestManager, null);
 		
-		vwall.setXPos(300);
+		vwall.setXPos(100);
 		vwall.setYPos(500-vwall.getScaledHeight());
 		vwall.addEventListener(myQuestManager, null);
 		
 		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
 		vwall2.setYPos(500-vwall.getScaledHeight());
 		vwall2.addEventListener(myQuestManager, null);
+		
+		vwall3.setXPos(1062);
+		//vwall3.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
+		vwall3.setYPos(500-vwall.getScaledHeight());
+		vwall3.addEventListener(myQuestManager, null);
 		
 		//wall.setXPos(300);
 		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
@@ -394,6 +400,7 @@ public class Alpha extends Game {
 			wall4.draw(g);
 			vwall.draw(g);
 			vwall2.draw(g);
+			vwall3.draw(g);
 		}
 //=======
 

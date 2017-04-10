@@ -8,6 +8,6 @@ public class VertWallSprite extends Sprite {
 	public VertWallSprite(String id) {
 		super(id, "updownwall.png");
 		//super.setXScale(.1);
-		super.setYScale(1.5);
+		super.setYScale(1.9);
 	}
 }
