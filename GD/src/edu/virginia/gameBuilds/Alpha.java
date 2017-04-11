@@ -56,7 +56,7 @@ public class Alpha extends Game {
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom, vwall3));
 	
 	
 	//Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
@@ -89,17 +89,27 @@ public class Alpha extends Game {
 	private boolean stopU = false;
 	private boolean stopD = false;
 	private boolean zPress = false;		// this controls the ghost abilities
-	
-	
-	public int room1x = 400;
+
 	public boolean trippedCherry = false;
 	public boolean trippedFruit = false;
-	public int room1y = 375;
-	public ArrayList<Cell> path;
-	public ArrayList<Cell> fPath = new ArrayList<Cell>();
+	
+	/**** this code for the enemy's movement paths ***/
 	public int enemyMoveCounter = 1;
 	private boolean initializeRoute=true;
+	
+	private boolean path1Completed = false;
+	
+	public int room1x = 400;
+	public int room1y = 375;
+	public ArrayList<Cell> path1;
+	public ArrayList<Cell> fPath1 = new ArrayList<Cell>();
 	public Rectangle room1 = new Rectangle();
+	
+	public int room2x = 800;
+	public int room2y = 375;
+	public ArrayList<Cell> path2;
+	public ArrayList<Cell> fPath2 = new ArrayList<Cell>();
+	public Rectangle room2 = new Rectangle();
 
 	public Alpha() {
 		
@@ -220,17 +230,34 @@ public class Alpha extends Game {
 				}
 		
 		//path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y, blockedList);
-		path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-		int pLen = path.size();
+		path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		int pLen = path1.size();
 		int q=pLen-1;
 		
 		/** prints the path **/
 		while(q>=0){
-			Cell temp = new Cell(path.get(q).i,path.get(q).j);
-			fPath.add(temp);
+			Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
+			fPath1.add(temp);
 			q-=1;
 		}
 		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
+		
+		/*********** ATTEMPTING TO ADD SECOND PATH TO ENEMY *****************/
+		/*
+		path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		int p2Len = path2.size();
+		int q2 = p2Len-1;
+		
+		// prints the path 
+		while(q2>=0){
+			Cell temp = new Cell(path2.get(q).i,path2.get(q).j);
+			fPath2.add(temp);
+			q2 -=1;
+		}
+		room2.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());		// ahhh idk what im doing
+		*/
+		/*********** end of second path for enemy code *********/
+		
 		initializeRoute = false;
 	}
 
@@ -249,17 +276,20 @@ public class Alpha extends Game {
 
 					juggler.nextFrame();
 
-					if(initializeRoute==false && enemyMoveCounter<fPath.size()){
-						Cell moveTo = fPath.get(enemyMoveCounter);
-
+					if(initializeRoute==false && enemyMoveCounter<fPath1.size()){
+						Cell moveTo = fPath1.get(enemyMoveCounter);
 						int xm = moveTo.i;
 						int ym = moveTo.j;
-
 						enemy.setXPos(xm);
 						enemy.setYPos(ym);
 						enemyMoveCounter+=2;
 					}
 					
+					if (enemy.getYPos() == room1y-15 && enemy.getXPos() == room1x) {
+						path1Completed = true;
+						System.out.println("PATH ONE COMPLETED");
+					}
+										
 					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
 
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
