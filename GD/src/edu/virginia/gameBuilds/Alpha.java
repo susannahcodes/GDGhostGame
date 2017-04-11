@@ -61,6 +61,7 @@ public class Alpha extends Game {
 	
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
+	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
@@ -218,6 +219,13 @@ public class Alpha extends Game {
 		gameOver.setXPos(170);
 		gameOver.setYPos(300);
 		gameOver.setVisible(false);
+		
+		
+		gameWon.setXScale(1.5);
+		gameWon.setYScale(1.5);
+		gameWon.setXPos(170);
+		gameWon.setYPos(300);
+		gameWon.setVisible(false);
 		
 		//enemy code
 		enemy.setTrans(1.0f);
@@ -548,8 +556,13 @@ public class Alpha extends Game {
 					}
 					
 					if (foodCollected == 2) {
+
 						//System.out.println("A winner is you");
 						//winner.setVisible(true);
+
+						//System.out.println("A winner is you");
+						gameWon.setVisible(true);
+
 					}
 
 					if(collisionOccured == false){
@@ -689,7 +702,7 @@ public class Alpha extends Game {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
-//<<<<<<< Updated upstream
+
 		g.setColor(Color.blue);
 		g.drawRect (100, 500, 1000, 20);
 		g.fillRect(100, 500, 1000, 200);
@@ -709,11 +722,11 @@ public class Alpha extends Game {
 			vwall2.draw(g);
 			vwall3.draw(g);
 		}
-//=======
+
 
 		if (fruit != null) {
 			fruit.draw(g);
-//>>>>>>> Stashed changes
+
 		}
 		
 		if (cherry != null) {
@@ -745,6 +758,10 @@ public class Alpha extends Game {
 			if ( wall != null ) {
 				wall.draw(g);
 			}
+		}
+		
+		if (gameWon != null) {
+			gameWon.draw(g);
 		}
 		
 		if (gameOver != null) {
