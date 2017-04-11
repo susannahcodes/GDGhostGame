@@ -571,6 +571,10 @@ public class Alpha extends Game {
 			}
 		}
 		
+		if (gameWon != null) {
+			gameWon.draw(g);
+		}
+		
 		if (gameOver != null) {
 			gameOver.draw(g);
 		}
