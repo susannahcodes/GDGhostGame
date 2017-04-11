@@ -289,7 +289,7 @@ public class Alpha extends Game {
 					
 					if (enemy.getYPos() == room1y-15 && enemy.getXPos() == room1x) {
 						path1Completed = true;
-						System.out.println("PATH ONE COMPLETED");
+						//System.out.println("PATH ONE COMPLETED");
 					}
 										
 					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
