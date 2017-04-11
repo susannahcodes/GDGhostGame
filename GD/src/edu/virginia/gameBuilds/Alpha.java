@@ -154,8 +154,8 @@ public class Alpha extends Game {
 		fruit.setYPos(300);
 		fruit.addEventListener(myQuestManager, null);
 		
-		cherry.setXPos(400);
-		cherry.setYPos(600);
+		cherry.setXPos(700);
+		cherry.setYPos(300);
 		cherry.addEventListener(myQuestManager, null);
 		
 		lowerLeft.setXPos(100);
@@ -551,7 +551,8 @@ public class Alpha extends Game {
 					//enemy in the same room as player detection
 					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						gameOver.setVisible(true);
+						if (!gameWon.isVisible()) {
+						gameOver.setVisible(true);}
 						
 					}
 					
@@ -561,7 +562,8 @@ public class Alpha extends Game {
 						//winner.setVisible(true);
 
 						//System.out.println("A winner is you");
-						gameWon.setVisible(true);
+						if (!gameOver.isVisible()) {
+						gameWon.setVisible(true);}
 
 					}
 
