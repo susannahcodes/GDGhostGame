@@ -96,21 +96,43 @@ public class Alpha extends Game {
 	
 	/**** this code for the enemy's movement paths ***/
 	public int enemyMoveCounter = 1;
+	public int enemyMoveCounter2 = 1;
 	private boolean initializeRoute=true;
 	
 	private boolean path1Completed = false;
 	
 	public int room1x = 400;
-	public int room1y = 375;
-	public ArrayList<Cell> path1;
-	public ArrayList<Cell> fPath1 = new ArrayList<Cell>();
+	public int room1y = 275;
+
+	
 	public Rectangle room1 = new Rectangle();
 	
+	
 	public int room2x = 800;
-	public int room2y = 375;
-	public ArrayList<Cell> path2;
-	public ArrayList<Cell> fPath2 = new ArrayList<Cell>();
+	public int room2y = 275;
+	
+	
 	public Rectangle room2 = new Rectangle();
+	
+	
+	public boolean gtr1 = true;
+	public boolean room1SetUp = false;
+	
+	public boolean gtr2 = false;
+	public boolean room2SetUp = false;
+	
+	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
+	
+	
+	
+	ArrayList<Cell> path1 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath1 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path2 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
+	
+	
+	
 
 	public Alpha() {
 		
@@ -162,6 +184,7 @@ public class Alpha extends Game {
 		vwall.setXPos(100);
 		vwall.setYPos(500-vwall.getScaledHeight());
 		vwall.addEventListener(myQuestManager, null);
+		
 		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
 		vwall2.setYPos(500-vwall.getScaledHeight());
 		vwall2.addEventListener(myQuestManager, null);
@@ -206,62 +229,126 @@ public class Alpha extends Game {
 		
 		//setting the list of blocked pixels the AI can't walk over, and figuring out a specific path
 		
-		ArrayList<int[]> blockedList = new ArrayList<int[]>(); //{{300,95},{300,96},{300,97},{300,98},{300,99},{300,100},{300,101},{300,102},{300,103},{300,104},{300,105}};
+		 //{{300,95},{300,96},{300,97},{300,98},{300,99},{300,100},{300,101},{300,102},{300,103},{300,104},{300,105}};
 		
-		//set the top wall of box to be blocked
-		int wstart = 500-vwall.getScaledHeight()-wall2.getScaledHeight();
-		for(int c = wstart-enemy.getScaledHeight(); c<=wstart+wall2.getScaledHeight();c++){	
-			for(int x = 300-enemy.getScaledWidth();x<=300+(wall2.getScaledWidth()*2);x++){
+//		//set the top wall of box to be blocked
+//		int wstart = 500-vwall.getScaledHeight()-wall2.getScaledHeight();
+//		for(int c = wstart-enemy.getScaledHeight(); c<=wstart+wall2.getScaledHeight();c++){	
+//			for(int x = 300-enemy.getScaledWidth();x<=300+(wall2.getScaledWidth()*2);x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+//		//set the left vertical wall of the box to be blocked
+//		for(int vy =500-vwall.getScaledHeight(); vy<=500; vy++){
+//			for(int vx=300-enemy.getScaledWidth(); vx<= 300+vwall.getScaledWidth(); vx++){
+//				int[] e = new int[]{vx,vy};
+//				blockedList.add(e);
+//			}
+//		}
+//		
+//		//set the Right vertical wall of the box to be blocked
+//				for(int vy2 =500-vwall.getScaledHeight(); vy2<=500; vy2++){
+//					for(int vx2=300-enemy.getScaledWidth()+(2*wall2.getScaledWidth())-vwall.getScaledWidth(); vx2<= 300+(2*wall2.getScaledWidth()); vx2++){
+//						int[] e = new int[]{vx2,vy2};
+//						blockedList.add(e);		
+//					}
+//				}
+		
+		//path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y, blockedList);
+//		path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen = path1.size();
+//		//int pLen2 = path.size();
+//		int q=pLen-1;
+//		//int q2=pLen2-1;
+//		
+//		/** prints the path **/
+//		while(q>=0){
+//			Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
+//			fPath1.add(temp);
+//			q-=1;
+//		}
+		
+//		while(q2>=0){
+//			Cell temp = new Cell(path.get(q2).i,path.get(q2).j);
+//			fPath2.add(temp);
+//			q2-=1;
+//		}
+		
+		//setting block list
+		
+		System.out.println(vwall.getScaledWidth());
+		int wstart = 196-134;
+		for(int c = wstart; c<=wstart+304+134;c++){	
+			for(int x = 100 - vwall.getScaledWidth();x<=100;x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
-		//set the left vertical wall of the box to be blocked
-		for(int vy =500-vwall.getScaledHeight(); vy<=500; vy++){
-			for(int vx=300-enemy.getScaledWidth(); vx<= 300+vwall.getScaledWidth(); vx++){
-				int[] e = new int[]{vx,vy};
+		
+		int wstart2 = 197-134;
+		for(int c = wstart2; c<=wstart2+304+134;c++){	
+			for(int x = 600-76-vwall.getScaledWidth();x<=600;x++){
+				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
 		
-		//set the Right vertical wall of the box to be blocked
-				for(int vy2 =500-vwall.getScaledHeight(); vy2<=500; vy2++){
-					for(int vx2=300-enemy.getScaledWidth()+(2*wall2.getScaledWidth())-vwall.getScaledWidth(); vx2<= 300+(2*wall2.getScaledWidth()); vx2++){
-						int[] e = new int[]{vx2,vy2};
-						blockedList.add(e);		
-					}
-				}
-		
-		//path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y, blockedList);
-		path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-		int pLen = path1.size();
-		int q=pLen-1;
-		
-		/** prints the path **/
-		while(q>=0){
-			Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
-			fPath1.add(temp);
-			q-=1;
+		int wstart3 = 197-134;
+		for(int c = wstart3; c<=wstart2+304+134;c++){	
+			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
+				int[] e = new int[]{x,c};
+				blockedList.add(e);
+			}
 		}
+		
+		int wstart4 = 197-wall.getScaledHeight() - 134;
+		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
+			for(int x = 350;x<=1176;x++){
+				int[] e = new int[]{x,c};
+				blockedList.add(e);
+			}
+		}
+		
+		
+		
+		
+		
+		
 		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
 		
 		/*********** ATTEMPTING TO ADD SECOND PATH TO ENEMY *****************/
-		/*
-		path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-		int p2Len = path2.size();
-		int q2 = p2Len-1;
 		
-		// prints the path 
-		while(q2>=0){
-			Cell temp = new Cell(path2.get(q).i,path2.get(q).j);
-			fPath2.add(temp);
-			q2 -=1;
-		}
+//		path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int p2Len = path2.size();
+//		int q2 = p2Len-1;
+//		
+//		// prints the path 
+//		while(q2>=0){
+//			Cell temp = new Cell(path2.get(q2).i,path2.get(2).j);
+//			fPath2.add(temp);
+//			q2 -=1;
+//		}
 		room2.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());		// ahhh idk what im doing
-		*/
+		
 		/*********** end of second path for enemy code *********/
 		
-		initializeRoute = false;
+		//initializeRoute = false;
+	}
+	
+	public void switchPath(){
+		if(gtr1 == true){
+			gtr1 = false;
+			room1SetUp = false;
+			gtr2 = true;
+		}
+		
+		if(gtr2 == true){
+			
+			gtr2 = false;
+			room2SetUp = false;
+			gtr1 = true;
+		}
 	}
 
 	public void update(ArrayList<String> pressedKeys) {
@@ -277,21 +364,118 @@ public class Alpha extends Game {
 			if (fruit != null) {
 				if ( enemy != null ) {
 
-					juggler.nextFrame();
+					
+					
+					if(gtr1 == true){
+						
+						
+						
+						
+						if(room1SetUp==false){
+							ArrayList<Cell> pathT = new ArrayList<Cell>();
+							ArrayList<Cell> fPathT = new ArrayList<Cell>();
+							
+							path1 = pathT;
+							fPath1 = fPathT;
+							
+							path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+							int pLen = path1.size();
+							
+							int q=pLen-1;
+							
+							
+							/** prints the path **/
+							 
+							
+							while(q>=0){
+								Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
+								fPath1.add(temp);
+								q-=1;
+							}
+							//System.out.println("initial size: " + fPath1.size());
+							
+							room1SetUp = true;
+							
+					}
+						
+						if(enemyMoveCounter<fPath1.size()){
+							Cell moveTo = fPath1.get(enemyMoveCounter);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemyMoveCounter+=1;
+						}
+						
+						if(enemyMoveCounter>=fPath1.size()){
+//							System.out.println("Count is over 700");
+//							System.out.println("count: " + enemyMoveCounter);
+//							System.out.println("fPath size: " + fPath1.size());
+							//path1Completed = true;
+							
+							enemyMoveCounter=1;
+							//switchPath();
+							gtr1 = false;
+							room1SetUp = false;
+							gtr2 = true;
+							
+							
+						}
+						
+					}
 
-					if(initializeRoute==false && enemyMoveCounter<fPath1.size()){
-						Cell moveTo = fPath1.get(enemyMoveCounter);
-						int xm = moveTo.i;
-						int ym = moveTo.j;
-						enemy.setXPos(xm);
-						enemy.setYPos(ym);
-						enemyMoveCounter+=2;
+					if(gtr2 == true){
+						
+						
+						if(room2SetUp==false){
+							ArrayList<Cell> pathT = new ArrayList<Cell>();
+							ArrayList<Cell> fPathT = new ArrayList<Cell>();
+							
+							path2 = pathT;
+							fPath2 = fPathT;
+							
+							path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+							int pLen = path2.size();
+							
+							int q=pLen-1;
+							
+							
+							/** prints the path **/
+							
+							while(q>=0){
+								Cell temp = new Cell(path2.get(q).i,path2.get(q).j);
+								fPath2.add(temp);
+								q-=1;
+							}
+							room2SetUp = true;
+							
+					}
+						
+						if(enemyMoveCounter2<fPath2.size()){
+							Cell moveTo = fPath2.get(enemyMoveCounter2);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemyMoveCounter2+=1;
+						}
+						if(enemyMoveCounter2>=fPath2.size()){
+							
+							
+							enemyMoveCounter2=1;
+							gtr2 = false;
+							room2SetUp = false;
+							gtr1 = true;
+						}
+						
 					}
 					
-					if (enemy.getYPos() == room1y-15 && enemy.getXPos() == room1x) {
-						path1Completed = true;
-						//System.out.println("PATH ONE COMPLETED");
-					}
+					juggler.nextFrame();
+					
+//					if (enemy.getYPos() == room1y-15 && enemy.getXPos() == room1x) {
+//						path1Completed = true;
+//						//System.out.println("PATH ONE COMPLETED");
+//					}
 										
 					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
 
@@ -358,13 +542,13 @@ public class Alpha extends Game {
 
 					//enemy in the same room as player detection
 					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
-						System.out.println("ENEMY FOUND YOU! GAME OVER");
+						//System.out.println("ENEMY FOUND YOU! GAME OVER");
 						gameOver.setVisible(true);
 						
 					}
 					
 					if (foodCollected == 2) {
-						System.out.println("A winner is you");
+						//System.out.println("A winner is you");
 						//winner.setVisible(true);
 					}
 
