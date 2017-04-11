@@ -33,6 +33,12 @@ import edu.virginia.lab1test.AStar.Cell;
 import edu.virginia.lab1test.QuestManager;
 
 public class Alpha extends Game {
+	
+	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
+	 * also sorry for naming them according to their colors since this is all gonna change.... */
+	public Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
+	public Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	public int healthWidth = 0;
 	public int foodCollected = 0;
@@ -553,7 +559,24 @@ public class Alpha extends Game {
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
 						if (!gameWon.isVisible()) {
 						gameOver.setVisible(true);}
-						
+					}
+					
+					if ( orangeRoom.intersects(enemy.getHitBox()) && orangeRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
+						System.out.println("ENEMY FOUND YOU! GAME OVER");
+						if (!gameWon.isVisible()) {
+							gameOver.setVisible(true);
+						}
+					}
+					
+					//System.out.println("enemy in room " + blueRoom.intersects(enemy.getHitBox()));
+					//System.out.println("blue " + blueRoom);
+					//System.out.println("ghost " + ghost.getHitBox());
+					System.out.println("ghost in room " + blueRoom.intersects(ghost.getHitBox()));
+					if ( blueRoom.intersects(enemy.getHitBox()) && blueRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
+						System.out.println("ENEMY FOUND YOU! GAME OVER");
+						if (!gameWon.isVisible()) {
+							gameOver.setVisible(true);
+						}
 					}
 					
 					if (foodCollected == 2) {
