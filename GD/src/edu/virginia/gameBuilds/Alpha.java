@@ -61,6 +61,7 @@ public class Alpha extends Game {
 	
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
+	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
@@ -195,6 +196,13 @@ public class Alpha extends Game {
 		gameOver.setXPos(170);
 		gameOver.setYPos(300);
 		gameOver.setVisible(false);
+		
+		
+		gameWon.setXScale(1.5);
+		gameWon.setYScale(1.5);
+		gameWon.setXPos(170);
+		gameWon.setYPos(300);
+		gameWon.setVisible(false);
 		
 		//enemy code
 		enemy.setTrans(1.0f);
@@ -365,7 +373,7 @@ public class Alpha extends Game {
 					
 					if (foodCollected == 2) {
 						System.out.println("A winner is you");
-						//winner.setVisible(true);
+						gameWon.setVisible(true);
 					}
 
 					if(collisionOccured == false){
