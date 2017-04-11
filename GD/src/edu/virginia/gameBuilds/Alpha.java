@@ -35,6 +35,7 @@ import edu.virginia.lab1test.QuestManager;
 public class Alpha extends Game {
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	public int healthWidth = 0;
+	public int foodCollected = 0;
 	private boolean collected = true;
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
@@ -359,6 +360,12 @@ public class Alpha extends Game {
 					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
 						System.out.println("ENEMY FOUND YOU! GAME OVER");
 						gameOver.setVisible(true);
+						
+					}
+					
+					if (foodCollected == 2) {
+						System.out.println("A winner is you");
+						//winner.setVisible(true);
 					}
 
 					if(collisionOccured == false){
@@ -387,6 +394,10 @@ public class Alpha extends Game {
 						else cherryTween.doTween(myQuestManager.tweenComplete);
 					
 						//questConfirm.setVisible(true);		
+					}
+					
+					if (pressedKeys.contains("Q")) {
+						System.exit(0);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
@@ -461,6 +472,7 @@ public class Alpha extends Game {
 						if (healthWidth < 340 && trippedFruit == false) {
 						healthWidth += 170;
 						trippedFruit = true;
+						foodCollected +=1;
 						}
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
@@ -470,6 +482,7 @@ public class Alpha extends Game {
 						if (healthWidth < 340 && trippedCherry == false) {
 							healthWidth += 170; 
 							trippedCherry = true;
+							foodCollected +=1;
 							}
 						collected = false;
 							cherryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
