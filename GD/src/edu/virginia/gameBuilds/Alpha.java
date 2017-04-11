@@ -59,7 +59,7 @@ public class Alpha extends Game {
 	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom, vwall3));
 	
 	
-	//Sprite questConfirm = new Sprite("Quest completed", "questComplete.png");
+	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
@@ -189,9 +189,11 @@ public class Alpha extends Game {
 		juggler.add(fruitTween);
 		juggler.add(cherryTween);
 		
-//		questConfirm.setXScale(.5);
-//		questConfirm.setYScale(.5);
-//		questConfirm.setVisible(false);
+		gameOver.setXScale(1.5);
+		gameOver.setYScale(1.5);
+		gameOver.setXPos(170);
+		gameOver.setYPos(300);
+		gameOver.setVisible(false);
 		
 		//enemy code
 		enemy.setTrans(1.0f);
@@ -356,6 +358,7 @@ public class Alpha extends Game {
 					//enemy in the same room as player detection
 					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
 						System.out.println("ENEMY FOUND YOU! GAME OVER");
+						gameOver.setVisible(true);
 					}
 
 					if(collisionOccured == false){
@@ -539,15 +542,16 @@ public class Alpha extends Game {
 			leftBottom.draw(g);
 			rightBottom.draw(g);
 		}
-		
-//		if (questConfirm != null) {
-//			questConfirm.draw(g);
-//		}
+
 		
 		for ( Sprite wall : collDects ) {
 			if ( wall != null ) {
 				wall.draw(g);
 			}
+		}
+		
+		if (gameOver != null) {
+			gameOver.draw(g);
 		}
 	}
 
