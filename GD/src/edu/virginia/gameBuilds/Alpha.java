@@ -130,6 +130,10 @@ public class Alpha extends Game {
 	
 	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
 	
+	private float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
+	boolean transKeyTapped = false;			// needed to implement tapping of key
+	boolean visibleKeyTapped = false;			// turns the ghost visible again
+	
 	
 	
 	ArrayList<Cell> path1 = new ArrayList<Cell>();
@@ -377,14 +381,9 @@ public class Alpha extends Game {
 		if (ghost != null) {
 			if (fruit != null) {
 				if ( enemy != null ) {
-
-					
-					
+			
 					if(gtr1 == true){
-						
-						
-						
-						
+	
 						if(room1SetUp==false){
 							ArrayList<Cell> pathT = new ArrayList<Cell>();
 							ArrayList<Cell> fPathT = new ArrayList<Cell>();
@@ -568,10 +567,7 @@ public class Alpha extends Game {
 						}
 					}
 					
-					//System.out.println("enemy in room " + blueRoom.intersects(enemy.getHitBox()));
-					//System.out.println("blue " + blueRoom);
-					//System.out.println("ghost " + ghost.getHitBox());
-					System.out.println("ghost in room " + blueRoom.intersects(ghost.getHitBox()));
+					//xSystem.out.println("ghost in room " + blueRoom.intersects(ghost.getHitBox()));
 					if ( blueRoom.intersects(enemy.getHitBox()) && blueRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
 						System.out.println("ENEMY FOUND YOU! GAME OVER");
 						if (!gameWon.isVisible()) {
@@ -643,26 +639,7 @@ public class Alpha extends Game {
 					}
 					
 					/******* this allows the ghost to become invisible *****/
-					
-					/** Amanda's code in progress: **
-					if (pressedKeys.contains(KeyEvent.getKeyText(71))) {
-								if ( ghost.getTrans()-(float) 0.02 > 0.0f + (float) 0.1) {
-									ghost.setTrans(ghost.getTrans()-(float) 0.05);
-								}
-							}
-
-					if (pressedKeys.contains(KeyEvent.getKeyText(86))) {		// 86 is key "V" for "visible"
-						float newAlpha = (float) (0.9f);
-						ghost.setTrans(newAlpha);
-					}	
-					
-					if ( ghost.getTrans() < (float) 0.1) {
-						//System.out.println("INVISIBILITY Achieved: " + ghost.getTrans() );
-						ghostAbilities = true;
-					}
-					*/
-					
-					
+					/*
 					if (pressedKeys.contains(KeyEvent.getKeyText(71))) {
 						if(zPress == false){
 							zPress = true;
@@ -675,17 +652,51 @@ public class Alpha extends Game {
 							if (ghostAbilities==true ) {
 								float newAlpha = (float) (0.9f);
 								ghost.setTrans(newAlpha);
-
 							}
 							ghostAbilities = !ghostAbilities;
 						}
 					}
 					
-					
-
 					if (pressedKeys.contains(KeyEvent.getKeyText(71))==false){
 						zPress = false;
 					}	
+					*/
+					
+					/******************* TAPPING AND VISIBILITY ****************/
+					if (!transKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(88))) {		//checks to see if key has been tapped.
+						if ( ghost.getTrans()-deltaAlpha > 0.0f ) {
+							ghost.setTrans(ghost.getTrans()-deltaAlpha);
+						}	
+						transKeyTapped = true;
+					}
+					
+					if ( !pressedKeys.contains(KeyEvent.getKeyText(88)) ) {												// if it has been tapped, set it to be true and make slightly trans								
+						transKeyTapped = false;
+					}
+					
+					if ( !visibleKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(90))) {
+						if ( ghost.getTrans()+deltaAlpha < 1.0f ) {
+							ghost.setTrans(ghost.getTrans()+deltaAlpha);
+						}
+						visibleKeyTapped = true;
+					}
+					
+					if (!pressedKeys.contains(KeyEvent.getKeyText(90)) ) {
+						visibleKeyTapped = false;
+					}
+					
+					
+					if ( ghost.getTrans() >=  1.0f - deltaAlpha) {
+						ghostAbilities = false;
+						System.out.println("GHOST ABILITIES?: " + ghostAbilities);
+					}
+					
+					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
+						ghostAbilities = true;
+						System.out.println("GHOST ABILITIES?: " + ghostAbilities);
+					}
+
+					/***********************************/
 
 
 					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
