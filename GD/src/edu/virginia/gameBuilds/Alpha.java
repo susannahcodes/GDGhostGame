@@ -685,15 +685,14 @@ public class Alpha extends Game {
 						visibleKeyTapped = false;
 					}
 					
-					
+					// NEED TO FIX THIS SO THERE IS AN IN-BETWEEN STATE WHERE THE GHOST CAN NOT FLOAT
+					// THROUGH WALLS NOR CAN IT COLLECT FRUIT:
 					if ( ghost.getTrans() >=  1.0f - deltaAlpha) {
 						ghostAbilities = false;
-						System.out.println("GHOST ABILITIES?: " + ghostAbilities);
 					}
 					
 					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
 						ghostAbilities = true;
-						System.out.println("GHOST ABILITIES?: " + ghostAbilities);
 					}
 
 					/***********************************/
