@@ -129,7 +129,7 @@ public class AStar {
     public static ArrayList<Cell> test(int tCase, int x, int y, int si, int sj, int ei, int ej, ArrayList<int[]> blocked){
         ArrayList<Cell> resultPath = new ArrayList<Cell>();    
     	
-    	System.out.println("\n\nTest Case #"+tCase);
+    //	System.out.println("\n\nTest Case #"+tCase);
             //Reset
            grid = new Cell[x][y];
            closed = new boolean[x][y];
