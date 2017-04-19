@@ -122,7 +122,7 @@ public class Beta extends Game {
 	
 	
 	public Rectangle room2 = new Rectangle();
-	
+	public boolean gameOverB = false;
 	
 	public boolean gtr1 = true;
 	public boolean room1SetUp = false;
@@ -235,13 +235,12 @@ public class Beta extends Game {
 		
 		try {
 			soundManager = new SoundManager();
-		//	soundManager.loadSoundEffect("impact", "resources/jumpSound.wav");
+			soundManager.loadSoundEffect("caught", "resources/caught.wav");
 			soundManager.loadSoundEffect("munch", "resources/munch.wav");
-			soundManager.loadMusic("bgroundmusic", "resources/smbthemesong.wav");
+			soundManager.loadMusic("bgroundmusic", "resources/bground.wav");
 			soundManager.playMusic("bgroundmusic");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("HIIIIIII");
 		}
 		
 		gameWon.setXScale(1.5);
@@ -569,22 +568,44 @@ public class Beta extends Game {
 					//enemy in the same room as player detection
 					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible()) {
-						gameOver.setVisible(true);}
+						if (!gameWon.isVisible() && gameOverB == false) {
+							try {
+								soundManager.playSoundEffect("caught");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						gameOver.setVisible(true);
+						gameOverB = true;
+						}
 					}
 					
 					if ( orangeRoom.intersects(enemy.getHitBox()) && orangeRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible()) {
+						if (!gameWon.isVisible() && gameOverB == false) {
+							try {
+								soundManager.playSoundEffect("caught");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							gameOver.setVisible(true);
+							gameOverB = true;
 						}
 					}
 					
 					//xSystem.out.println("ghost in room " + blueRoom.intersects(ghost.getHitBox()));
 					if ( blueRoom.intersects(enemy.getHitBox()) && blueRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible()) {
+						if (!gameWon.isVisible() && gameOverB == false) {
+							try {
+								soundManager.playSoundEffect("caught");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							gameOver.setVisible(true);
+							gameOverB = true;
 						}
 					}
 					
