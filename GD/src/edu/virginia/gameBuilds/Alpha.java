@@ -90,7 +90,10 @@ public class Alpha extends Game {
 	private int dy =4;
 	
 	
-	private boolean ghostAbilities = false;
+	private boolean ghostAbilities = false;			// when true, the ghost can float thru walls and hide from the owner, but NOT pick up fruit
+	private boolean solidEnough = false;				// when true, the ghost can pick up fruit but NOT float thru walls nor hide
+	
+	
 	private boolean collisionOccured = false;
 	private boolean stopR = false;
 	private boolean stopL = false;
@@ -689,16 +692,23 @@ public class Alpha extends Game {
 					// THROUGH WALLS NOR CAN IT COLLECT FRUIT:
 					if ( ghost.getTrans() >=  1.0f - deltaAlpha) {
 						ghostAbilities = false;
+						solidEnough = true;
+					}
+					
+					if ( (0.0f + deltaAlpha < ghost.getTrans()) && (ghost.getTrans() < 1.0f - deltaAlpha) ) {
+						ghostAbilities = false;
+						solidEnough = false;
 					}
 					
 					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
 						ghostAbilities = true;
+						solidEnough = false;
 					}
 
 					/***********************************/
 
 
-					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
+					if ((ghost.collidesWith(fruit)&& solidEnough==true)) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						collected = true;
 						if (healthWidth < 340 && trippedFruit == false) {
@@ -709,7 +719,7 @@ public class Alpha extends Game {
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-					if ((ghost.collidesWith(cherry) && ghostAbilities == false)) {
+					if ((ghost.collidesWith(cherry) && solidEnough == true)) {						
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						if (healthWidth < 340 && trippedCherry == false) {
 							healthWidth += 170; 
