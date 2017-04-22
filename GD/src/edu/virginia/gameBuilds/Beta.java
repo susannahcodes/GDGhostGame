@@ -88,8 +88,8 @@ public class Beta extends Game {
 
 	QuestManager myQuestManager = new QuestManager();
 
-	private int dx =4;
-	private int dy =4;
+	private int dx = 4;
+	private int dy = 4;
 	
 	
 	private boolean ghostAbilities = false;
