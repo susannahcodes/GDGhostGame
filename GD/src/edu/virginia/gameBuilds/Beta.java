@@ -394,8 +394,6 @@ public class Beta extends Game {
 		if (ghost != null) {
 			if (fruit != null) {
 				if ( enemy != null ) {
-					
-					System.out.println(enemy.getHitBox());
 			
 					if(gtr1 == true){
 	

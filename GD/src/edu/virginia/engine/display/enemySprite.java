@@ -71,7 +71,7 @@ public class enemySprite extends Sprite implements IEventListener {
 	
 	@Override
 	public Rectangle getHitBox() {
-		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth, subHeight);
+		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), 95, 120);		// NOTE: 95 and 120 are hardcoded values to match the sprite sheet "enemySheet"
 		return hitBox;
 	}
 	
