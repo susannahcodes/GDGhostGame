@@ -162,7 +162,6 @@ public class Beta extends Game {
 	
 	//fields necessary for level switching
 
-
 			//add a new boolean for each new level
 			public static boolean atLevelOne = true;
 			public static boolean atLevelTwo = false;
@@ -252,6 +251,7 @@ public class Beta extends Game {
 		vwall.addEventListener(myQuestManager, null);
 		
 		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
+		System.out.println("vwall2 x pos: " + vwall2.getXPos());
 		vwall2.setYPos(500-vwall.getScaledHeight());
 		vwall2.addEventListener(myQuestManager, null);
 		
@@ -310,17 +310,16 @@ public class Beta extends Game {
 		//room rectangle
 		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
 		
-		System.out.println(vwall.getScaledWidth());
-		int wstart = 196-134;
-		for(int c = wstart; c<=wstart+304+134;c++){	
+		int wstart = 196 - 113;
+		for(int c = wstart; c<=wstart+304+113;c++){	
 			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
 		
-		int wstart2 = 197-134;
-		for(int c = wstart2; c<=wstart2+304+134;c++){	
+	    int wstart2 = 197-134;
+		for(int c = wstart2; c<=wstart2+304+113;c++){	
 			for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
@@ -514,11 +513,14 @@ public class Beta extends Game {
 //						//System.out.println("PATH ONE COMPLETED");
 //					}
 										
-					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
-
+					for (Sprite wall : collDects ) {			// does code have ability to cycle through every wall object in 1/60 of a second?
+						
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
-
+							
+							collisionOccured = true;
+							
 							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
+								System.out.println("wtf");
 								stopR = true;
 							}
 							
@@ -848,19 +850,13 @@ public class Beta extends Game {
 
 		public static void main(String[] args) {
 
-
-	
 			//Game game = new Beta();
 			Game beta = new Beta();
 			currentGame = beta;
-			
 
 			currentGame.start();
 		}
-
-	
-
-//private GameClock clock2;
 }
+
 
 
