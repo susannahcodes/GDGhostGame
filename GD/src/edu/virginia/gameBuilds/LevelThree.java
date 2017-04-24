@@ -29,7 +29,7 @@ import edu.virginia.lab1test.AStar;
 import edu.virginia.lab1test.QuestManager;
 import edu.virginia.lab1test.AStar.Cell;
 
-class LevelTwo extends Game {
+class LevelThree extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
@@ -192,7 +192,7 @@ class LevelTwo extends Game {
 	ArrayList<Cell> path2 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
 	
-	LevelTwo(String gameId, int width, int height) {
+	LevelThree(String gameId, int width, int height) {
 		super("Level Build", 1200, 800);
 		
 		clock = new GameClock();
@@ -864,6 +864,7 @@ class LevelTwo extends Game {
 				
 			}
 		}
+		
 
 		
 
@@ -880,3 +881,4 @@ class LevelTwo extends Game {
 
 //private GameClock clock2;
 }
+

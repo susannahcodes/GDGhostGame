@@ -163,6 +163,7 @@ public class Beta extends Game {
 			//add a new boolean for each new level
 			public static boolean atLevelOne = true;
 			public static boolean atLevelTwo = false;
+			public static boolean atLevelThree = false;
 			public static Game currentGame;
 	
 	
@@ -820,16 +821,18 @@ public class Beta extends Game {
 			}
 			
 			if(atLevelTwo == true){
-				System.out.println("level 2 entered");
+				System.out.println("level 3 entered");
 				currentGame.exitGame();
-				atLevelOne = true;
+				atLevelThree = true;
 				atLevelTwo = false;
-				Game game = new LevelTwo("LevelTwo", 1200, 800);
+				Game game = new LevelThree("LevelTwo", 1200, 800);
 				//Game game = new Beta();
 				currentGame = game;
 				currentGame.start();
 				
 			}
+			
+			
 		}
 
 		
