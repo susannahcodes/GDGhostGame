@@ -160,6 +160,7 @@ public class Beta extends Game {
 	
 	//fields necessary for level switching
 
+<<<<<<< Updated upstream
 			//add a new boolean for each new level
 			public static boolean atLevelOne = true;
 			public static boolean atLevelTwo = false;
@@ -167,6 +168,8 @@ public class Beta extends Game {
 	
 	
 
+=======
+>>>>>>> Stashed changes
 	public Beta() {
 		
 		super("Beta Build", 1200, 800);
@@ -428,9 +431,9 @@ public class Beta extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.setXScale(1);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							//enemyMoveCounter+=1;
-							enemyMoveCounter+=5;		// increases the owner's speed
+							enemyMoveCounter+=1;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -438,7 +441,6 @@ public class Beta extends Game {
 //							System.out.println("count: " + enemyMoveCounter);
 //							System.out.println("fPath size: " + fPath1.size());
 							//path1Completed = true;
-							enemy.setXScale(-1);
 							
 							enemyMoveCounter=1;
 							//switchPath();
@@ -484,8 +486,8 @@ public class Beta extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemyMoveCounter2+=1;
-							enemyMoveCounter2+=5;		// makes the owner move faster
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter2+=1;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
 							
@@ -845,10 +847,13 @@ public class Beta extends Game {
 
 			currentGame.start();
 		}
+
 	
 
 //private GameClock clock2;
+}
 
+<<<<<<< Updated upstream
 	
 }
 
@@ -859,3 +864,329 @@ public class Beta extends Game {
 	 
 
 
+=======
+class LevelTwo extends Game {
+	
+	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
+	 * also sorry for naming them according to their colors since this is all gonna change.... */
+	public Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
+	public Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+	healthBarSprite healthBar = new healthBarSprite("healthBar");
+	public int healthWidth = 0;
+	public int foodCollected = 0;
+	private boolean collected = true;
+	private SoundManager soundManager;
+	fruitSprite fruit = new fruitSprite("fruit");
+	cherrySprite cherry = new cherrySprite("cherry");
+	Sprite grass = new Sprite("grass", "grass.jpg");
+	Sprite sky = new Sprite("sky", "sky.png");
+	ghostSprite ghost = new ghostSprite("ghost");
+	
+	WallSprite wall = new WallSprite("testWall");
+	WallSprite wall2 = new WallSprite("testWall2");
+	WallSprite wall3 = new WallSprite("testWall3");
+	WallSprite wall4 = new WallSprite("testWall4");
+	VertWallSprite vwall = new VertWallSprite("vertWallOne");
+	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
+	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
+	
+	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
+	VertWallSprite lowerRight = new VertWallSprite("lowerRight");
+	LongWallSprite rightTop = new LongWallSprite("rightTop");
+	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
+	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
+	//for collision detection
+	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom, vwall3));
+	
+	
+	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
+	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
+	Sprite woodFloor = new Sprite ("wood", "wood.jpg");
+	Sprite table = new Sprite ("table", "table.png");
+	Sprite greyCarpet = new Sprite ("greyCarpet", "greyCarpet.png");
+	Sprite beigeCarpet = new Sprite ("beigeCarpet", "beigeCarpet.jpg");
+	
+	enemySprite enemy = new enemySprite("EnemyOne");
+	
+	Tween marioTween = new Tween(ghost, new TweenTransition() );
+	Tween fruitTween = new Tween(fruit, new TweenTransition() );
+	Tween cherryTween = new Tween(cherry, new TweenTransition());
+	
+	TweenJuggler juggler = new TweenJuggler();
+	
+	private GameClock clock;
+
+	Rectangle marioBounds = new Rectangle();
+	Rectangle coinBounds = new Rectangle();
+	Rectangle wallBounds = new Rectangle();
+	Rectangle VertwallBounds = new Rectangle();
+
+	QuestManager myQuestManager = new QuestManager();
+
+	private int dx = 4;
+	private int dy = 4;
+	
+	private boolean ghostAbilities = false;			// when true, the ghost can float thru walls and hide from the owner, but NOT pick up fruit
+	private boolean solidEnough = false;				// when true, the ghost can pick up fruit but NOT float thru walls nor hide
+	
+	private boolean collisionOccured = false;
+	private boolean stopR = false;
+	private boolean stopL = false;
+	private boolean stopU = false;
+	private boolean stopD = false;
+	private boolean zPress = false;		// this controls the ghost abilities
+
+	public boolean trippedCherry = false;
+	public boolean trippedFruit = false;
+	
+	/**** this code for the enemy's movement paths ***/
+	public int enemyMoveCounter = 1;
+	public int enemyMoveCounter2 = 1;
+	private boolean initializeRoute=true;
+	
+	private boolean path1Completed = false;
+	
+	public int room1x = 400;
+	public int room1y = 275;
+
+	
+	public Rectangle room1 = new Rectangle();
+	
+	
+	public int room2x = 800;
+	public int room2y = 275;
+	
+	
+	public Rectangle room2 = new Rectangle();
+	public boolean gameOverB = false;
+	
+	public boolean gtr1 = true;
+	public boolean room1SetUp = false;
+	
+	public boolean gtr2 = false;
+	public boolean room2SetUp = false;
+	
+	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
+	
+	private float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
+	boolean transKeyTapped = false;			// needed to implement tapping of key
+	boolean visibleKeyTapped = false;			// turns the ghost visible again
+	
+	
+	
+	ArrayList<Cell> path1 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath1 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path2 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
+	
+	
+	//fields necessary for level switching
+	
+		//add a new boolean for each new level
+		public boolean atLevelOne = true;
+		public boolean atLevelTwo = false;
+		
+		public static Game currentGame;
+
+	
+	LevelTwo(String gameId, int width, int height) {
+		
+		super(gameId, width, height);
+		clock = new GameClock();
+		this.getScenePanel().setBackground(Color.gray);
+		healthBar.setXPos(10);
+		ghost.setTrans(0.0f);
+		ghost.setXPos(3);
+		grass.setYPos(400);
+		grass.setXPos(0);
+		grass.setXScale(0.75);
+		grass.setYScale(0.25);
+		sky.setYScale(0.5);
+		sky.setXScale(0.9);
+		sky.setYPos(0);
+
+		woodFloor.setXPos(250);
+		woodFloor.setYPos(450);
+		woodFloor.setRotation(1.57);
+		woodFloor.setXScale(2.3);
+		woodFloor.setYScale(0.7);
+
+		greyCarpet.setXPos(600);
+		greyCarpet.setYPos(180);
+		greyCarpet.setYScale(0.67);
+
+		beigeCarpet.setXPos(100);
+		beigeCarpet.setYPos(195);
+		beigeCarpet.setYScale(0.93);
+		beigeCarpet.setXScale(1.2);
+		//beigeCarpet.setYScale(0.67);
+
+		table.setXPos(700);
+		table.setYPos(325);
+		table.setXScale(0.035);
+		table.setYScale(0.035);
+
+		ghost.setYPos(780-ghost.getScaledHeight());
+		marioTween.doTween(true);
+		marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
+
+		fruit.setXPos(500);
+		fruit.setYPos(300);
+		fruit.addEventListener(myQuestManager, null);
+
+		cherry.setXPos(710);
+		cherry.setYPos(310);
+		cherry.addEventListener(myQuestManager, null);
+
+		lowerLeft.setXPos(100);
+		lowerLeft.setYPos(400);
+
+		lowerRight.setXPos(1062);
+		lowerRight.setYPos(400);
+
+		rightTop.setXPos(600);
+		rightTop.setYPos (156);
+
+		leftBottom.setXPos(100);
+		leftBottom.setYPos(700);
+
+		rightBottom.setXPos(600);
+		rightBottom.setYPos(700);
+
+
+		wall2.setXPos(300);
+		wall2.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+		wall2.addEventListener(myQuestManager, null);
+
+		wall4.setXPos(300+wall2.getScaledWidth());
+		wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+		wall4.addEventListener(myQuestManager, null);
+
+		vwall.setXPos(100);
+		vwall.setYPos(500-vwall.getScaledHeight());
+		vwall.addEventListener(myQuestManager, null);
+
+		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
+		vwall2.setYPos(500-vwall.getScaledHeight());
+		vwall2.addEventListener(myQuestManager, null);
+
+		vwall3.setXPos(1062);
+		//vwall3.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
+		vwall3.setYPos(500-vwall.getScaledHeight());
+		vwall3.addEventListener(myQuestManager, null);
+
+		//wall.setXPos(300);
+		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
+
+		fruitTween.addEventListener(myQuestManager, null);
+		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
+		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
+		fruitTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+
+		cherryTween.addEventListener(myQuestManager, null);
+		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
+		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
+		cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+
+
+
+		juggler.add(marioTween);
+		juggler.add(fruitTween);
+		juggler.add(cherryTween);
+
+		gameOver.setXScale(1.5);
+		gameOver.setYScale(1.5);
+		gameOver.setXPos(170);
+		gameOver.setYPos(300);
+		gameOver.setVisible(false);
+
+
+		try {
+			soundManager = new SoundManager();
+			soundManager.loadSoundEffect("caught", "resources/caught.wav");
+			soundManager.loadSoundEffect("munch", "resources/munch.wav");
+			soundManager.loadMusic("bgroundmusic", "resources/bground.wav");
+			soundManager.playMusic("bgroundmusic");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		gameWon.setXScale(1.5);
+		gameWon.setYScale(1.5);
+		gameWon.setXPos(170);
+		gameWon.setYPos(300);
+		gameWon.setVisible(false);
+
+		//enemy code
+		enemy.setTrans(1.0f);
+		enemy.setXPos(800);
+		enemy.setYPos(100);
+
+		//room rectangle
+		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
+
+		System.out.println(vwall.getScaledWidth());
+		int wstart = 196-134;
+		for(int c = wstart; c<=wstart+304+134;c++){	
+			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
+				int[] e = new int[]{x,c};
+				blockedList.add(e);
+			}
+		}
+
+		int wstart2 = 197-134;
+		for(int c = wstart2; c<=wstart2+304+134;c++){	
+			for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
+				int[] e = new int[]{x,c};
+				blockedList.add(e);
+			}
+		}
+
+		int wstart3 = 197-134;
+		for(int c = wstart3; c<=wstart2+304+134;c++){	
+			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
+				int[] e = new int[]{x,c};
+				blockedList.add(e);
+			}
+		}
+
+		int wstart4 = 197-wall.getScaledHeight() - 134;
+		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
+			for(int x = 350; x<=1176; x++){
+				int[] e = new int[]{x,c};
+				blockedList.add(e);
+			}
+		}
+
+
+
+
+
+
+		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
+
+		/*********** ATTEMPTING TO ADD SECOND PATH TO ENEMY *****************/
+
+		//			path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		//			int p2Len = path2.size();
+		//			int q2 = p2Len-1;
+		//			
+		//			// prints the path 
+		//			while(q2>=0){
+		//				Cell temp = new Cell(path2.get(q2).i,path2.get(2).j);
+		//				fPath2.add(temp);
+		//				q2 -=1;
+		//			}
+		room2.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());		// ahhh idk what im doing
+
+		/*********** end of second path for enemy code *********/
+
+		//initializeRoute = false;
+
+
+	}	
+
+}
+>>>>>>> Stashed changes

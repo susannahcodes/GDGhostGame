@@ -20,53 +20,78 @@ public class enemySprite extends Sprite implements IEventListener {
 	private Rectangle bottomHitBox;
 	private Rectangle leftHitBox;
 	private Rectangle rightHitBox;
+	
+	private boolean forward;
+	private boolean backward;
 
 	public enemySprite(String id) {
 		super(id, "enemySheet.png");
-		sprites = new BufferedImage[5];
-		int frame = 0;
+		sprites = new BufferedImage[4];
+		//int frame = 0;
 		subWidth = super.getUnscaledWidth()/2;
-		subHeight = super.getUnscaledHeight()/3;
+		subHeight = super.getUnscaledHeight()/2;
 		topHitBox = new Rectangle();			// this is to detect collisions from the top
 		bottomHitBox = new Rectangle();	
 		leftHitBox = new Rectangle();	
 		rightHitBox = new Rectangle();	
 		
-		for (int j=0; j<3; j++) {
-			for (int i=0; i<2; i++) {
-				if ( frame < sprites.length ) {					
-					sprites[frame] = super.getDisplayImage().getSubimage(i*subWidth, j*subHeight, subWidth, subHeight);
-					frame++;
-				}
-			}
-		}
+		forward = false;
+		backward = true;
 		
-		//super.setXScale(3);
-		//super.setYScale(3);
+		sprites[0] = super.getDisplayImage().getSubimage(0, 0, subWidth, subHeight);
+		sprites[1] = super.getDisplayImage().getSubimage(subWidth, 0, subWidth, subHeight);
+		sprites[2] = super.getDisplayImage().getSubimage(0, subHeight, subWidth, subHeight);
+		sprites[3] = super.getDisplayImage().getSubimage(subWidth, subHeight, subWidth, subHeight);
+
 		counter = 0;
 		delayCounter = 0;
 	}
 	
 	@Override
 	public void draw(Graphics g) {
-
-		if (sprites[counter] != null) {
+		
+		if (forward) {
 			
-			Graphics2D g2d = (Graphics2D) g;
-			super.applyTransformations(g2d);
+			if (sprites[counter] != null) {
 
-			g2d.drawImage(sprites[counter], 0, 0,
-					subWidth,
-					subHeight, null);
+				Graphics2D g2d = (Graphics2D) g;
+				super.applyTransformations(g2d);
 
-			if ( 0 == delayCounter%9 ) {
-			counter++;
+				g2d.drawImage(sprites[counter], 0, 0,
+						subWidth,
+						subHeight, null);
+
+				if ( 0 == delayCounter%9 ) {
+					counter++;
+				}
+				counter = counter%2 + 2; 
+				delayCounter++;
+
+				super.reverseTransformations(g2d);
 			}
-			counter = counter %sprites.length; 
-			delayCounter++;
-			
-			super.reverseTransformations(g2d);
 		}
+		
+		if (backward) {
+			
+			if (sprites[counter] != null) {
+
+				Graphics2D g2d = (Graphics2D) g;
+				super.applyTransformations(g2d);
+
+				g2d.drawImage(sprites[counter], 0, 0,
+						subWidth,
+						subHeight, null);
+
+				if ( 0 == delayCounter%9 ) {
+					counter++;
+				}
+				counter = counter%2; 
+				delayCounter++;
+
+				super.reverseTransformations(g2d);
+			}
+		}
+		
 	}
 	
 	@Override
@@ -83,6 +108,20 @@ public class enemySprite extends Sprite implements IEventListener {
 	@Override
 	public int getScaledWidth() {
 		return subWidth;
+	}
+	
+	public void goForward(boolean b) {
+		if (b) {
+			this.forward = true;
+			this.backward = false;
+		}
+	}
+	
+	public void goBackward(boolean b) {
+		if (b) {
+			this.forward = false;
+			this.backward = true;
+		}
 	}
 
 	@Override
