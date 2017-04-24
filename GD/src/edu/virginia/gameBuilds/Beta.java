@@ -47,7 +47,8 @@ public class Beta extends Game {
 	private SoundManager soundManager;
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
-	
+	Sprite grass = new Sprite("grass", "grass.jpg");
+	Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
 	
 	WallSprite wall = new WallSprite("testWall");
@@ -159,6 +160,10 @@ public class Beta extends Game {
 		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
+		grass.setYPos(400);
+		sky.setYScale(0.5);
+		sky.setXScale(0.9);
+		sky.setYPos(0);
 		ghost.setYPos(780-ghost.getScaledHeight());
 		marioTween.doTween(true);
 		marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
@@ -733,6 +738,10 @@ public class Beta extends Game {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
+		if (grass != null && sky != null) {
+			grass.draw(g);
+			sky.draw(g);
+		}
 
 		g.setColor(Color.blue);
 		g.drawRect (100, 500, 1000, 20);
