@@ -146,7 +146,13 @@ public class Beta extends Game {
 	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
 	
 	
+	//fields necessary for level switching
 	
+	//add a new boolean for each new level
+	public boolean atLevelOne = true;
+	public boolean atLevelTwo = false;
+	
+	public static Game currentGame;
 
 	public Beta() {
 		
@@ -827,12 +833,57 @@ public class Beta extends Game {
 			gameOver.draw(g);
 		}
 	}
+	
+	
+	
+	//Level Switching code
+	//add a new if statment for each new level
+	public void switchLevels(){
+		if(atLevelOne == true){
+			System.out.println("it should be working");
+			currentGame.exitGame();
+			atLevelOne = false;
+			atLevelTwo = true;
+			Game game = new Beta();
+			currentGame = game;
+			currentGame.start();
+			
+		}
+		
+		if(atLevelTwo == true){
+			
+			currentGame.exitGame();
+			atLevelOne = true;
+			atLevelTwo = false;
+			Game game = new Beta();
+			currentGame = game;
+			currentGame.start();
+			
+		}
+	}
+
+	
 
 	public static void main(String[] args) {
 
-		Beta game = new Beta();
-		game.start();
+		Game game = new Beta();
+		currentGame = game;
+		
+		currentGame.start();
 	}
 }
 
+
+class LevelTwo extends Game {
+	//replace with code for the new level/copy from Beta()
+	//this way we can use the same boolean values
+	
+	 LevelTwo(String gameId, int width, int height) {
+		super(gameId, width, height);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+}
 
