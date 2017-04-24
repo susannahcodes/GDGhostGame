@@ -1,17 +1,13 @@
 package edu.virginia.gameBuilds;
 
-import edu.virginia.engine.display.Game;
-
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.LongWallSprite;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.display.VertWallSprite;
@@ -30,26 +26,27 @@ import edu.virginia.engine.tween.TweenableParam;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.engine.util.SoundManager;
 import edu.virginia.lab1test.AStar;
-import edu.virginia.lab1test.AStar.Cell;
 import edu.virginia.lab1test.QuestManager;
+import edu.virginia.lab1test.AStar.Cell;
 
-
-
-
-
-
-public class Beta extends Game {
+class LevelTwo extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
-	public Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
-	public Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+//	public Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
+//	public Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+//	healthBarSprite healthBar = new healthBarSprite("healthBar");
+//	public int healthWidth = 0;
+//	public int foodCollected = 0;
+//	private boolean collected = true;
+//	private SoundManager soundManager;
+	Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
+	Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
-	public int healthWidth = 0;
-	public int foodCollected = 0;
-	private boolean collected = true;
-	private SoundManager soundManager;
-
+	 int healthWidth = 0;
+	 int foodCollected = 0;
+	 boolean collected = true;
+	 SoundManager soundManager;
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
 	Sprite grass = new Sprite("grass", "grass.jpg");
@@ -83,13 +80,13 @@ public class Beta extends Game {
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
-	Tween marioTween = new Tween(ghost, new TweenTransition() );
+	//Tween marioTween = new Tween(ghost, new TweenTransition() );
 	Tween fruitTween = new Tween(fruit, new TweenTransition() );
 	Tween cherryTween = new Tween(cherry, new TweenTransition());
 	
 	TweenJuggler juggler = new TweenJuggler();
 	
-	private GameClock clock;
+	GameClock clock;
 
 	Rectangle marioBounds = new Rectangle();
 	Rectangle coinBounds = new Rectangle();
@@ -98,55 +95,94 @@ public class Beta extends Game {
 
 	QuestManager myQuestManager = new QuestManager();
 
-	private int dx = 4;
-	private int dy = 4;
+	int dx = 4;
+	int dy = 4;
 	
-	private boolean ghostAbilities = false;			// when true, the ghost can float thru walls and hide from the owner, but NOT pick up fruit
-	private boolean solidEnough = false;				// when true, the ghost can pick up fruit but NOT float thru walls nor hide
+	boolean ghostAbilities = false;			// when true, the ghost can float thru walls and hide from the owner, but NOT pick up fruit
+	boolean solidEnough = false;				// when true, the ghost can pick up fruit but NOT float thru walls nor hide
 	
-	private boolean collisionOccured = false;
-	private boolean stopR = false;
-	private boolean stopL = false;
-	private boolean stopU = false;
-	private boolean stopD = false;
-	private boolean zPress = false;		// this controls the ghost abilities
+	boolean collisionOccured = false;
+	boolean stopR = false;
+	boolean stopL = false;
+	boolean stopU = false;
+	boolean stopD = false;
+	boolean zPress = false;		// this controls the ghost abilities
 
-	public boolean trippedCherry = false;
-	public boolean trippedFruit = false;
-
+//	public boolean trippedCherry = false;
+//	public boolean trippedFruit = false;
+	boolean trippedCherry = false;
+	boolean trippedFruit = false;
 	
 	/**** this code for the enemy's movement paths ***/
-	public int enemyMoveCounter = 1;
-	public int enemyMoveCounter2 = 1;
-	private boolean initializeRoute=true;
+//	public int enemyMoveCounter = 1;
+//	public int enemyMoveCounter2 = 1;
+//	private boolean initializeRoute=true;
+//	
+//	private boolean path1Completed = false;
+//	
+//	public int room1x = 400;
+//	public int room1y = 275;
+//
+//	
+//	public Rectangle room1 = new Rectangle();
+//	
+//	
+//	public int room2x = 800;
+//	public int room2y = 275;
+//	
+//	
+//	public Rectangle room2 = new Rectangle();
+//	public boolean gameOverB = false;
+//	
+//	public boolean gtr1 = true;
+//	public boolean room1SetUp = false;
+//	
+//	public boolean gtr2 = false;
+//	public boolean room2SetUp = false;
+//	
+//	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
+//	
+//	private float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
+//	boolean transKeyTapped = false;			// needed to implement tapping of key
+//	boolean visibleKeyTapped = false;			// turns the ghost visible again
 	
-	private boolean path1Completed = false;
 	
-	public int room1x = 400;
-	public int room1y = 275;
+	
+	
+	
+	int enemyMoveCounter = 1;
+	int enemyMoveCounter2 = 1;
+	boolean initializeRoute=true;
+	
+	boolean path1Completed = false;
+	
+	 int room1x = 400;
+	int room1y = 275;
 
 	
-	public Rectangle room1 = new Rectangle();
+	Rectangle room1 = new Rectangle();
 	
 	
-	public int room2x = 800;
-	public int room2y = 275;
+	int room2x = 800;
+	int room2y = 275;
 	
 	
-	public Rectangle room2 = new Rectangle();
-	public boolean gameOverB = false;
+	Rectangle room2 = new Rectangle();
+	boolean gameOverB = false;
 	
-	public boolean gtr1 = true;
-	public boolean room1SetUp = false;
+	boolean gtr1 = true;
+	boolean room1SetUp = false;
 	
-	public boolean gtr2 = false;
-	public boolean room2SetUp = false;
+	boolean gtr2 = false;
+	boolean room2SetUp = false;
 	
-	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
+	ArrayList<int[]> blockedList = new ArrayList<int[]>();
 	
-	private float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
+	float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
 	boolean transKeyTapped = false;			// needed to implement tapping of key
-	boolean visibleKeyTapped = false;			// turns the ghost visible again
+	boolean visibleKeyTapped = false;
+	
+	
 	
 	
 	
@@ -156,20 +192,8 @@ public class Beta extends Game {
 	ArrayList<Cell> path2 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
 	
-	
-	
-	//fields necessary for level switching
-
-			//add a new boolean for each new level
-			public static boolean atLevelOne = true;
-			public static boolean atLevelTwo = false;
-			public static Game currentGame;
-	
-	
-
-	public Beta() {
-		
-		super("Beta Build", 1200, 800);
+	LevelTwo(String gameId, int width, int height) {
+		super("Level Build", 1200, 800);
 		
 		clock = new GameClock();
 		
@@ -208,8 +232,8 @@ public class Beta extends Game {
 		table.setYScale(0.035);
 		
 		ghost.setYPos(780-ghost.getScaledHeight());
-		marioTween.doTween(true);
-		marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
+		//marioTween.doTween(true);
+		//marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
 		
 		fruit.setXPos(500);
 		fruit.setYPos(300);
@@ -271,7 +295,7 @@ public class Beta extends Game {
 		
 		
 		
-		juggler.add(marioTween);
+		//juggler.add(marioTween);
 		juggler.add(fruitTween);
 		juggler.add(cherryTween);
 		
@@ -430,7 +454,7 @@ public class Beta extends Game {
 							enemy.setYPos(ym);
 							enemy.setXScale(1);
 							//enemyMoveCounter+=1;
-							enemyMoveCounter+=5;		// increases the owner's speed
+							enemyMoveCounter+=10;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -817,26 +841,25 @@ public class Beta extends Game {
 	//Level Switching code
 		//add a new if statment for each new level
 		public void switchLevels(){
-			if(atLevelOne == true){
-				System.out.println("Switch to Level2");
-				currentGame.exitGame();
-				atLevelOne = false;
-				atLevelTwo = true;
+			if(Beta.atLevelOne == true){
+				System.out.println("it should be working");
+				Beta.currentGame.exitGame();
+				Beta.atLevelOne = false;
+				Beta.atLevelTwo = true;
 				Game game = new Beta();
-				currentGame = game;
-				currentGame.start();
+				Beta.currentGame = game;
+				Beta.currentGame.start();
 				
 			}
 			
-			if(atLevelTwo == true){
+			if(Beta.atLevelTwo == true){
 				System.out.println("level 2 entered");
-				currentGame.exitGame();
-				atLevelOne = true;
-				atLevelTwo = false;
+				Beta.currentGame.exitGame();
+				Beta.atLevelOne = true;
+				Beta.atLevelTwo = false;
 				Game game = new LevelTwo("LevelTwo", 1200, 800);
-				//Game game = new Beta();
-				currentGame = game;
-				currentGame.start();
+				Beta.currentGame = game;
+				Beta.currentGame.start();
 				
 			}
 		}
@@ -847,22 +870,12 @@ public class Beta extends Game {
 
 	
 			//Game game = new Beta();
-			Game beta = new Beta();
-			currentGame = beta;
+			LevelTwo level2 = new LevelTwo("Test", 1200, 800);
+			Beta.currentGame = level2;
 			
-			currentGame.start();
+			Beta.currentGame.start();
 		}
 	
 
 //private GameClock clock2;
-
-	
 }
-
-//start of other class!
-
-	
-	
-	 
-
-
