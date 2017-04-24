@@ -146,13 +146,7 @@ public class Beta extends Game {
 	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
 	
 	
-	//fields necessary for level switching
 	
-	//add a new boolean for each new level
-	public boolean atLevelOne = true;
-	public boolean atLevelTwo = false;
-	
-	public static Game currentGame;
 
 	public Beta() {
 		
@@ -317,7 +311,7 @@ public class Beta extends Game {
 		System.out.println(vwall.getScaledWidth());
 		int wstart = 196-134;
 		for(int c = wstart; c<=wstart+304+134;c++){	
-			for(int x = 100 - vwall.getScaledWidth();x<=100;x++){
+			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
@@ -325,7 +319,7 @@ public class Beta extends Game {
 		
 		int wstart2 = 197-134;
 		for(int c = wstart2; c<=wstart2+304+134;c++){	
-			for(int x = 600-76-vwall.getScaledWidth();x<=600;x++){
+			for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
@@ -341,7 +335,7 @@ public class Beta extends Game {
 		
 		int wstart4 = 197-wall.getScaledHeight() - 134;
 		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
-			for(int x = 350;x<=1176;x++){
+			for(int x = 350; x<=1176; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
@@ -400,6 +394,8 @@ public class Beta extends Game {
 		if (ghost != null) {
 			if (fruit != null) {
 				if ( enemy != null ) {
+					
+					System.out.println(enemy.getHitBox());
 			
 					if(gtr1 == true){
 	
@@ -514,41 +510,13 @@ public class Beta extends Game {
 					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
 
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
-							collisionOccured = true;
-							double pcenterx = ghost.getHitBox().getCenterX();
-							double pcentery = ghost.getHitBox().getCenterY();
-
-							double wcenterx = wall.getHitBox().getCenterX();
-							double wcentery = wall.getHitBox().getCenterY();
-							
-							double marioT = ghost.getYPos();
-							
-							//double marioB = (ghost.getYPos()+ ghost.getUnscaledHeight());
-							double marioB = (ghost.getYPos()+ ghost.getScaledHeight());		//changed from unscaled to scaled
-							
-							double wallT = wall.getYPos();
-							
-							//double wallB = (wall.getYPos()+ wall.getUnscaledHeight());
-							double wallB = (wall.getYPos()+ wall.getScaledHeight());				//changed from unscaled to scaled
-
-							//double marioR = ghost.getXPos() + ghost.getUnscaledWidth();
-							double marioR = ghost.getXPos() + ghost.getScaledWidth();			//changed from unscaled to scaled
-							
-							double marioL = ghost.getXPos();
-							
-							//double wallR = wall.getXPos() + wall.getUnscaledWidth();
-							double wallR = wall.getXPos() + wall.getScaledWidth();		//changed from unscaled to scaled
-							
-							double wallL = wall.getXPos();
 
 							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
 								stopR = true;
-								System.out.println("right collision");
 							}
 							
 							if(ghost.getLeftHitBox().intersects(wall.getHitBox())){
 								stopL=true;
-								System.out.println("left collision");
 							}
 							
 
@@ -833,57 +801,12 @@ public class Beta extends Game {
 			gameOver.draw(g);
 		}
 	}
-	
-	
-	
-	//Level Switching code
-	//add a new if statment for each new level
-	public void switchLevels(){
-		if(atLevelOne == true){
-			System.out.println("it should be working");
-			currentGame.exitGame();
-			atLevelOne = false;
-			atLevelTwo = true;
-			Game game = new Beta();
-			currentGame = game;
-			currentGame.start();
-			
-		}
-		
-		if(atLevelTwo == true){
-			
-			currentGame.exitGame();
-			atLevelOne = true;
-			atLevelTwo = false;
-			Game game = new Beta();
-			currentGame = game;
-			currentGame.start();
-			
-		}
-	}
-
-	
 
 	public static void main(String[] args) {
 
-		Game game = new Beta();
-		currentGame = game;
-		
-		currentGame.start();
+		Beta game = new Beta();
+		game.start();
 	}
 }
 
-
-class LevelTwo extends Game {
-	//replace with code for the new level/copy from Beta()
-	//this way we can use the same boolean values
-	
-	 LevelTwo(String gameId, int width, int height) {
-		super(gameId, width, height);
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
-}
 

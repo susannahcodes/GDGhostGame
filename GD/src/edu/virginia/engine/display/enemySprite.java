@@ -31,8 +31,6 @@ public class enemySprite extends Sprite implements IEventListener {
 		bottomHitBox = new Rectangle();	
 		leftHitBox = new Rectangle();	
 		rightHitBox = new Rectangle();	
-		//System.out.println("subWidth: " +subWidth);
-		//System.out.println("subHeaight: " + subHeight);
 		
 		for (int j=0; j<3; j++) {
 			for (int i=0; i<2; i++) {
@@ -73,7 +71,7 @@ public class enemySprite extends Sprite implements IEventListener {
 	
 	@Override
 	public Rectangle getHitBox() {
-		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth-25, subHeight);
+		this.hitBox.setBounds((int)this.getXPos(), (int)this.getYPos(), subWidth, subHeight);
 		return hitBox;
 	}
 	
@@ -92,25 +90,4 @@ public class enemySprite extends Sprite implements IEventListener {
 		// TODO Auto-generated method stub
 	}
 	
-	// to assist with detecting collisions from the top
-	public Rectangle getTopHitBox() {
-		this.topHitBox.setBounds((int)this.getXPos()+35, (int) this.getYPos()-5, subWidth -70, 50);
-		return topHitBox;
-	}
-	
-	public Rectangle getBottomHitBox() {
-		this.bottomHitBox.setBounds((int)this.getXPos()+35, (int) this.getYPos()+subHeight-50, subWidth -70, 50);
-		return bottomHitBox;
-	}
-	
-	public Rectangle getLeftHitBox() {
-		//this.leftHitBox.setBounds((int)this.getXPos()+35, (int) this.getYPos()-5, subWidth -70, 50);
-		return leftHitBox;
-	}
-	
-	public Rectangle getRightHitBox() {
-		//this.rightHitBox.setBounds((int)this.getXPos()+35, (int) this.getYPos()-5, subWidth -70, 50);
-		return rightHitBox;
-	}
-
 }
