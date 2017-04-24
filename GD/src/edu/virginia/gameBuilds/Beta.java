@@ -160,6 +160,7 @@ public class Beta extends Game {
 	
 	//fields necessary for level switching
 
+
 			//add a new boolean for each new level
 			public static boolean atLevelOne = true;
 			public static boolean atLevelTwo = false;
@@ -167,6 +168,7 @@ public class Beta extends Game {
 			public static Game currentGame;
 	
 	
+
 
 	public Beta() {
 		
@@ -429,9 +431,9 @@ public class Beta extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.setXScale(1);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							//enemyMoveCounter+=1;
-							enemyMoveCounter+=5;		// increases the owner's speed
+							enemyMoveCounter+=1;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -439,7 +441,6 @@ public class Beta extends Game {
 //							System.out.println("count: " + enemyMoveCounter);
 //							System.out.println("fPath size: " + fPath1.size());
 							//path1Completed = true;
-							enemy.setXScale(-1);
 							
 							enemyMoveCounter=1;
 							//switchPath();
@@ -485,8 +486,8 @@ public class Beta extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemyMoveCounter2+=1;
-							enemyMoveCounter2+=5;		// makes the owner move faster
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter2+=1;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
 							
@@ -848,17 +849,10 @@ public class Beta extends Game {
 
 			currentGame.start();
 		}
+
 	
 
 //private GameClock clock2;
-
-	
 }
-
-//start of other class!
-
-	
-	
-	 
 
 
