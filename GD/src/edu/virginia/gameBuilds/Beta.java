@@ -748,7 +748,6 @@ public class Beta extends Game {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
-		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		if (grass != null && sky != null) {
 			grass.draw(g);
 			sky.draw(g);
