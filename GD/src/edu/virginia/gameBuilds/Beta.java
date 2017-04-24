@@ -71,6 +71,10 @@ public class Beta extends Game {
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
 	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
+	Sprite woodFloor = new Sprite ("wood", "wood.jpg");
+	Sprite table = new Sprite ("table", "table.png");
+	Sprite greyCarpet = new Sprite ("greyCarpet", "greyCarpet.png");
+	Sprite beigeCarpet = new Sprite ("beigeCarpet", "beigeCarpet.jpg");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
@@ -161,9 +165,34 @@ public class Beta extends Game {
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
 		grass.setYPos(400);
+		grass.setXPos(0);
+		grass.setXScale(0.75);
+		grass.setYScale(0.25);
 		sky.setYScale(0.5);
 		sky.setXScale(0.9);
 		sky.setYPos(0);
+		
+		woodFloor.setXPos(250);
+		woodFloor.setYPos(450);
+		woodFloor.setRotation(1.57);
+		woodFloor.setXScale(2.3);
+		woodFloor.setYScale(0.7);
+		
+		greyCarpet.setXPos(600);
+		greyCarpet.setYPos(180);
+		greyCarpet.setYScale(0.67);
+		
+		beigeCarpet.setXPos(100);
+		beigeCarpet.setYPos(195);
+		beigeCarpet.setYScale(0.93);
+		beigeCarpet.setXScale(1.2);
+		//beigeCarpet.setYScale(0.67);
+		
+		table.setXPos(700);
+		table.setYPos(325);
+		table.setXScale(0.035);
+		table.setYScale(0.035);
+		
 		ghost.setYPos(780-ghost.getScaledHeight());
 		marioTween.doTween(true);
 		marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
@@ -172,8 +201,8 @@ public class Beta extends Game {
 		fruit.setYPos(300);
 		fruit.addEventListener(myQuestManager, null);
 		
-		cherry.setXPos(700);
-		cherry.setYPos(300);
+		cherry.setXPos(710);
+		cherry.setYPos(310);
 		cherry.addEventListener(myQuestManager, null);
 		
 		lowerLeft.setXPos(100);
@@ -743,15 +772,21 @@ public class Beta extends Game {
 			sky.draw(g);
 		}
 
+		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
+			woodFloor.draw(g);
+			greyCarpet.draw(g);
+			beigeCarpet.draw(g);
+			table.draw(g);
+		}
 		g.setColor(Color.blue);
-		g.drawRect (100, 500, 1000, 20);
-		g.fillRect(100, 500, 1000, 200);
+		//g.drawRect (100, 500, 1000, 20);
+		//g.fillRect(100, 500, 1000, 200);
 		g.setColor(Color.green);//entryway
-		g.drawRect (100, 197, 500, 303);
-		g.fillRect(100, 197, 500, 303);
+		//g.drawRect (100, 197, 500, 303);
+	//	g.fillRect(100, 197, 500, 303);
 		g.setColor(Color.orange);//leftroom
-		g.drawRect (600, 197, 500, 303);
-		g.fillRect(600, 197, 500, 303);
+		//g.drawRect (600, 197, 500, 303);
+		//g.fillRect(600, 197, 500, 303);
 		if (fruit != null) {
 			fruit.draw(g);
 			//wall.draw(g);
