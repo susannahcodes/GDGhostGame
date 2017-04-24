@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.LongWallSprite;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.display.VertWallSprite;
@@ -49,6 +50,7 @@ public class Beta extends Game {
 	public int foodCollected = 0;
 	private boolean collected = true;
 	private SoundManager soundManager;
+	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
@@ -388,7 +390,13 @@ public class Beta extends Game {
 		 * 	it doesn't truly affect the game but it gives us a lot of error warnings in the console
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
-		
+
+		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (camera.getXPos() > offsetMaxX){camera.setXPos(offsetMaxX);}
+		else if (camera.getXPos() < offsetMinX) {camera.setXPos(offsetMinX);}
+		if (camera.getYPos() > offsetMaxY) {camera.setYPos(offsetMaxY);}
+		else if (camera.getXPos() < offsetMinY){camera.setYPos(offsetMinY);}
 		super.update(pressedKeys);
 
 		if (ghost != null) {
@@ -738,6 +746,7 @@ public class Beta extends Game {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
+		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		if (grass != null && sky != null) {
 			grass.draw(g);
 			sky.draw(g);
