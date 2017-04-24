@@ -39,7 +39,6 @@ public class Beta extends Game {
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
 	public Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
 	public Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
-	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	public int healthWidth = 0;
 	public int foodCollected = 0;
@@ -301,56 +300,6 @@ public class Beta extends Game {
 		
 		//room rectangle
 		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
-		
-		//setting the list of blocked pixels the AI can't walk over, and figuring out a specific path
-		
-		 //{{300,95},{300,96},{300,97},{300,98},{300,99},{300,100},{300,101},{300,102},{300,103},{300,104},{300,105}};
-		
-//		//set the top wall of box to be blocked
-//		int wstart = 500-vwall.getScaledHeight()-wall2.getScaledHeight();
-//		for(int c = wstart-enemy.getScaledHeight(); c<=wstart+wall2.getScaledHeight();c++){	
-//			for(int x = 300-enemy.getScaledWidth();x<=300+(wall2.getScaledWidth()*2);x++){
-//				int[] e = new int[]{x,c};
-//				blockedList.add(e);
-//			}
-//		}
-//		//set the left vertical wall of the box to be blocked
-//		for(int vy =500-vwall.getScaledHeight(); vy<=500; vy++){
-//			for(int vx=300-enemy.getScaledWidth(); vx<= 300+vwall.getScaledWidth(); vx++){
-//				int[] e = new int[]{vx,vy};
-//				blockedList.add(e);
-//			}
-//		}
-//		
-//		//set the Right vertical wall of the box to be blocked
-//				for(int vy2 =500-vwall.getScaledHeight(); vy2<=500; vy2++){
-//					for(int vx2=300-enemy.getScaledWidth()+(2*wall2.getScaledWidth())-vwall.getScaledWidth(); vx2<= 300+(2*wall2.getScaledWidth()); vx2++){
-//						int[] e = new int[]{vx2,vy2};
-//						blockedList.add(e);		
-//					}
-//				}
-		
-		//path = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y, blockedList);
-//		path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-//		int pLen = path1.size();
-//		//int pLen2 = path.size();
-//		int q=pLen-1;
-//		//int q2=pLen2-1;
-//		
-//		/** prints the path **/
-//		while(q>=0){
-//			Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
-//			fPath1.add(temp);
-//			q-=1;
-//		}
-		
-//		while(q2>=0){
-//			Cell temp = new Cell(path.get(q2).i,path.get(q2).j);
-//			fPath2.add(temp);
-//			q2-=1;
-//		}
-		
-		//setting block list
 		
 		System.out.println(vwall.getScaledWidth());
 		int wstart = 196-134;
@@ -879,7 +828,7 @@ public class Beta extends Game {
 				currentGame.exitGame();
 				atLevelOne = true;
 				atLevelTwo = false;
-				Game game = new Beta();
+				Game game = new LevelTwo("LevelTwo", 1200, 800);
 				currentGame = game;
 				currentGame.start();
 				
@@ -896,18 +845,206 @@ public class Beta extends Game {
 			
 			currentGame.start();
 		}
-	}
+	
 
+//private GameClock clock2;
 
 	class LevelTwo extends Game {
-		//replace with code for the new level/copy from Beta()
-		//this way we can use the same boolean values
-		
 		 LevelTwo(String gameId, int width, int height) {
 			super(gameId, width, height);
-			// TODO Auto-generated constructor stub
-		}
+			clock = new GameClock();
+			this.getScenePanel().setBackground(Color.gray);
+			healthBar.setXPos(10);
+			ghost.setTrans(0.0f);
+			ghost.setXPos(3);
+			grass.setYPos(400);
+			grass.setXPos(0);
+			grass.setXScale(0.75);
+			grass.setYScale(0.25);
+				sky.setYScale(0.5);
+				sky.setXScale(0.9);
+				sky.setYPos(0);
+				
+				woodFloor.setXPos(250);
+				woodFloor.setYPos(450);
+				woodFloor.setRotation(1.57);
+				woodFloor.setXScale(2.3);
+				woodFloor.setYScale(0.7);
+				
+				greyCarpet.setXPos(600);
+				greyCarpet.setYPos(180);
+				greyCarpet.setYScale(0.67);
+				
+				beigeCarpet.setXPos(100);
+				beigeCarpet.setYPos(195);
+				beigeCarpet.setYScale(0.93);
+				beigeCarpet.setXScale(1.2);
+				//beigeCarpet.setYScale(0.67);
+				
+				table.setXPos(700);
+				table.setYPos(325);
+				table.setXScale(0.035);
+				table.setYScale(0.035);
+				
+				ghost.setYPos(780-ghost.getScaledHeight());
+				marioTween.doTween(true);
+				marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
+				
+				fruit.setXPos(500);
+				fruit.setYPos(300);
+				fruit.addEventListener(myQuestManager, null);
+				
+				cherry.setXPos(710);
+				cherry.setYPos(310);
+				cherry.addEventListener(myQuestManager, null);
+				
+				lowerLeft.setXPos(100);
+				lowerLeft.setYPos(400);
+				
+				lowerRight.setXPos(1062);
+				lowerRight.setYPos(400);
+				
+				rightTop.setXPos(600);
+				rightTop.setYPos (156);
+				
+				leftBottom.setXPos(100);
+				leftBottom.setYPos(700);
+				
+				rightBottom.setXPos(600);
+				rightBottom.setYPos(700);
+				
+				
+				wall2.setXPos(300);
+				wall2.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+				wall2.addEventListener(myQuestManager, null);
+				
+				wall4.setXPos(300+wall2.getScaledWidth());
+				wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+				wall4.addEventListener(myQuestManager, null);
+				
+				vwall.setXPos(100);
+				vwall.setYPos(500-vwall.getScaledHeight());
+				vwall.addEventListener(myQuestManager, null);
+				
+				vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
+				vwall2.setYPos(500-vwall.getScaledHeight());
+				vwall2.addEventListener(myQuestManager, null);
+				
+				vwall3.setXPos(1062);
+				//vwall3.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
+				vwall3.setYPos(500-vwall.getScaledHeight());
+				vwall3.addEventListener(myQuestManager, null);
+				
+				//wall.setXPos(300);
+				//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
+
+				fruitTween.addEventListener(myQuestManager, null);
+				//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
+				//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
+				fruitTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+				
+				cherryTween.addEventListener(myQuestManager, null);
+				//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
+				//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
+				cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+				
+				
+				
+				juggler.add(marioTween);
+				juggler.add(fruitTween);
+				juggler.add(cherryTween);
+				
+				gameOver.setXScale(1.5);
+				gameOver.setYScale(1.5);
+				gameOver.setXPos(170);
+				gameOver.setYPos(300);
+				gameOver.setVisible(false);
+				
+				
+				try {
+					soundManager = new SoundManager();
+					soundManager.loadSoundEffect("caught", "resources/caught.wav");
+					soundManager.loadSoundEffect("munch", "resources/munch.wav");
+					soundManager.loadMusic("bgroundmusic", "resources/bground.wav");
+					soundManager.playMusic("bgroundmusic");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				gameWon.setXScale(1.5);
+				gameWon.setYScale(1.5);
+				gameWon.setXPos(170);
+				gameWon.setYPos(300);
+				gameWon.setVisible(false);
+				
+				//enemy code
+				enemy.setTrans(1.0f);
+				enemy.setXPos(800);
+				enemy.setYPos(100);
+				
+				//room rectangle
+				room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
+				
+				System.out.println(vwall.getScaledWidth());
+				int wstart = 196-134;
+				for(int c = wstart; c<=wstart+304+134;c++){	
+					for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
+						int[] e = new int[]{x,c};
+						blockedList.add(e);
+					}
+				}
+				
+				int wstart2 = 197-134;
+				for(int c = wstart2; c<=wstart2+304+134;c++){	
+					for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
+						int[] e = new int[]{x,c};
+						blockedList.add(e);
+					}
+				}
+				
+				int wstart3 = 197-134;
+				for(int c = wstart3; c<=wstart2+304+134;c++){	
+					for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
+						int[] e = new int[]{x,c};
+						blockedList.add(e);
+					}
+				}
+				
+				int wstart4 = 197-wall.getScaledHeight() - 134;
+				for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
+					for(int x = 350; x<=1176; x++){
+						int[] e = new int[]{x,c};
+						blockedList.add(e);
+					}
+				}
+				
+				
+				
+				
+				
+				
+				room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
+				
+				/*********** ATTEMPTING TO ADD SECOND PATH TO ENEMY *****************/
+				
+//				path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//				int p2Len = path2.size();
+//				int q2 = p2Len-1;
+//				
+//				// prints the path 
+//				while(q2>=0){
+//					Cell temp = new Cell(path2.get(q2).i,path2.get(2).j);
+//					fPath2.add(temp);
+//					q2 -=1;
+//				}
+				room2.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());		// ahhh idk what im doing
+				
+				/*********** end of second path for enemy code *********/
+				
+				//initializeRoute = false;
 		
 		
+		 }	
 
 	}
+}
