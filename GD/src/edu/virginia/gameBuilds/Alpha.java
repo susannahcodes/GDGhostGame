@@ -79,7 +79,7 @@ public class Alpha extends Game {
 	
 	private GameClock clock;
 
-	Rectangle marioBounds = new Rectangle();
+	//Rectangle marioBounds = new Rectangle();
 	Rectangle coinBounds = new Rectangle();
 	Rectangle wallBounds = new Rectangle();
 	Rectangle VertwallBounds = new Rectangle();
@@ -523,7 +523,7 @@ public class Alpha extends Game {
 							
 							double wallL = wall.getXPos();
 
-							if(marioR - wallL >=0 && marioL<wcenterx){		
+							if(marioR >= wallL && marioL<wcenterx){		
 								stopR = true;
 							}
 							if(wallR-marioL>=0 && marioL>wcenterx){
@@ -534,22 +534,21 @@ public class Alpha extends Game {
 							}
 							
 							if(wallB-marioT>=0 && marioT>wallT){
-								stopU = true;
+								System.out.println("in the if statement for upward movement");
+								if ( ghost.getTopHitBox().intersects(wall.getHitBox())) {
+									System.out.println("in the if statement for collision from the top");
+									//stopU = true;
+									System.out.println("the ghost's top hit box: " + ghost.getTopHitBox() + " the wall's hitbox: " + wall.getHitBox());
+									System.out.println("stopU: " + stopU);
+									System.out.println();
+								}
 							}
 							
-							/*** experimental fixes to the ghost "sticking on walls (that so far were unsuccessful...) ***/
-							/*if(wallB-marioT>=0 && marioT>wallT){
-								if (!stopR && !stopD) {
-									stopU = true;
-								}
-							}*/
-							/*
-							if ( wallB - marioT >= 0 ) {									// check to see if collision is occurring when ghost wants to go up
-								if ( (wallL >= marioL && wallR <= marioR) || (wallL <= marioL && wallR >= marioR) ) {	// if wall is directly above ghost, stop movement
-									stopU = true;
-								}
-							}*/
-							/***************/
+							if ( ghost.getTopHitBox().intersects(wall.getHitBox())) {
+								stopU = true;
+							}
+	
+							
 							
 							break;		// what does this break do?
 						}

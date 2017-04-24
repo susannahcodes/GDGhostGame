@@ -429,7 +429,8 @@ public class Beta extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemyMoveCounter+=1;
+							//enemyMoveCounter+=1;
+							enemyMoveCounter+=5;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -482,7 +483,8 @@ public class Beta extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemyMoveCounter2+=1;
+							//enemyMoveCounter2+=1;
+							enemyMoveCounter2+=5;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
 							
@@ -543,7 +545,14 @@ public class Beta extends Game {
 							}
 							
 							if(wallB-marioT>=0 && marioT>wallT){
-								stopU = true;
+								//stopU = true;
+							}
+							
+							// ATTEMPTING TO FIX COLLISION
+							if(wallB-marioT>=0 && marioT>wallT){
+								if ( !(wallL >= marioR) ||  !(wallR <= marioL) ) {
+									stopU = true;
+								}
 							}
 							
 							/*** experimental fixes to the ghost "sticking on walls (that so far were unsuccessful...) ***/
