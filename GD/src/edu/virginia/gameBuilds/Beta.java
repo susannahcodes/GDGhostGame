@@ -580,7 +580,7 @@ public class Beta extends Game {
 						gameWon.setVisible(true);}
 						
 						//pause system here?
-						
+						healthWidth = 0; 
 						switchLevels();
 
 					}
@@ -743,15 +743,6 @@ public class Beta extends Game {
 			beigeCarpet.draw(g);
 			table.draw(g);
 		}
-		g.setColor(Color.blue);
-		//g.drawRect (100, 500, 1000, 20);
-		//g.fillRect(100, 500, 1000, 200);
-		g.setColor(Color.green);//entryway
-		//g.drawRect (100, 197, 500, 303);
-	//	g.fillRect(100, 197, 500, 303);
-		g.setColor(Color.orange);//leftroom
-		//g.drawRect (600, 197, 500, 303);
-		//g.fillRect(600, 197, 500, 303);
 		if (fruit != null) {
 			fruit.draw(g);
 			//wall.draw(g);
@@ -838,11 +829,8 @@ public class Beta extends Game {
 		
 
 		public static void main(String[] args) {
-
-	
 			Game game = new Beta();
 			currentGame = game;
-			
 			currentGame.start();
 		}
 	
