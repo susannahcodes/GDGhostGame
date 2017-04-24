@@ -167,7 +167,6 @@ public class Beta extends Game {
 			public static boolean atLevelThree = false;
 			public static Game currentGame;
 	
-	
 
 
 	public Beta() {
