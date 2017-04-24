@@ -91,8 +91,9 @@ public class Beta extends Game {
 	private int dx = 4;
 	private int dy = 4;
 	
+	private boolean ghostAbilities = false;			// when true, the ghost can float thru walls and hide from the owner, but NOT pick up fruit
+	private boolean solidEnough = false;				// when true, the ghost can pick up fruit but NOT float thru walls nor hide
 	
-	private boolean ghostAbilities = false;
 	private boolean collisionOccured = false;
 	private boolean stopR = false;
 	private boolean stopL = false;
@@ -534,41 +535,25 @@ public class Beta extends Game {
 							
 							double wallL = wall.getXPos();
 
-							if(marioR - wallL >=0 && marioL<wcenterx){		
+							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
 								stopR = true;
+								System.out.println("right collision");
 							}
-							if(wallR-marioL>=0 && marioL>wcenterx){
+							
+							if(ghost.getLeftHitBox().intersects(wall.getHitBox())){
 								stopL=true;
+								System.out.println("left collision");
 							}
-							if(marioB - wallT>=0 && marioB<wallB){
+							
+
+							if ( ghost.getBottomHitBox().intersects(wall.getHitBox()) ) {
 								stopD = true;
 							}
-							
-							if(wallB-marioT>=0 && marioT>wallT){
-								//stopU = true;
+
+							if ( ghost.getTopHitBox().intersects(wall.getHitBox()) ) {
+								stopU = true;
 							}
-							
-							// ATTEMPTING TO FIX COLLISION
-							if(wallB-marioT>=0 && marioT>wallT){
-								if ( !(wallL >= marioR) ||  !(wallR <= marioL) ) {
-									stopU = true;
-								}
-							}
-							
-							/*** experimental fixes to the ghost "sticking on walls (that so far were unsuccessful...) ***/
-							/*if(wallB-marioT>=0 && marioT>wallT){
-								if (!stopR && !stopD) {
-									stopU = true;
-								}
-							}*/
-							/*
-							if ( wallB - marioT >= 0 ) {									// check to see if collision is occurring when ghost wants to go up
-								if ( (wallL >= marioL && wallR <= marioR) || (wallL <= marioL && wallR >= marioR) ) {	// if wall is directly above ghost, stop movement
-									stopU = true;
-								}
-							}*/
-							/***************/
-							
+
 							break;		// what does this break do?
 						}
 					}
@@ -682,30 +667,6 @@ public class Beta extends Game {
 							ghost.setXPos(ghost.getXPos() - dx);
 					}
 					
-					/******* this allows the ghost to become invisible *****/
-					/*
-					if (pressedKeys.contains(KeyEvent.getKeyText(71))) {
-						if(zPress == false){
-							zPress = true;
-
-							if(ghostAbilities==false ){
-								float newAlpha = (float) (0.2);
-								ghost.setTrans(newAlpha);
-							}
-							
-							if (ghostAbilities==true ) {
-								float newAlpha = (float) (0.9f);
-								ghost.setTrans(newAlpha);
-							}
-							ghostAbilities = !ghostAbilities;
-						}
-					}
-					
-					if (pressedKeys.contains(KeyEvent.getKeyText(71))==false){
-						zPress = false;
-					}	
-					*/
-					
 					/******************* TAPPING AND VISIBILITY ****************/
 					if (!transKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(88))) {		//checks to see if key has been tapped.
 						if ( ghost.getTrans()-deltaAlpha > 0.0f ) {
@@ -729,15 +690,21 @@ public class Beta extends Game {
 						visibleKeyTapped = false;
 					}
 					
-					// NEED TO FIX THIS SO THERE IS AN IN-BETWEEN STATE WHERE THE GHOST CAN NOT FLOAT
-					// THROUGH WALLS NOR CAN IT COLLECT FRUIT:
 					if ( ghost.getTrans() >=  1.0f - deltaAlpha) {
 						ghostAbilities = false;
+						solidEnough = true;
+					}
+					
+					if ( (0.0f + deltaAlpha < ghost.getTrans()) && (ghost.getTrans() < 1.0f - deltaAlpha) ) {
+						ghostAbilities = false;
+						solidEnough = false;
 					}
 					
 					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
 						ghostAbilities = true;
+						solidEnough = false;
 					}
+
 
 					/***********************************/
 

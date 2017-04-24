@@ -27,6 +27,7 @@ public class ghostSprite extends Sprite implements IEventListener {
 		int frame = 0;
 		subWidth = super.getUnscaledWidth()/2;
 		subHeight = super.getUnscaledHeight()/3;
+		
 		topHitBox = new Rectangle();			// this is to detect collisions from the top
 		bottomHitBox = new Rectangle();	
 		leftHitBox = new Rectangle();	
@@ -104,12 +105,12 @@ public class ghostSprite extends Sprite implements IEventListener {
 	}
 	
 	public Rectangle getLeftHitBox() {
-		//this.leftHitBox.setBounds((int)this.getXPos()+35, (int) this.getYPos()-5, subWidth -70, 50);
+		this.leftHitBox.setBounds((int)this.getXPos()+10, (int) this.getYPos()+35, 50, subHeight-70);
 		return leftHitBox;
 	}
 	
 	public Rectangle getRightHitBox() {
-		//this.rightHitBox.setBounds((int)this.getXPos()+35, (int) this.getYPos()-5, subWidth -70, 50);
+		this.rightHitBox.setBounds((int)this.getXPos()+subWidth-50, (int) this.getYPos()+35, 50, subHeight-70);
 		return rightHitBox;
 	}
 
