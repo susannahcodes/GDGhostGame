@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.LongWallSprite;
 import edu.virginia.engine.display.Sprite;
@@ -45,14 +46,20 @@ class LevelTwo extends Game {
 	Sprite grass = new Sprite("grass", "grass.jpg");
 	Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
+	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 	
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
+	WallSprite topHallway = new WallSprite("topHallway"); 
+	
+
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
+	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
+	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");
 	
 	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
 	VertWallSprite lowerRight = new VertWallSprite("lowerRight");
@@ -272,6 +279,24 @@ class LevelTwo extends Game {
 		//vwall3.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
 		vwall3.setYPos(500-vwall.getScaledHeight());
 		vwall3.addEventListener(myQuestManager, null);
+
+		
+		
+		
+/**NEW WALLS HERE ************/		
+		longHallwayRight.setXPos(1300);
+		longHallwayRight.setYPos(-275);
+		longHallwayRight.setYScale(6.3);
+		
+		topHallway.setXPos(957);
+		topHallway.setYPos(-300);
+		topHallway.setXScale(2.5);
+		
+		upperRightHallway.setXPos(1063);
+		upperRightHallway.setYPos(-150);
+		upperRightHallway.setYScale(2);		
+		
+		
 		
 		//wall.setXPos(300);
 		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
@@ -403,7 +428,13 @@ class LevelTwo extends Game {
 		 * 	it doesn't truly affect the game but it gives us a lot of error warnings in the console
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
-		
+
+		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (camera.getXPos() > offsetMaxX){camera.setXPos(offsetMaxX);}
+		else if (camera.getXPos() < offsetMinX) {camera.setXPos(offsetMinX);}
+		if (camera.getYPos() > offsetMaxY) {camera.setYPos(offsetMaxY);}
+		else if (camera.getXPos() < offsetMinY){camera.setYPos(offsetMinY);}
 		super.update(pressedKeys);
 
 		if (ghost != null) {
@@ -641,22 +672,22 @@ class LevelTwo extends Game {
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
-						if ( !(ghost.getYPos() - dy < -20) && stopU==false)
+						//if ( !(ghost.getYPos() - dy < -20) && stopU==false)
 							ghost.setYPos(ghost.getYPos()-dy);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
-						if ( !(ghost.getYPos() + dy > this.getScenePanel().getHeight() - 20) && stopD==false)
+						//if ( !(ghost.getYPos() + dy > this.getScenePanel().getHeight() - 20) && stopD==false)
 							ghost.setYPos(ghost.getYPos() + dy);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
-						if ( !(ghost.getXPos() + dx > this.getScenePanel().getWidth() - 60) && stopR==false)
+						//if ( !(ghost.getXPos() + dx > this.getScenePanel().getWidth() - 60) && stopR==false)
 							ghost.setXPos(ghost.getXPos() + dx);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
-						if ( !(ghost.getXPos() - dx < -20) && stopL==false)
+						//if ( !(ghost.getXPos() - dx < -20) && stopL==false)
 							ghost.setXPos(ghost.getXPos() - dx);
 					}
 					
@@ -753,6 +784,7 @@ class LevelTwo extends Game {
 	 * */
 	@Override
 	public void draw(Graphics g) {
+		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		super.draw(g);
 		if (grass != null && sky != null) {
 			grass.draw(g);
@@ -766,11 +798,9 @@ class LevelTwo extends Game {
 			table.draw(g);
 		}
 		g.setColor(Color.blue);
-		//g.drawRect (100, 500, 1000, 20);
-		//g.fillRect(100, 500, 1000, 200);
+		g.fillRect (1100, -300, 230, 1000);
 		g.setColor(Color.green);//entryway
-		//g.drawRect (100, 197, 500, 303);
-	//	g.fillRect(100, 197, 500, 303);
+		g.fillRect(600, -300, 500, 480);
 		g.setColor(Color.orange);//leftroom
 		//g.drawRect (600, 197, 500, 303);
 		//g.fillRect(600, 197, 500, 303);
@@ -807,12 +837,15 @@ class LevelTwo extends Game {
 		if (enemy != null) {
 			enemy.draw(g);
 		}
-		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null) {
+		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null) {
 			lowerLeft.draw(g);
 			lowerRight.draw(g);
 			rightTop.draw(g);
 			leftBottom.draw(g);
 			rightBottom.draw(g);
+			longHallwayRight.draw(g);
+			topHallway.draw(g);
+			upperRightHallway.draw(g);
 		}
 
 		
