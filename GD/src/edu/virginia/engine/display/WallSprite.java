@@ -6,7 +6,7 @@ import edu.virginia.engine.events.IEventListener;
 public class WallSprite extends Sprite {
 
 	public WallSprite(String id) {
-		super(id, "platform.png");
+		super(id, "platform.jpg");
 		//super.setXScale(1.5);
 		//super.setYScale(.1);
 	}

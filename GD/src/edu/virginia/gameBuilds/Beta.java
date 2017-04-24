@@ -464,6 +464,7 @@ public class Beta extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
+							enemy.setXScale(1);
 							//enemyMoveCounter+=1;
 							enemyMoveCounter+=5;		// increases the owner's speed
 						}
@@ -473,6 +474,7 @@ public class Beta extends Game {
 //							System.out.println("count: " + enemyMoveCounter);
 //							System.out.println("fPath size: " + fPath1.size());
 							//path1Completed = true;
+							enemy.setXScale(-1);
 							
 							enemyMoveCounter=1;
 							//switchPath();
