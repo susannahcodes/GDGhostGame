@@ -36,6 +36,7 @@ class LevelThree extends Game {
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
 	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
 	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
+	public Rectangle hallway = new Rectangle();
 	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
@@ -65,8 +66,8 @@ class LevelThree extends Game {
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
-	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
-	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");
+	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");    	//use this wall's pos for collision detection
+	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");	//use this wall's pos for collision detection
 	VertWallSprite leftHouseTop = new VertWallSprite("leftHouseTop");
 	VertWallSprite leftSideMiddleRoom = new VertWallSprite("leftSideMiddleRoom");
 	Sprite grass3 = new Sprite("grass2", "grass.jpg");
@@ -359,6 +360,9 @@ class LevelThree extends Game {
 		topRoomBottom.setYPos(-300);
 		topRoomBottom.setXScale(4.7);
 		
+		
+		// FOR COLLSION DETECTION
+		hallway.setBounds( (int) upperRightHallway.getXPos()+15, (int) upperRightHallway.getYPos(), (int)  (upperRightHallway.getXPos()-longHallwayRight.getXPos() - 20), (int) (upperRightHallway.getYPos()-longHallwayRight.getYPos() - 20));
 		
 		
 		//wall.setXPos(300);
@@ -800,6 +804,20 @@ class LevelThree extends Game {
 						}
 					}
 					
+					if ( hallway.intersects(enemy.getHitBox()) && hallway.intersects(ghost.getHitBox()) && !ghostAbilities) {
+						//System.out.println("ENEMY FOUND YOU! GAME OVER");
+						if (!gameWon.isVisible() && gameOverB == false) {
+							try {
+								soundManager.playSoundEffect("caught");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							gameOver.setVisible(true);
+							gameOverB = true;
+						}
+					}
+					
 					if (foodCollected == 2) {
 
 						//System.out.println("A winner is you");
@@ -874,7 +892,8 @@ class LevelThree extends Game {
 					
 					/******************* TAPPING AND VISIBILITY ****************/
 					if (!transKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(88))) {		//checks to see if key has been tapped.
-						if ( ghost.getTrans()-deltaAlpha > 0.0f ) {
+						System.out.println( "ghost trans: " + (ghost.getTrans()-deltaAlpha > 0.0f));
+						if ( ghost.getTrans()-2*deltaAlpha > 0.0f ) {
 							ghost.setTrans(ghost.getTrans()-deltaAlpha);
 						}	
 						transKeyTapped = true;
@@ -905,7 +924,7 @@ class LevelThree extends Game {
 						solidEnough = false;
 					}
 					
-					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
+					if ( ghost.getTrans() <=  0.0f + 2*deltaAlpha) {
 						ghostAbilities = true;
 						solidEnough = false;
 					}

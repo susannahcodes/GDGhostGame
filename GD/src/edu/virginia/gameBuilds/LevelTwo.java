@@ -827,7 +827,7 @@ class LevelTwo extends Game {
 					
 					/******************* TAPPING AND VISIBILITY ****************/
 					if (!transKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(88))) {		//checks to see if key has been tapped.
-						if ( ghost.getTrans()-deltaAlpha > 0.0f ) {
+						if ( ghost.getTrans()-2*deltaAlpha > 0.0f ) {
 							ghost.setTrans(ghost.getTrans()-deltaAlpha);
 						}	
 						transKeyTapped = true;
@@ -858,11 +858,10 @@ class LevelTwo extends Game {
 						solidEnough = false;
 					}
 					
-					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
+					if ( ghost.getTrans() <=  0.0f + 2*deltaAlpha) {
 						ghostAbilities = true;
 						solidEnough = false;
 					}
-
 
 					/***********************************/
 
