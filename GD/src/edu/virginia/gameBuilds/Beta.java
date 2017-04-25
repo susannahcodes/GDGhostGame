@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.LongWallSprite;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.display.VertWallSprite;
@@ -49,6 +50,7 @@ public class Beta extends Game {
 	public int foodCollected = 0;
 	private boolean collected = true;
 	private SoundManager soundManager;
+	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
@@ -160,7 +162,6 @@ public class Beta extends Game {
 	
 	//fields necessary for level switching
 
-
 			//add a new boolean for each new level
 			public static boolean atLevelOne = true;
 			public static boolean atLevelTwo = false;
@@ -250,6 +251,7 @@ public class Beta extends Game {
 		vwall.addEventListener(myQuestManager, null);
 		
 		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
+		System.out.println("vwall2 x pos: " + vwall2.getXPos());
 		vwall2.setYPos(500-vwall.getScaledHeight());
 		vwall2.addEventListener(myQuestManager, null);
 		
@@ -315,19 +317,23 @@ public class Beta extends Game {
 		//room rectangle
 		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
 		
+
 		System.out.println(vwall.getScaledWidth());
 		int wstart = 196-85;
 		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
 		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
+
 			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
+
 		int wstart2 = 196-85;
 		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
 		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
 			for(int x = (int) (545-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
+
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
@@ -451,7 +457,13 @@ public class Beta extends Game {
 		 * 	it doesn't truly affect the game but it gives us a lot of error warnings in the console
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
-		
+
+		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (camera.getXPos() > offsetMaxX){camera.setXPos(offsetMaxX);}
+		else if (camera.getXPos() < offsetMinX) {camera.setXPos(offsetMinX);}
+		if (camera.getYPos() > offsetMaxY) {camera.setYPos(offsetMaxY);}
+		else if (camera.getXPos() < offsetMinY){camera.setYPos(offsetMinY);}
 		super.update(pressedKeys);
 
 		if (ghost != null) {
@@ -519,11 +531,14 @@ public class Beta extends Game {
 //						//System.out.println("PATH ONE COMPLETED");
 //					}
 										
-					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
-
+					for (Sprite wall : collDects ) {			// does code have ability to cycle through every wall object in 1/60 of a second?
+						
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
-
+							
+							collisionOccured = true;
+							
 							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
+								System.out.println("wtf");
 								stopR = true;
 							}
 							
@@ -852,19 +867,13 @@ public class Beta extends Game {
 
 		public static void main(String[] args) {
 
-
-	
 			//Game game = new Beta();
 			Game beta = new Beta();
 			currentGame = beta;
-			
 
 			currentGame.start();
 		}
-
-	
-
-//private GameClock clock2;
 }
+
 
 

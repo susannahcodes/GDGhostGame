@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.LongWallSprite;
 import edu.virginia.engine.display.Sprite;
@@ -33,13 +34,6 @@ class LevelThree extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
-//	public Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
-//	public Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
-//	healthBarSprite healthBar = new healthBarSprite("healthBar");
-//	public int healthWidth = 0;
-//	public int foodCollected = 0;
-//	private boolean collected = true;
-//	private SoundManager soundManager;
 	Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
 	Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
@@ -52,23 +46,34 @@ class LevelThree extends Game {
 	Sprite grass = new Sprite("grass", "grass.jpg");
 	Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
+	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 	
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
+	WallSprite topHallway = new WallSprite("topHallway"); 
+	WallSprite hallwayBottom = new WallSprite("hallwayBottom");
+	WallSprite houseTop = new WallSprite("houseTop");
+	
+
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
+	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
+	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");
+	VertWallSprite leftHouseTop = new VertWallSprite("leftHouseTop");
+	VertWallSprite leftSideMiddleRoom = new VertWallSprite("leftSideMiddleRoom");
+	
+	WallSprite topRoomBottom = new WallSprite ("topRoomBottom");
 	
 	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
-	VertWallSprite lowerRight = new VertWallSprite("lowerRight");
 	LongWallSprite rightTop = new LongWallSprite("rightTop");
 	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom, vwall3));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3));
 	
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
@@ -245,10 +250,7 @@ class LevelThree extends Game {
 		
 		lowerLeft.setXPos(100);
 		lowerLeft.setYPos(400);
-		
-		lowerRight.setXPos(1062);
-		lowerRight.setYPos(400);
-		
+
 		rightTop.setXPos(600);
 		rightTop.setYPos (156);
 		
@@ -279,6 +281,44 @@ class LevelThree extends Game {
 		//vwall3.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
 		vwall3.setYPos(500-vwall.getScaledHeight());
 		vwall3.addEventListener(myQuestManager, null);
+
+		
+		
+		
+/**NEW WALLS HERE ************/		
+		longHallwayRight.setXPos(1300); //extended for level 3
+		longHallwayRight.setYPos(-650);
+		longHallwayRight.setYScale(8.67);
+		
+		topHallway.setXPos(957);
+		topHallway.setYPos(-300);
+		topHallway.setXScale(2.5);
+		
+		upperRightHallway.setXPos(1063);
+		upperRightHallway.setYPos(-150);
+		upperRightHallway.setYScale(2);	
+		
+		hallwayBottom.setXPos(1063);
+		hallwayBottom.setYPos(700);
+		hallwayBottom.setXScale(1.7);
+		
+		houseTop.setXPos(100);
+		houseTop.setYPos(-650);
+		houseTop.setXScale(8);
+		
+		leftHouseTop.setXPos(100);
+		leftHouseTop.setYPos(-650);
+		leftHouseTop.setYScale(2.37);
+		
+		leftSideMiddleRoom.setXPos(567);
+		leftSideMiddleRoom.setYPos(-270);
+		leftSideMiddleRoom.setYScale(2.8);
+		
+		topRoomBottom.setXPos(100);
+		topRoomBottom.setYPos(-300);
+		topRoomBottom.setXScale(4.7);
+		
+		
 		
 		//wall.setXPos(300);
 		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
@@ -410,7 +450,13 @@ class LevelThree extends Game {
 		 * 	it doesn't truly affect the game but it gives us a lot of error warnings in the console
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
-		
+
+		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (camera.getXPos() > offsetMaxX){camera.setXPos(offsetMaxX);}
+		else if (camera.getXPos() < offsetMinX) {camera.setXPos(offsetMinX);}
+		if (camera.getYPos() > offsetMaxY) {camera.setYPos(offsetMaxY);}
+		else if (camera.getXPos() < offsetMinY){camera.setYPos(offsetMinY);}
 		super.update(pressedKeys);
 
 		if (ghost != null) {
@@ -648,22 +694,22 @@ class LevelThree extends Game {
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
-						if ( !(ghost.getYPos() - dy < -20) && stopU==false)
+						//if ( !(ghost.getYPos() - dy < -20) && stopU==false)
 							ghost.setYPos(ghost.getYPos()-dy);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
-						if ( !(ghost.getYPos() + dy > this.getScenePanel().getHeight() - 20) && stopD==false)
+						//if ( !(ghost.getYPos() + dy > this.getScenePanel().getHeight() - 20) && stopD==false)
 							ghost.setYPos(ghost.getYPos() + dy);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
-						if ( !(ghost.getXPos() + dx > this.getScenePanel().getWidth() - 60) && stopR==false)
+						//if ( !(ghost.getXPos() + dx > this.getScenePanel().getWidth() - 60) && stopR==false)
 							ghost.setXPos(ghost.getXPos() + dx);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
-						if ( !(ghost.getXPos() - dx < -20) && stopL==false)
+						//if ( !(ghost.getXPos() - dx < -20) && stopL==false)
 							ghost.setXPos(ghost.getXPos() - dx);
 					}
 					
@@ -760,6 +806,7 @@ class LevelThree extends Game {
 	 * */
 	@Override
 	public void draw(Graphics g) {
+		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		super.draw(g);
 		if (grass != null && sky != null) {
 			grass.draw(g);
@@ -773,11 +820,9 @@ class LevelThree extends Game {
 			table.draw(g);
 		}
 		g.setColor(Color.blue);
-		//g.drawRect (100, 500, 1000, 20);
-		//g.fillRect(100, 500, 1000, 200);
+		g.fillRect (1100, -300, 230, 1000);
 		g.setColor(Color.green);//entryway
-		//g.drawRect (100, 197, 500, 303);
-	//	g.fillRect(100, 197, 500, 303);
+		g.fillRect(600, -300, 500, 480);
 		g.setColor(Color.orange);//leftroom
 		//g.drawRect (600, 197, 500, 303);
 		//g.fillRect(600, 197, 500, 303);
@@ -814,12 +859,19 @@ class LevelThree extends Game {
 		if (enemy != null) {
 			enemy.draw(g);
 		}
-		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null) {
+		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && houseTop != null && leftHouseTop != null && topRoomBottom != null && leftSideMiddleRoom != null) {
 			lowerLeft.draw(g);
-			lowerRight.draw(g);
 			rightTop.draw(g);
 			leftBottom.draw(g);
 			rightBottom.draw(g);
+			longHallwayRight.draw(g);
+			topHallway.draw(g);
+			upperRightHallway.draw(g);
+			hallwayBottom.draw(g);
+			houseTop.draw(g);
+			leftHouseTop.draw(g);
+			topRoomBottom.draw(g);
+			leftSideMiddleRoom.draw(g);
 		}
 
 		
@@ -857,7 +909,7 @@ class LevelThree extends Game {
 				Beta.currentGame.exitGame();
 				Beta.atLevelThree = true;
 				Beta.atLevelTwo = false;
-				Game game = new LevelThree("LevelTwo", 1200, 800);
+				Game game = new LevelThree("LevelThree", 1200, 800);
 				//Game game = new Beta();
 				Beta.currentGame = game;
 				Beta.currentGame.start();
@@ -872,7 +924,7 @@ class LevelThree extends Game {
 
 	
 			//Game game = new Beta();
-			LevelTwo level2 = new LevelTwo("Test", 1200, 800);
+			LevelThree level2 = new LevelThree("Test", 1200, 800);
 			Beta.currentGame = level2;
 			
 			Beta.currentGame.start();
