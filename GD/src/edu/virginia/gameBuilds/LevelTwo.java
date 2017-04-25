@@ -34,8 +34,10 @@ class LevelTwo extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
-	Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
-	Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
+	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
+	
+	// THIS SHOULD MAKE GHOST VISIBLE AT START OF GAME
 	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
@@ -79,7 +81,8 @@ class LevelTwo extends Game {
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3, topHallway, hallwayBottom, leftSideMiddleRoom, 
+																					longHallwayRight, upperRightHallway));
 	
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
@@ -210,9 +213,12 @@ class LevelTwo extends Game {
 	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
 	
 	LevelTwo(String gameId, int width, int height) {
+		
 		super("Level Build", 1200, 800);
 		
 		clock = new GameClock();
+		
+		ghost.setVisible(true);
 		
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
@@ -406,34 +412,71 @@ class LevelTwo extends Game {
 		enemy.setYPos(100);
 		
 		//room rectangle
-		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
+		room1.setBounds(300+vwall.getScaledHeight()+20,500-vwall.getScaledHeight()-20,275,265);
 		
 		System.out.println(vwall.getScaledWidth());
-		int wstart = 196-134;
-		for(int c = wstart; c<=wstart+304+134;c++){	
+//		int wstart = 196-134;
+//		for(int c = wstart; c<=wstart+304+134;c++){	
+//			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+//		
+//		int wstart2 = 197-134;
+//		for(int c = wstart2; c<=wstart2+304+134;c++){	
+//			for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+//		
+//		int wstart3 = 197-134;
+//		for(int c = wstart3; c<=wstart2+304+134;c++){	
+//			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+//		
+//		int wstart4 = 197-wall.getScaledHeight() - 134;
+//		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
+//			for(int x = 350; x<=1176; x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+		
+		
+		int wstart = 196-85;
+		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
 			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
-		
-		int wstart2 = 197-134;
-		for(int c = wstart2; c<=wstart2+304+134;c++){	
-			for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
+
+		int wstart2 = 196-85;
+		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
+			for(int x = (int) (530-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
+
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
-		
-		int wstart3 = 197-134;
-		for(int c = wstart3; c<=wstart2+304+134;c++){	
+		int wstart3 = 196-85;
+		//int wstart3 = 197-134;
+		//for(int c = wstart3; c<=wstart2+304+134;c++){	
+		for(int c = wstart3; c<=wstart2+304+45;c++){	
 			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
 		
-		int wstart4 = 197-wall.getScaledHeight() - 134;
+		int wstart4 = 197-wall.getScaledHeight() - 85;
 		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
 			for(int x = 350; x<=1176; x++){
 				int[] e = new int[]{x,c};
@@ -465,6 +508,49 @@ class LevelTwo extends Game {
 		/*********** end of second path for enemy code *********/
 		
 		//initializeRoute = false;
+		
+		
+		
+		//path one
+				///////////////////////////////////////////////////////
+				path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room2x, room2y-15, room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+				int pLen = path1.size();
+				
+				int q=pLen-1;
+				
+				
+				/** prints the path **/
+				 
+				
+				while(q>=0){
+					Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
+					fPath1.add(temp);
+					q-=1;
+				}
+				
+				//////////////////////////////////////////////////////////
+				
+				
+				//path2
+				/////////////////////////////////////////////////
+				path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+				int pLen2 = path2.size();
+				
+				int q2=pLen2-1;
+				
+				
+				/** prints the path **/
+				
+				while(q2>=0){
+					Cell temp = new Cell(path2.get(q2).i,path2.get(q2).j);
+					fPath2.add(temp);
+					q2-=1;
+				}
+				/////////////////////////////////////////
+		
+		
+		
+		
 	}
 	
 	public void switchPath(){
@@ -535,32 +621,6 @@ class LevelTwo extends Game {
 			
 					if(gtr1 == true){
 	
-						if(room1SetUp==false){
-							ArrayList<Cell> pathT = new ArrayList<Cell>();
-							ArrayList<Cell> fPathT = new ArrayList<Cell>();
-							
-							path1 = pathT;
-							fPath1 = fPathT;
-							
-							path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-							int pLen = path1.size();
-							
-							int q=pLen-1;
-							
-							
-							/** prints the path **/
-							 
-							
-							while(q>=0){
-								Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
-								fPath1.add(temp);
-								q-=1;
-							}
-							//System.out.println("initial size: " + fPath1.size());
-							
-							room1SetUp = true;
-							
-					}
 						
 						if(enemyMoveCounter<fPath1.size()){
 							Cell moveTo = fPath1.get(enemyMoveCounter);
@@ -568,9 +628,9 @@ class LevelTwo extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.setXScale(1);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							//enemyMoveCounter+=1;
-							enemyMoveCounter+=10;		// increases the owner's speed
+							enemyMoveCounter+=2;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -578,12 +638,10 @@ class LevelTwo extends Game {
 //							System.out.println("count: " + enemyMoveCounter);
 //							System.out.println("fPath size: " + fPath1.size());
 							//path1Completed = true;
-							enemy.setXScale(-1);
 							
 							enemyMoveCounter=1;
 							//switchPath();
 							gtr1 = false;
-							room1SetUp = false;
 							gtr2 = true;
 							
 							
@@ -594,29 +652,6 @@ class LevelTwo extends Game {
 					if(gtr2 == true){
 						
 						
-						if(room2SetUp==false){
-							ArrayList<Cell> pathT = new ArrayList<Cell>();
-							ArrayList<Cell> fPathT = new ArrayList<Cell>();
-							
-							path2 = pathT;
-							fPath2 = fPathT;
-							
-							path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-							int pLen = path2.size();
-							
-							int q=pLen-1;
-							
-							
-							/** prints the path **/
-							
-							while(q>=0){
-								Cell temp = new Cell(path2.get(q).i,path2.get(q).j);
-								fPath2.add(temp);
-								q-=1;
-							}
-							room2SetUp = true;
-							
-					}
 						
 						if(enemyMoveCounter2<fPath2.size()){
 							Cell moveTo = fPath2.get(enemyMoveCounter2);
@@ -624,19 +659,20 @@ class LevelTwo extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemyMoveCounter2+=1;
-							enemyMoveCounter2+=5;		// makes the owner move faster
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter2+=2;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
 							
 							
 							enemyMoveCounter2=1;
 							gtr2 = false;
-							room2SetUp = false;
+
 							gtr1 = true;
 						}
 						
 					}
+					
 					
 					juggler.nextFrame();
 					
@@ -646,8 +682,10 @@ class LevelTwo extends Game {
 //					}
 										
 					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
-
+						
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
+							
+							collisionOccured = true;
 
 							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
 								stopR = true;
@@ -757,7 +795,8 @@ class LevelTwo extends Game {
 						else if (cherryCollected == true) {cherryTween.doTween(myQuestManager.tweenComplete);}
 						else if (strawberryCollected == true) {strawberryTween.doTween(myQuestManager.tweenComplete);}
 						else if (bananaCollected == true) {bananaTween.doTween(myQuestManager.tweenComplete);}
-/****** COME BACK TO THIS */
+						
+				/****** COME BACK TO THIS */
 					
 						//questConfirm.setVisible(true);		
 					}
