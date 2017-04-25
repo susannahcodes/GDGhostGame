@@ -40,6 +40,11 @@ class LevelThree extends Game {
 	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
+	 
+	 boolean fruitCollected = false;
+	 boolean strawberryCollected = false;
+	 boolean cherryCollected = false;
+	 boolean bananaCollected = false;
 	 int foodCollected = 0;
 	 boolean collected = true;
 	 Sprite health = new Sprite("health", "health.png");
@@ -61,6 +66,8 @@ class LevelThree extends Game {
 	WallSprite houseTop = new WallSprite("houseTop");
 	Sprite woodFloor2 = new Sprite ("wood", "wood.jpg");
 	Sprite redCarpet = new Sprite ("redCarpet", "redCarpet.jpg");
+	private Sprite strawberry = new Sprite ("strawberry", "strawberry.png");
+	private Sprite banana = new Sprite ("banana", "banana.png");
 	
 
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
@@ -97,6 +104,9 @@ class LevelThree extends Game {
 	//Tween marioTween = new Tween(ghost, new TweenTransition() );
 	Tween fruitTween = new Tween(fruit, new TweenTransition() );
 	Tween cherryTween = new Tween(cherry, new TweenTransition());
+
+	Tween strawberryTween = new Tween(strawberry, new TweenTransition());
+	Tween bananaTween = new Tween(banana, new TweenTransition());
 	
 	TweenJuggler juggler = new TweenJuggler();
 	
@@ -192,6 +202,11 @@ class LevelThree extends Game {
 	boolean gtr2 = false;
 	boolean room2SetUp = false;
 	
+	//boolean trippedCherry = false;
+	boolean trippedStrawberry = false;
+	//boolean trippedFruit = false;
+	boolean trippedBanana = false;
+	
 	
 	int room3x = 800;
 	int room3y = 330;
@@ -229,6 +244,7 @@ class LevelThree extends Game {
 		
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
+		health.setXScale(0.004);
 		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
@@ -378,11 +394,33 @@ class LevelThree extends Game {
 		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
 		cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 		
+		banana.setXScale(0.25);
+		banana.setYScale(0.25);
+		banana.setXPos(730);
+		banana.setYPos(-100);
+		banana.addEventListener(myQuestManager, null);
+		
+		strawberry.setXScale(0.5);
+		strawberry.setYScale(0.5);
+		strawberry.setXPos(1170);
+		strawberry.setYPos(300);
+		strawberry.addEventListener(myQuestManager, null);
+		
+		strawberryTween.addEventListener(myQuestManager, null);
+		strawberryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		bananaTween.addEventListener(myQuestManager, null);
+		bananaTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		
+		
 		
 		
 		//juggler.add(marioTween);
 		juggler.add(fruitTween);
 		juggler.add(cherryTween);
+		juggler.add(strawberryTween);
+		juggler.add(bananaTween);
 		
 		gameOver.setXScale(1.5);
 		gameOver.setYScale(1.5);
@@ -804,6 +842,7 @@ class LevelThree extends Game {
 						}
 					}
 					
+<<<<<<< Updated upstream
 					if ( hallway.intersects(enemy.getHitBox()) && hallway.intersects(ghost.getHitBox()) && !ghostAbilities) {
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
 						if (!gameWon.isVisible() && gameOverB == false) {
@@ -819,6 +858,9 @@ class LevelThree extends Game {
 					}
 					
 					if (foodCollected == 2) {
+=======
+					if (foodCollected == 4) {
+>>>>>>> Stashed changes
 
 						//System.out.println("A winner is you");
 						//winner.setVisible(true);
@@ -852,15 +894,15 @@ class LevelThree extends Game {
 					}
 
 
+
 					if (myQuestManager.questCompleted) {
-						if (collected == true) {
+						if (fruitCollected == true) {
 							
 							fruitTween.doTween(myQuestManager.tweenComplete);
 						}
-						else cherryTween.doTween(myQuestManager.tweenComplete);
-					
-						//questConfirm.setVisible(true);		
-					}
+						else if (cherryCollected == true) {cherryTween.doTween(myQuestManager.tweenComplete);}
+						else if (strawberryCollected == true) {strawberryTween.doTween(myQuestManager.tweenComplete);}
+						else if (bananaCollected == true) {bananaTween.doTween(myQuestManager.tweenComplete);} }
 					
 					if (pressedKeys.contains("Q")) {
 						System.exit(0);
@@ -933,12 +975,12 @@ class LevelThree extends Game {
 					/***********************************/
 
 
-					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
+					if ((ghost.collidesWith(fruit)&& ghostAbilities==false && !gameOver.isVisible())) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
-						collected = true;
+						fruitCollected = true;
 						
-						if (healthWidth < 340 && trippedFruit == false) {
-						healthWidth += 170;
+						if (health.getXScale() <= 2.05 && trippedFruit == false) {
+							health.setXScale(health.getXScale() + 0.4);
 						trippedFruit = true;
 						try {
 							soundManager.playSoundEffect("munch");
@@ -951,10 +993,11 @@ class LevelThree extends Game {
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-					if ((ghost.collidesWith(cherry) && ghostAbilities == false)) {
+					if ((ghost.collidesWith(cherry) && ghostAbilities == false && !gameOver.isVisible())) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
-						if (healthWidth < 340 && trippedCherry == false) {
-							healthWidth += 170; 
+						cherryCollected = true;
+						if (health.getXScale() <= 2.05 && trippedCherry == false) {
+							health.setXScale(health.getXScale() + 0.4);
 							trippedCherry = true;
 							try {
 								soundManager.playSoundEffect("munch");
@@ -968,7 +1011,43 @@ class LevelThree extends Game {
 							cherryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
+					if ((ghost.collidesWith(banana) && ghostAbilities == false && !gameOver.isVisible())) {
+						banana.dispatchEvent(new Event(Event.COIN_PICKED_UP, banana));
+						if (health.getXScale() <= 2.05 &&  trippedBanana == false) {
+							health.setXScale(health.getXScale() + 0.4);
+							bananaCollected = true;
+							trippedBanana = true;
+							try {
+								soundManager.playSoundEffect("munch");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							foodCollected +=1;
+							}
+						collected = false;
+							bananaTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, bananaTween));
+							//makes orange tween even though it's the cherry that's being overlapped
+						}
 					
+					if ((ghost.collidesWith(strawberry) && ghostAbilities == false && !gameOver.isVisible())) {
+						strawberry.dispatchEvent(new Event(Event.COIN_PICKED_UP, strawberry));
+						if (health.getXScale() <= 2.05 && trippedStrawberry == false) {
+							health.setXScale(health.getXScale() + 0.4);
+							strawberryCollected = true;
+							trippedStrawberry = true;
+							try {
+								soundManager.playSoundEffect("munch");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							foodCollected +=1;
+							}
+						collected = false;
+							strawberryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, strawberryTween));
+							//makes orange tween even though it's the cherry that's being overlapped
+						}
 
 				}
 
@@ -1029,8 +1108,17 @@ class LevelThree extends Game {
 			cherry.draw(g);
 		}
 		
+		if (strawberry != null) {
+			strawberry.draw(g);
+		}
+		
+		if (banana != null) {
+			banana.draw(g);
+		}
+		
 		g.setColor(Color.red);
 		g.fillRect(20, 30, healthWidth, 22);
+		health.draw(g);
 		healthBar.draw(g);
 		
 		
@@ -1075,18 +1163,7 @@ class LevelThree extends Game {
 	//Level Switching code
 		//add a new if statment for each new level
 		public void switchLevels(){
-			if(Beta.atLevelOne == true){
-				System.out.println("it should be working");
-				Beta.currentGame.exitGame();
-				Beta.atLevelOne = false;
-				Beta.atLevelTwo = true;
-				//Game game = new LevelTwo();
-				//Beta.currentGame = game;
-				Beta.currentGame.start();
-				
-			}
 			
-			if(Beta.atLevelTwo == true){
 				System.out.println("level 3 entered");
 				Beta.currentGame.exitGame();
 				Beta.atLevelThree = true;
@@ -1096,7 +1173,7 @@ class LevelThree extends Game {
 				Beta.currentGame = game;
 				Beta.currentGame.start();
 				
-			}
+			
 		}
 		
 

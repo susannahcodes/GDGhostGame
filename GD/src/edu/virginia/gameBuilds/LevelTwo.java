@@ -866,7 +866,7 @@ class LevelTwo extends Game {
 					/***********************************/
 
 
-					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
+					if ((ghost.collidesWith(fruit)&& ghostAbilities==false && !gameOver.isVisible())) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						fruitCollected = true;
 						
@@ -884,7 +884,7 @@ class LevelTwo extends Game {
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-					if ((ghost.collidesWith(cherry) && ghostAbilities == false)) {
+					if ((ghost.collidesWith(cherry) && ghostAbilities == false && !gameOver.isVisible())) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						if (health.getXScale() <= 2.05 && trippedCherry == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -903,7 +903,7 @@ class LevelTwo extends Game {
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
-					if ((ghost.collidesWith(banana) && ghostAbilities == false)) {
+					if ((ghost.collidesWith(banana) && ghostAbilities == false && !gameOver.isVisible())) {
 						banana.dispatchEvent(new Event(Event.COIN_PICKED_UP, banana));
 						if (health.getXScale() <= 2.05 &&  trippedBanana == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -922,7 +922,7 @@ class LevelTwo extends Game {
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
-					if ((ghost.collidesWith(strawberry) && ghostAbilities == false)) {
+					if ((ghost.collidesWith(strawberry) && ghostAbilities == false && !gameOver.isVisible())) {
 						strawberry.dispatchEvent(new Event(Event.COIN_PICKED_UP, strawberry));
 						if (health.getXScale() <= 2.05 && trippedStrawberry == false) {
 							health.setXScale(health.getXScale() + 0.4);
