@@ -302,38 +302,47 @@ public class Beta extends Game {
 		
 		//enemy code
 		enemy.setTrans(1.0f);
-		enemy.setXPos(800);
-		enemy.setYPos(100);
+		//changed this to start in room 1
+//		enemy.setXPos(800);
+//		enemy.setYPos(100);
+		
+		enemy.setXPos(room2x);
+		enemy.setYPos(room2y-15);
+
+		//
+		
 		
 		//room rectangle
 		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
 		
 		System.out.println(vwall.getScaledWidth());
-		int wstart = 196-134;
-		for(int c = wstart; c<=wstart+304+134;c++){	
+		int wstart = 196-85;
+		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
 			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
-		
-		int wstart2 = 197-134;
-		for(int c = wstart2; c<=wstart2+304+134;c++){	
-			for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
+		int wstart2 = 196-85;
+		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
+			for(int x = (int) (545-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
-		
-		int wstart3 = 197-134;
-		for(int c = wstart3; c<=wstart2+304+134;c++){	
+		int wstart3 = 196-85;
+		//int wstart3 = 197-134;
+		//for(int c = wstart3; c<=wstart2+304+134;c++){	
+		for(int c = wstart3; c<=wstart2+304+45;c++){	
 			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
 			}
 		}
 		
-		int wstart4 = 197-wall.getScaledHeight() - 134;
+		int wstart4 = 197-wall.getScaledHeight() - 85;
 		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
 			for(int x = 350; x<=1176; x++){
 				int[] e = new int[]{x,c};
@@ -362,9 +371,63 @@ public class Beta extends Game {
 //		}
 		room2.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());		// ahhh idk what im doing
 		
+		
+		//path one
+		///////////////////////////////////////////////////////
+		path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room2x, room2y-15, room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		int pLen = path1.size();
+		
+		int q=pLen-1;
+		
+		
+		/** prints the path **/
+		 
+		
+		while(q>=0){
+			Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
+			fPath1.add(temp);
+			q-=1;
+		}
+		
+		//////////////////////////////////////////////////////////
+		
+		
+		//path2
+		/////////////////////////////////////////////////
+		path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		int pLen2 = path2.size();
+		
+		int q2=pLen2-1;
+		
+		
+		/** prints the path **/
+		
+		while(q2>=0){
+			Cell temp = new Cell(path2.get(q2).i,path2.get(q2).j);
+			fPath2.add(temp);
+			q2-=1;
+		}
+		/////////////////////////////////////////
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/*********** end of second path for enemy code *********/
 		
-		//initializeRoute = false;
+		
 	}
 	
 	public void switchPath(){
@@ -397,32 +460,6 @@ public class Beta extends Game {
 			
 					if(gtr1 == true){
 	
-						if(room1SetUp==false){
-							ArrayList<Cell> pathT = new ArrayList<Cell>();
-							ArrayList<Cell> fPathT = new ArrayList<Cell>();
-							
-							path1 = pathT;
-							fPath1 = fPathT;
-							
-							path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-							int pLen = path1.size();
-							
-							int q=pLen-1;
-							
-							
-							/** prints the path **/
-							 
-							
-							while(q>=0){
-								Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
-								fPath1.add(temp);
-								q-=1;
-							}
-							//System.out.println("initial size: " + fPath1.size());
-							
-							room1SetUp = true;
-							
-					}
 						
 						if(enemyMoveCounter<fPath1.size()){
 							Cell moveTo = fPath1.get(enemyMoveCounter);
@@ -444,7 +481,6 @@ public class Beta extends Game {
 							enemyMoveCounter=1;
 							//switchPath();
 							gtr1 = false;
-							room1SetUp = false;
 							gtr2 = true;
 							
 							
@@ -455,29 +491,6 @@ public class Beta extends Game {
 					if(gtr2 == true){
 						
 						
-						if(room2SetUp==false){
-							ArrayList<Cell> pathT = new ArrayList<Cell>();
-							ArrayList<Cell> fPathT = new ArrayList<Cell>();
-							
-							path2 = pathT;
-							fPath2 = fPathT;
-							
-							path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-							int pLen = path2.size();
-							
-							int q=pLen-1;
-							
-							
-							/** prints the path **/
-							
-							while(q>=0){
-								Cell temp = new Cell(path2.get(q).i,path2.get(q).j);
-								fPath2.add(temp);
-								q-=1;
-							}
-							room2SetUp = true;
-							
-					}
 						
 						if(enemyMoveCounter2<fPath2.size()){
 							Cell moveTo = fPath2.get(enemyMoveCounter2);
@@ -493,7 +506,7 @@ public class Beta extends Game {
 							
 							enemyMoveCounter2=1;
 							gtr2 = false;
-							room2SetUp = false;
+
 							gtr1 = true;
 						}
 						
