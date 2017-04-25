@@ -124,7 +124,7 @@ public class Beta extends Game {
 	
 	private boolean path1Completed = false;
 	
-	public int room1x = 400;
+	public int room1x = 300;
 	public int room1y = 275;
 
 	
@@ -318,7 +318,6 @@ public class Beta extends Game {
 		int wstart = 196-85;
 		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
 		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
-
 			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
@@ -328,7 +327,7 @@ public class Beta extends Game {
 		int wstart2 = 196-85;
 		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
 		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
-			for(int x = (int) (545-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
+			for(int x = (int) (530-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
 
 				int[] e = new int[]{x,c};
 				blockedList.add(e);
@@ -534,7 +533,6 @@ public class Beta extends Game {
 							collisionOccured = true;
 							
 							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
-								System.out.println("wtf");
 								stopR = true;
 							}
 							
@@ -837,7 +835,7 @@ public class Beta extends Game {
 				currentGame.exitGame();
 				atLevelOne = false;
 				atLevelTwo = true;
-				Game game = new Beta();
+				Game game = new LevelTwo("Level 2", 1200, 800);
 				currentGame = game;
 				currentGame.start();
 				
