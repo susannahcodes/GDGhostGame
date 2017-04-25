@@ -43,8 +43,8 @@ public class Beta extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
-	public Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
-	public Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
+	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	public int healthWidth = 0;
 	public int foodCollected = 0;
@@ -311,8 +311,8 @@ public class Beta extends Game {
 		
 		
 		//room rectangle
-		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
-		
+		room1.setBounds(300+vwall.getScaledHeight()+20,500-vwall.getScaledHeight()-20,275,265);
+		//System.out.println("room1 rectangle: " + room1);
 
 		System.out.println(vwall.getScaledWidth());
 		int wstart = 196-85;

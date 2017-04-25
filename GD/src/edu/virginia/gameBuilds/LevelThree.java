@@ -34,8 +34,9 @@ class LevelThree extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
-	Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
-	Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
+	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
+	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
 	 int foodCollected = 0;
@@ -407,7 +408,7 @@ class LevelThree extends Game {
 		enemy.setYPos(room2y-15);
 		
 		//room rectangle
-		room1.setBounds(300+vwall.getScaledHeight(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth()),vwall.getScaledHeight());
+		room1.setBounds(300+vwall.getScaledHeight()+20,500-vwall.getScaledHeight()-20,275,265);
 
 		int wstart = 196-85;
 		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
@@ -620,7 +621,7 @@ class LevelThree extends Game {
 							enemy.setYPos(ym);
 							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							//enemyMoveCounter+=1;
-							enemyMoveCounter+=1;		// increases the owner's speed
+							enemyMoveCounter+=3;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -651,7 +652,7 @@ class LevelThree extends Game {
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
 							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter2+=1;		// makes the owner move faster
+							enemyMoveCounter2+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
 							
@@ -677,7 +678,7 @@ class LevelThree extends Game {
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
 							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter3+=1;		// makes the owner move faster
+							enemyMoveCounter3+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter3>=fPath3.size()){
 							
@@ -703,7 +704,7 @@ class LevelThree extends Game {
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
 							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter4+=1;		// makes the owner move faster
+							enemyMoveCounter4+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter4>=fPath4.size()){
 							
@@ -729,6 +730,8 @@ class LevelThree extends Game {
 					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
 
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
+							
+							collisionOccured = true;
 
 							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
 								stopR = true;
