@@ -56,6 +56,8 @@ class LevelThree extends Game {
 	WallSprite topHallway = new WallSprite("topHallway"); 
 	WallSprite hallwayBottom = new WallSprite("hallwayBottom");
 	WallSprite houseTop = new WallSprite("houseTop");
+	Sprite woodFloor2 = new Sprite ("wood", "wood.jpg");
+	Sprite redCarpet = new Sprite ("redCarpet", "redCarpet.jpg");
 	
 
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
@@ -229,6 +231,19 @@ class LevelThree extends Game {
 		grass.setXPos(0);
 		grass2.setYPos(-800);
 		grass3.setYPos(-1400);
+		
+		woodFloor2.setXPos(1060);
+		woodFloor2.setYPos(-300);
+		//woodFloor2.setRotation(1.57);
+		woodFloor2.setXScale(0.9);
+		woodFloor2.setYScale(2.4);
+		
+		
+
+		redCarpet.setXPos(600);
+		redCarpet.setYPos(-300);
+		redCarpet.setYScale(1.53);
+		redCarpet.setXScale(1.53);
 		
 		
 		woodFloor.setXPos(250);
@@ -911,17 +926,19 @@ class LevelThree extends Game {
 			grass3.draw(g);
 		}
 
-		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
+		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null && redCarpet != null && woodFloor2 != null) {
 			woodFloor.draw(g);
 			greyCarpet.draw(g);
 			beigeCarpet.draw(g);
+			redCarpet.draw(g);
+			woodFloor2.draw(g);
 			table.draw(g);
 		}
-		g.setColor(Color.blue);
-		g.fillRect (1100, -300, 230, 1000);
-		g.setColor(Color.green);//entryway
-		g.fillRect(600, -300, 500, 480);
-		g.setColor(Color.orange);//leftroom
+//		g.setColor(Color.blue);
+//		g.fillRect (1100, -300, 230, 1000);
+//		g.setColor(Color.green);//entryway
+//		g.fillRect(600, -300, 500, 480);
+//		g.setColor(Color.orange);//leftroom
 		//g.drawRect (600, 197, 500, 303);
 		//g.fillRect(600, 197, 500, 303);
 		if (fruit != null) {
@@ -996,8 +1013,8 @@ class LevelThree extends Game {
 				Beta.currentGame.exitGame();
 				Beta.atLevelOne = false;
 				Beta.atLevelTwo = true;
-				Game game = new Beta();
-				Beta.currentGame = game;
+				//Game game = new LevelTwo();
+				//Beta.currentGame = game;
 				Beta.currentGame.start();
 				
 			}
