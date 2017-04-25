@@ -44,6 +44,7 @@ class LevelTwo extends Game {
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
 	Sprite grass = new Sprite("grass", "grass.jpg");
+	Sprite grass2 = new Sprite("grass2", "grass.jpg");
 	Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
 	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
@@ -203,13 +204,14 @@ class LevelTwo extends Game {
 		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
-		grass.setYPos(400);
+		grass.setYPos(0);
 		grass.setXPos(0);
-		grass.setXScale(0.75);
-		grass.setYScale(0.25);
-		sky.setYScale(0.5);
-		sky.setXScale(0.9);
-		sky.setYPos(0);
+		grass2.setYPos(-800);
+		//grass.setXScale(0.75);
+		//grass.setYScale(0.25);
+		//sky.setYScale(0.5);
+		//sky.setXScale(0.9);
+		//sky.setYPos(0);
 		
 		woodFloor.setXPos(250);
 		woodFloor.setYPos(450);
@@ -795,9 +797,10 @@ class LevelTwo extends Game {
 	public void draw(Graphics g) {
 		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		super.draw(g);
-		if (grass != null && sky != null) {
+		if (grass != null && grass2 != null) {
 			grass.draw(g);
-			sky.draw(g);
+			grass2.draw(g);
+			//sky.draw(g);
 		}
 
 		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {

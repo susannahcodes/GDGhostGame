@@ -181,13 +181,9 @@ public class Beta extends Game {
 		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
-		grass.setYPos(400);
+		grass.setYPos(0);
 		grass.setXPos(0);
-		grass.setXScale(0.75);
-		grass.setYScale(0.25);
-		sky.setYScale(0.5);
-		sky.setXScale(0.9);
-		sky.setYPos(0);
+		//sky.setYPos(0);
 		
 		woodFloor.setXPos(250);
 		woodFloor.setYPos(450);
@@ -750,7 +746,6 @@ public class Beta extends Game {
 		super.draw(g);
 		if (grass != null && sky != null) {
 			grass.draw(g);
-			sky.draw(g);
 		}
 
 		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
