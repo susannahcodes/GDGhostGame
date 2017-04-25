@@ -179,13 +179,13 @@ public class AStar {
            
            AStar(); 
            //System.out.println("\nScores for cells: ");
-           for(int i=0;i<x;++i){
-               for(int j=0;j<x;++j){
-                   //if(grid[i][j]!=null)System.out.printf("%-3d ", grid[i][j].finalCost);
-                   //else System.out.print("BL  ");
-               }
-               //System.out.println();
-           }
+//           for(int i=0;i<x;++i){
+//               for(int j=0;j<x;++j){
+//                   //if(grid[i][j]!=null)System.out.printf("%-3d ", grid[i][j].finalCost);
+//                   //else System.out.print("BL  ");
+//               }
+//               //System.out.println();
+//           }
           // System.out.println();
             
            if(closed[endI][endJ]){

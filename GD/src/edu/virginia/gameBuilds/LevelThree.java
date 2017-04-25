@@ -69,13 +69,12 @@ class LevelThree extends Game {
 	WallSprite topRoomBottom = new WallSprite ("topRoomBottom");
 	
 	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
-	VertWallSprite lowerRight = new VertWallSprite("lowerRight");
 	LongWallSprite rightTop = new LongWallSprite("rightTop");
 	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom, vwall3));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3));
 	
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
@@ -249,10 +248,7 @@ class LevelThree extends Game {
 		
 		lowerLeft.setXPos(100);
 		lowerLeft.setYPos(400);
-		
-		lowerRight.setXPos(1062);
-		lowerRight.setYPos(400);
-		
+
 		rightTop.setXPos(600);
 		rightTop.setYPos (156);
 		
@@ -861,9 +857,8 @@ class LevelThree extends Game {
 		if (enemy != null) {
 			enemy.draw(g);
 		}
-		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && houseTop != null && leftHouseTop != null && topRoomBottom != null && leftSideMiddleRoom != null) {
+		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && houseTop != null && leftHouseTop != null && topRoomBottom != null && leftSideMiddleRoom != null) {
 			lowerLeft.draw(g);
-			lowerRight.draw(g);
 			rightTop.draw(g);
 			leftBottom.draw(g);
 			rightBottom.draw(g);
