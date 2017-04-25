@@ -831,16 +831,13 @@ public class Beta extends Game {
 	//Level Switching code
 		//add a new if statment for each new level
 		public void switchLevels(){
-			if(atLevelOne == true){
 				System.out.println("Switch to Level2");
 				currentGame.exitGame();
-				atLevelOne = false;
-				atLevelTwo = true;
 				Game game = new LevelTwo("Level 2", 1200, 800);
-				currentGame = game;
+				//currentGame = game;
 				currentGame.start();
 				
-			}
+			
 			
 		}
 
@@ -851,7 +848,6 @@ public class Beta extends Game {
 			//Game game = new Beta();
 			Game beta = new Beta();
 			currentGame = beta;
-
 			currentGame.start();
 		}
 }

@@ -842,7 +842,7 @@ class LevelThree extends Game {
 						}
 					}
 					
-<<<<<<< Updated upstream
+
 					if ( hallway.intersects(enemy.getHitBox()) && hallway.intersects(ghost.getHitBox()) && !ghostAbilities) {
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
 						if (!gameWon.isVisible() && gameOverB == false) {
@@ -857,10 +857,9 @@ class LevelThree extends Game {
 						}
 					}
 					
-					if (foodCollected == 2) {
-=======
+	
 					if (foodCollected == 4) {
->>>>>>> Stashed changes
+
 
 						//System.out.println("A winner is you");
 						//winner.setVisible(true);
@@ -871,7 +870,7 @@ class LevelThree extends Game {
 						
 						//pause system here?
 						
-						switchLevels();
+						//switchLevels();
 
 					}
 
@@ -1122,10 +1121,6 @@ class LevelThree extends Game {
 		healthBar.draw(g);
 		
 		
-		if (ghost != null) {
-			ghost.draw(g);
-		}
-		
 		if (enemy != null) {
 			enemy.draw(g);
 		}
@@ -1150,6 +1145,9 @@ class LevelThree extends Game {
 				wall.draw(g);
 			}
 		}
+		if (ghost != null) {
+			ghost.draw(g);
+		}
 		
 		if (gameWon != null) {
 			gameWon.draw(g);
@@ -1158,6 +1156,8 @@ class LevelThree extends Game {
 		if (gameOver != null) {
 			gameOver.draw(g);
 		}
+		
+		
 	}
 
 	//Level Switching code

@@ -38,6 +38,7 @@ class LevelTwo extends Game {
 	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
 	
 	// THIS SHOULD MAKE GHOST VISIBLE AT START OF GAME
+	ghostSprite ghost = new ghostSprite("ghost");
 	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
@@ -57,7 +58,7 @@ class LevelTwo extends Game {
 	private Sprite strawberry = new Sprite ("strawberry", "strawberry.png");
 	private Sprite banana = new Sprite ("banana", "banana.png");
 	Sprite sky = new Sprite("sky", "sky.png");
-	ghostSprite ghost = new ghostSprite("ghost");
+	//ghostSprite ghost = new ghostSprite("ghost");
 	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 	
 	WallSprite wall = new WallSprite("testWall");
@@ -216,6 +217,8 @@ class LevelTwo extends Game {
 		
 		super("Level Build", 1200, 800);
 		
+		
+		
 		clock = new GameClock();
 		
 		ghost.setVisible(true);
@@ -228,6 +231,7 @@ class LevelTwo extends Game {
 		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
+		System.out.println("made it");
 		grass.setYPos(0);
 		grass.setXPos(0);
 		grass2.setYPos(-800);
@@ -513,6 +517,7 @@ class LevelTwo extends Game {
 		
 		//path one
 				///////////////////////////////////////////////////////
+				
 				path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room2x, room2y-15, room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 				int pLen = path1.size();
 				
@@ -533,6 +538,7 @@ class LevelTwo extends Game {
 				
 				//path2
 				/////////////////////////////////////////////////
+			
 				path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 				int pLen2 = path2.size();
 				
@@ -567,6 +573,8 @@ class LevelTwo extends Game {
 			gtr1 = true;
 		}
 	}
+	
+	
 
 	public void update(ArrayList<String> pressedKeys) {
 
