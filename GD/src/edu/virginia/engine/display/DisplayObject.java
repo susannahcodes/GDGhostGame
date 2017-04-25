@@ -40,8 +40,8 @@ public class DisplayObject extends EventDispatcher {
 	private double speediness= 0;
 	private DisplayObjectContainer parent;
 	protected Rectangle hitBox = new Rectangle();
-	public int WORLD_SIZE_X = 3600;
-	public int WORLD_SIZE_Y = 2400;
+	public int WORLD_SIZE_X = 1530;
+	public int WORLD_SIZE_Y = 1570;
 	public int VIEWPORT_SIZE_X = 1200;
 	public int VIEWPORT_SIZE_Y = 800;
 	public int offsetMinY = 0;

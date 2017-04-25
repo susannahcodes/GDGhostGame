@@ -694,21 +694,25 @@ class LevelThree extends Game {
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
 						//if ( !(ghost.getYPos() - dy < -20) && stopU==false)
 							ghost.setYPos(ghost.getYPos()-dy);
+							System.out.println("down is: " + ghost.getYPos());
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
 						//if ( !(ghost.getYPos() + dy > this.getScenePanel().getHeight() - 20) && stopD==false)
 							ghost.setYPos(ghost.getYPos() + dy);
+							System.out.println("up is: " + ghost.getYPos());
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
 						//if ( !(ghost.getXPos() + dx > this.getScenePanel().getWidth() - 60) && stopR==false)
 							ghost.setXPos(ghost.getXPos() + dx);
+							System.out.println("right is: " + ghost.getXPos());
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
 						//if ( !(ghost.getXPos() - dx < -20) && stopL==false)
 							ghost.setXPos(ghost.getXPos() - dx);
+							System.out.println("left is: " + ghost.getXPos());
 					}
 					
 					/******************* TAPPING AND VISIBILITY ****************/

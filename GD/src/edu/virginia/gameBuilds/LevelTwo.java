@@ -45,6 +45,7 @@ class LevelTwo extends Game {
 	cherrySprite cherry = new cherrySprite("cherry");
 	Sprite grass = new Sprite("grass", "grass.jpg");
 	Sprite grass2 = new Sprite("grass2", "grass.jpg");
+	Sprite grass3 = new Sprite("grass2", "grass.jpg");
 	Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
 	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
@@ -201,12 +202,14 @@ class LevelTwo extends Game {
 		
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
+		//healthBar.setYPos(ghost.getXPos()- 400);
 		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
 		grass.setYPos(0);
 		grass.setXPos(0);
 		grass2.setYPos(-800);
+		grass3.setYPos(-1400);
 		//grass.setXScale(0.75);
 		//grass.setYScale(0.25);
 		//sky.setYScale(0.5);
@@ -439,7 +442,16 @@ class LevelTwo extends Game {
 		 * 	it doesn't truly affect the game but it gives us a lot of error warnings in the console
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
-
+		healthBar.setXPos((ghost.getXPos() - VIEWPORT_SIZE_X / 2));
+		healthBar.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (healthBar.getXPos() > offsetMaxX){healthBar.setXPos(offsetMaxX);}
+		else if (healthBar.getXPos() < offsetMinX) {healthBar.setXPos(offsetMinX);}
+		if (healthBar.getYPos() > offsetMaxY) {healthBar.setYPos(offsetMaxY);}
+		else if (healthBar.getXPos() < offsetMinY){healthBar.setYPos(offsetMinY);}
+		super.update(pressedKeys);
+		
+		
+		
 		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
 		if (camera.getXPos() > offsetMaxX){camera.setXPos(offsetMaxX);}
@@ -693,8 +705,8 @@ class LevelTwo extends Game {
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
-						//if ( !(ghost.getXPos() + dx > this.getScenePanel().getWidth() - 60) && stopR==false)
-							ghost.setXPos(ghost.getXPos() + dx);
+						//if ( !(ghost.getXPos() + dx > 1200 && stopR==false){
+							ghost.setXPos(ghost.getXPos() + dx); //}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
@@ -797,9 +809,10 @@ class LevelTwo extends Game {
 	public void draw(Graphics g) {
 		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		super.draw(g);
-		if (grass != null && grass2 != null) {
+		if (grass != null && grass2 != null && grass3 != null) {
 			grass.draw(g);
 			grass2.draw(g);
+			grass3.draw(g);
 			//sky.draw(g);
 		}
 
