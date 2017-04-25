@@ -1023,7 +1023,7 @@ class LevelTwo extends Game {
 				Beta.currentGame.exitGame();
 				Beta.atLevelOne = false;
 				Beta.atLevelTwo = true;
-				Game game = new Beta();
+				Game game = new LevelTwo("Level 2", 1200, 800);
 				Beta.currentGame = game;
 				Beta.currentGame.start();
 				
@@ -1034,7 +1034,7 @@ class LevelTwo extends Game {
 				Beta.currentGame.exitGame();
 				Beta.atLevelThree = true;
 				Beta.atLevelTwo = false;
-				Game game = new LevelThree("LevelTwo", 1200, 800);
+				Game game = new LevelThree("LevelThree", 1200, 800);
 				//Game game = new Beta();
 				Beta.currentGame = game;
 				Beta.currentGame.start();
