@@ -767,23 +767,23 @@ class LevelTwo extends Game {
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
-						//if ( !(ghost.getYPos() - dy < -20) && stopU==false)
-							ghost.setYPos(ghost.getYPos()-dy);
+						if ( stopU==false) {
+							ghost.setYPos(ghost.getYPos()-dy);}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
-						//if ( !(ghost.getYPos() + dy > this.getScenePanel().getHeight() - 20) && stopD==false)
-							ghost.setYPos(ghost.getYPos() + dy);
+						if ( stopD==false) {
+							ghost.setYPos(ghost.getYPos() + dy);}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
-						//if ( !(ghost.getXPos() + dx > 1200 && stopR==false){
-							ghost.setXPos(ghost.getXPos() + dx); //}
+						if ( stopR==false){
+							ghost.setXPos(ghost.getXPos() + dx); }
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
-						//if ( !(ghost.getXPos() - dx < -20) && stopL==false)
-							ghost.setXPos(ghost.getXPos() - dx);
+						if (stopL==false) {
+							ghost.setXPos(ghost.getXPos() - dx);}
 					}
 					
 					/******************* TAPPING AND VISIBILITY ****************/
