@@ -53,7 +53,8 @@ class LevelTwo extends Game {
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
 	WallSprite topHallway = new WallSprite("topHallway"); 
-	
+	WallSprite hallwayBottom = new WallSprite("hallwayBottom");
+	VertWallSprite leftSideMiddleRoom = new VertWallSprite("leftSideMiddleRoom");
 
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
@@ -62,13 +63,13 @@ class LevelTwo extends Game {
 	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");
 	
 	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
-	VertWallSprite lowerRight = new VertWallSprite("lowerRight");
+	//VertWallSprite lowerRight = new VertWallSprite("lowerRight");
 	LongWallSprite rightTop = new LongWallSprite("rightTop");
 	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, lowerRight, rightTop, leftBottom, rightBottom, vwall3));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3));
 	
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
@@ -246,8 +247,8 @@ class LevelTwo extends Game {
 		lowerLeft.setXPos(100);
 		lowerLeft.setYPos(400);
 		
-		lowerRight.setXPos(1062);
-		lowerRight.setYPos(400);
+//		lowerRight.setXPos(1062);
+//		lowerRight.setYPos(400);
 		
 		rightTop.setXPos(600);
 		rightTop.setYPos (156);
@@ -288,13 +289,21 @@ class LevelTwo extends Game {
 		longHallwayRight.setYPos(-275);
 		longHallwayRight.setYScale(6.3);
 		
-		topHallway.setXPos(957);
+		leftSideMiddleRoom.setXPos(567);
+		leftSideMiddleRoom.setYPos(-270);
+		leftSideMiddleRoom.setYScale(2.8);
+		
+		topHallway.setXPos(567);
 		topHallway.setYPos(-300);
-		topHallway.setXScale(2.5);
+		topHallway.setXScale(4);
 		
 		upperRightHallway.setXPos(1063);
 		upperRightHallway.setYPos(-150);
-		upperRightHallway.setYScale(2);		
+		upperRightHallway.setYScale(2);	
+	
+		hallwayBottom.setXPos(1063);
+		hallwayBottom.setYPos(700);
+		hallwayBottom.setXScale(1.7);
 		
 		
 		
@@ -837,15 +846,17 @@ class LevelTwo extends Game {
 		if (enemy != null) {
 			enemy.draw(g);
 		}
-		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null) {
+		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && leftSideMiddleRoom != null) {
 			lowerLeft.draw(g);
-			lowerRight.draw(g);
+			//lowerRight.draw(g);
 			rightTop.draw(g);
 			leftBottom.draw(g);
 			rightBottom.draw(g);
 			longHallwayRight.draw(g);
 			topHallway.draw(g);
 			upperRightHallway.draw(g);
+			hallwayBottom.draw(g);
+			leftSideMiddleRoom.draw(g);
 		}
 
 		
