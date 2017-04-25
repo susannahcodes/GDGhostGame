@@ -38,6 +38,7 @@ public class DisplayObject extends EventDispatcher {
 	private double yVel = 0;
 	private double acceleration = 0;
 	private double speediness= 0;
+	
 	private DisplayObjectContainer parent;
 	protected Rectangle hitBox = new Rectangle();
 	public int WORLD_SIZE_X = 1530;

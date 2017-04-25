@@ -36,9 +36,14 @@ class LevelTwo extends Game {
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
 	Rectangle orangeRoom = new Rectangle(600, 197, 500, 303);
 	Rectangle blueRoom = new Rectangle(100, 500, 1000, 20);
+	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
 	 int foodCollected = 0;
+	 boolean fruitCollected = false;
+	 boolean strawberryCollected = false;
+	 boolean cherryCollected = false;
+	 boolean bananaCollected = false;
 	 boolean collected = true;
 	 SoundManager soundManager;
 	fruitSprite fruit = new fruitSprite("fruit");
@@ -46,6 +51,9 @@ class LevelTwo extends Game {
 	Sprite grass = new Sprite("grass", "grass.jpg");
 	Sprite grass2 = new Sprite("grass2", "grass.jpg");
 	Sprite grass3 = new Sprite("grass2", "grass.jpg");
+	Sprite health = new Sprite("health", "health.png");
+	private Sprite strawberry = new Sprite ("strawberry", "strawberry.png");
+	private Sprite banana = new Sprite ("banana", "banana.png");
 	Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
 	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
@@ -77,15 +85,19 @@ class LevelTwo extends Game {
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
 	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
 	Sprite woodFloor = new Sprite ("wood", "wood.jpg");
+	Sprite woodFloor2 = new Sprite ("wood", "wood.jpg");
 	Sprite table = new Sprite ("table", "table.png");
 	Sprite greyCarpet = new Sprite ("greyCarpet", "greyCarpet.png");
 	Sprite beigeCarpet = new Sprite ("beigeCarpet", "beigeCarpet.jpg");
+	Sprite redCarpet = new Sprite ("redCarpet", "redCarpet.jpg");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
 	//Tween marioTween = new Tween(ghost, new TweenTransition() );
 	Tween fruitTween = new Tween(fruit, new TweenTransition() );
 	Tween cherryTween = new Tween(cherry, new TweenTransition());
+	Tween strawberryTween = new Tween(strawberry, new TweenTransition());
+	Tween bananaTween = new Tween(banana, new TweenTransition());
 	
 	TweenJuggler juggler = new TweenJuggler();
 	
@@ -114,7 +126,9 @@ class LevelTwo extends Game {
 //	public boolean trippedCherry = false;
 //	public boolean trippedFruit = false;
 	boolean trippedCherry = false;
+	boolean trippedStrawberry = false;
 	boolean trippedFruit = false;
+	boolean trippedBanana = false;
 	
 	/**** this code for the enemy's movement paths ***/
 //	public int enemyMoveCounter = 1;
@@ -202,6 +216,8 @@ class LevelTwo extends Game {
 		
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
+		health.setXScale(0.004);
+		//health.setXPos(10);
 		//healthBar.setYPos(ghost.getXPos()- 400);
 		//healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
@@ -222,6 +238,13 @@ class LevelTwo extends Game {
 		woodFloor.setXScale(2.3);
 		woodFloor.setYScale(0.7);
 		
+		
+		woodFloor2.setXPos(1060);
+		woodFloor2.setYPos(-300);
+		//woodFloor2.setRotation(1.57);
+		woodFloor2.setXScale(0.9);
+		woodFloor2.setYScale(2.4);
+		
 		greyCarpet.setXPos(600);
 		greyCarpet.setYPos(180);
 		greyCarpet.setYScale(0.67);
@@ -231,6 +254,12 @@ class LevelTwo extends Game {
 		beigeCarpet.setYScale(0.93);
 		beigeCarpet.setXScale(1.2);
 		//beigeCarpet.setYScale(0.67);
+		
+		
+		redCarpet.setXPos(600);
+		redCarpet.setYPos(-300);
+		redCarpet.setYScale(1.53);
+		redCarpet.setXScale(1.53);
 		
 		table.setXPos(700);
 		table.setYPos(325);
@@ -248,6 +277,19 @@ class LevelTwo extends Game {
 		cherry.setXPos(710);
 		cherry.setYPos(310);
 		cherry.addEventListener(myQuestManager, null);
+		
+		strawberry.setXScale(0.5);
+		strawberry.setYScale(0.5);
+		strawberry.setXPos(1170);
+		strawberry.setYPos(300);
+		strawberry.addEventListener(myQuestManager, null);
+		
+		banana.setXScale(0.25);
+		banana.setYScale(0.25);
+		banana.setXPos(730);
+		banana.setYPos(-100);
+		banana.addEventListener(myQuestManager, null);
+		
 		
 		lowerLeft.setXPos(100);
 		lowerLeft.setYPos(400);
@@ -316,20 +358,24 @@ class LevelTwo extends Game {
 		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
 
 		fruitTween.addEventListener(myQuestManager, null);
-		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
-		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
 		fruitTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 		
 		cherryTween.addEventListener(myQuestManager, null);
-		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
-		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
 		cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		strawberryTween.addEventListener(myQuestManager, null);
+		strawberryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		bananaTween.addEventListener(myQuestManager, null);
+		bananaTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 		
 		
 		
 		//juggler.add(marioTween);
 		juggler.add(fruitTween);
 		juggler.add(cherryTween);
+		juggler.add(strawberryTween);
+		juggler.add(bananaTween);
 		
 		gameOver.setXScale(1.5);
 		gameOver.setYScale(1.5);
@@ -450,7 +496,30 @@ class LevelTwo extends Game {
 		else if (healthBar.getXPos() < offsetMinY){healthBar.setYPos(offsetMinY);}
 		super.update(pressedKeys);
 		
+		health.setXPos((ghost.getXPos() - (VIEWPORT_SIZE_X / 2)));
+		health.setYPos((ghost.getYPos() - VIEWPORT_SIZE_Y / 2));
+		if (health.getXPos() > offsetMaxX){health.setXPos(offsetMaxX);}
+		else if (health.getXPos() < offsetMinX) {health.setXPos(offsetMinX);}
+		if (health.getYPos() > offsetMaxY) {health.setYPos(offsetMaxY);}
+		else if (health.getXPos() < offsetMinY){health.setYPos(offsetMinY);}
+		super.update(pressedKeys);
 		
+		
+		gameOver.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		gameOver.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (gameOver.getXPos() > offsetMaxX){gameOver.setXPos(offsetMaxX);}
+		else if (gameOver.getXPos() < offsetMinX) {gameOver.setXPos(offsetMinX);}
+		if (gameOver.getYPos() > offsetMaxY) {gameOver.setYPos(offsetMaxY);}
+		else if (gameOver.getXPos() < offsetMinY){gameOver.setYPos(offsetMinY);}
+		super.update(pressedKeys);
+		
+		gameWon.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		gameWon.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (gameWon.getXPos() > offsetMaxX){gameWon.setXPos(offsetMaxX);}
+		else if (gameWon.getXPos() < offsetMinX) {gameWon.setXPos(offsetMinX);}
+		if (gameWon.getYPos() > offsetMaxY) {gameWon.setYPos(offsetMaxY);}
+		else if (gameWon.getXPos() < offsetMinY){gameWon.setYPos(offsetMinY);}
+		super.update(pressedKeys);
 		
 		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
@@ -646,7 +715,7 @@ class LevelTwo extends Game {
 						}
 					}
 					
-					if (foodCollected == 2) {
+					if (foodCollected == 4) {
 
 						//System.out.println("A winner is you");
 						//winner.setVisible(true);
@@ -681,11 +750,14 @@ class LevelTwo extends Game {
 
 
 					if (myQuestManager.questCompleted) {
-						if (collected == true) {
+						if (fruitCollected == true) {
 							
 							fruitTween.doTween(myQuestManager.tweenComplete);
 						}
-						else cherryTween.doTween(myQuestManager.tweenComplete);
+						else if (cherryCollected == true) {cherryTween.doTween(myQuestManager.tweenComplete);}
+						else if (strawberryCollected == true) {strawberryTween.doTween(myQuestManager.tweenComplete);}
+						else if (bananaCollected == true) {bananaTween.doTween(myQuestManager.tweenComplete);}
+/****** COME BACK TO THIS */
 					
 						//questConfirm.setVisible(true);		
 					}
@@ -758,10 +830,10 @@ class LevelTwo extends Game {
 
 					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
-						collected = true;
+						fruitCollected = true;
 						
-						if (healthWidth < 340 && trippedFruit == false) {
-						healthWidth += 170;
+						if (health.getXScale() <= 2.05 && trippedFruit == false) {
+						health.setXScale(health.getXScale() + 0.4);
 						trippedFruit = true;
 						try {
 							soundManager.playSoundEffect("munch");
@@ -776,8 +848,9 @@ class LevelTwo extends Game {
 					}
 					if ((ghost.collidesWith(cherry) && ghostAbilities == false)) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
-						if (healthWidth < 340 && trippedCherry == false) {
-							healthWidth += 170; 
+						if (health.getXScale() <= 2.05 && trippedCherry == false) {
+							health.setXScale(health.getXScale() + 0.4);
+							cherryCollected = true;
 							trippedCherry = true;
 							try {
 								soundManager.playSoundEffect("munch");
@@ -789,6 +862,44 @@ class LevelTwo extends Game {
 							}
 						collected = false;
 							cherryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
+							//makes orange tween even though it's the cherry that's being overlapped
+						}
+					
+					if ((ghost.collidesWith(banana) && ghostAbilities == false)) {
+						banana.dispatchEvent(new Event(Event.COIN_PICKED_UP, banana));
+						if (health.getXScale() <= 2.05 &&  trippedBanana == false) {
+							health.setXScale(health.getXScale() + 0.4);
+							bananaCollected = true;
+							trippedBanana = true;
+							try {
+								soundManager.playSoundEffect("munch");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							foodCollected +=1;
+							}
+						collected = false;
+							bananaTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, bananaTween));
+							//makes orange tween even though it's the cherry that's being overlapped
+						}
+					
+					if ((ghost.collidesWith(strawberry) && ghostAbilities == false)) {
+						strawberry.dispatchEvent(new Event(Event.COIN_PICKED_UP, strawberry));
+						if (health.getXScale() <= 2.05 && trippedStrawberry == false) {
+							health.setXScale(health.getXScale() + 0.4);
+							strawberryCollected = true;
+							trippedStrawberry = true;
+							try {
+								soundManager.playSoundEffect("munch");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							foodCollected +=1;
+							}
+						collected = false;
+							strawberryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, strawberryTween));
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
@@ -816,16 +927,18 @@ class LevelTwo extends Game {
 			//sky.draw(g);
 		}
 
-		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
+		if (woodFloor != null && woodFloor2 != null && greyCarpet != null && beigeCarpet != null && table != null && redCarpet != null) {
 			woodFloor.draw(g);
+			woodFloor2.draw(g);
 			greyCarpet.draw(g);
 			beigeCarpet.draw(g);
+			redCarpet.draw(g);
 			table.draw(g);
 		}
-		g.setColor(Color.blue);
-		g.fillRect (1100, -300, 230, 1000);
-		g.setColor(Color.green);//entryway
-		g.fillRect(600, -300, 500, 480);
+//		g.setColor(Color.blue);
+//		g.fillRect (1100, -300, 230, 1000);
+//		g.setColor(Color.green);//entryway
+//		g.fillRect(600, -300, 500, 480);
 		g.setColor(Color.orange);//leftroom
 		//g.drawRect (600, 197, 500, 303);
 		//g.fillRect(600, 197, 500, 303);
@@ -850,9 +963,20 @@ class LevelTwo extends Game {
 			cherry.draw(g);
 		}
 		
-		g.setColor(Color.red);
-		g.fillRect(20, 30, healthWidth, 22);
+		if (strawberry != null) {
+			strawberry.draw(g);
+		}
+		
+		if (banana != null) {
+			banana.draw(g);
+		}
+		
+		//g.setColor(Color.red);
+		
+		
+		health.draw(g);
 		healthBar.draw(g);
+		//g.fillRect(20, 30, healthWidth, 22);
 		
 		
 		if (ghost != null) {
