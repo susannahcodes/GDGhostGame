@@ -384,16 +384,16 @@ class LevelThree extends Game {
 		gameOver.setYPos(300);
 		gameOver.setVisible(false);
 		
-		
-		try {
-			soundManager = new SoundManager();
-			soundManager.loadSoundEffect("caught", "resources/caught.wav");
-			soundManager.loadSoundEffect("munch", "resources/munch.wav");
-			soundManager.loadMusic("bgroundmusic", "resources/bground.wav");
-			soundManager.playMusic("bgroundmusic");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		
+//		try {
+//			soundManager = new SoundManager();
+//			soundManager.loadSoundEffect("caught", "resources/caught.wav");
+//			soundManager.loadSoundEffect("munch", "resources/munch.wav");
+//			soundManager.loadMusic("bgroundmusic", "resources/bground.wav");
+//			soundManager.playMusic("bgroundmusic");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		gameWon.setXScale(1.5);
 		gameWon.setYScale(1.5);

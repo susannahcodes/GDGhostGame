@@ -608,7 +608,8 @@ public class Beta extends Game {
 						gameWon.setVisible(true);}
 						
 						//pause system here?
-						healthWidth = 0; 
+						healthWidth = 0;
+						//soundManager.
 						switchLevels();
 
 					}
@@ -633,7 +634,7 @@ public class Beta extends Game {
 
 
 					if (myQuestManager.questCompleted) {
-						if (collected == true) {
+						if (collected == true && !gameOver.isVisible() ) {
 							
 							fruitTween.doTween(myQuestManager.tweenComplete);
 						}
@@ -708,7 +709,7 @@ public class Beta extends Game {
 					/***********************************/
 
 
-					if ((ghost.collidesWith(fruit)&& ghostAbilities==false)) {
+					if ((ghost.collidesWith(fruit)&& ghostAbilities==false && !gameOver.isVisible())) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						collected = true;
 						
@@ -726,7 +727,7 @@ public class Beta extends Game {
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-					if ((ghost.collidesWith(cherry) && ghostAbilities == false)) {
+					if ((ghost.collidesWith(cherry) && ghostAbilities == false  && !gameOver.isVisible())) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						if (healthWidth < 340 && trippedCherry == false) {
 							healthWidth += 170; 
@@ -840,19 +841,6 @@ public class Beta extends Game {
 				currentGame.start();
 				
 			}
-			
-			if(atLevelTwo == true){
-				System.out.println("level 3 entered");
-				currentGame.exitGame();
-				atLevelThree = true;
-				atLevelTwo = false;
-				Game game = new LevelThree("LevelTwo", 1200, 800);
-				//Game game = new Beta();
-				currentGame = game;
-				currentGame.start();
-				
-			}
-			
 			
 		}
 
