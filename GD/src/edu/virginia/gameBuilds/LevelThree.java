@@ -79,7 +79,8 @@ class LevelThree extends Game {
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3));
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3, topHallway, hallwayBottom, leftSideMiddleRoom, 
+																													longHallwayRight, upperRightHallway, wall, wall2, wall3, vwall3, leftHouseTop, leftSideMiddleRoom));
 	
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
