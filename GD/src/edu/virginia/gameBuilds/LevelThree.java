@@ -65,6 +65,7 @@ class LevelThree extends Game {
 	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");
 	VertWallSprite leftHouseTop = new VertWallSprite("leftHouseTop");
 	VertWallSprite leftSideMiddleRoom = new VertWallSprite("leftSideMiddleRoom");
+	Sprite grass3 = new Sprite("grass2", "grass.jpg");
 	
 	WallSprite topRoomBottom = new WallSprite ("topRoomBottom");
 	
@@ -227,6 +228,7 @@ class LevelThree extends Game {
 		grass.setYPos(0);
 		grass.setXPos(0);
 		grass2.setYPos(-800);
+		grass3.setYPos(-1400);
 		
 		
 		woodFloor.setXPos(250);
@@ -906,6 +908,7 @@ class LevelThree extends Game {
 		if (grass != null && grass2 != null) {
 			grass.draw(g);
 			grass2.draw(g);
+			grass3.draw(g);
 		}
 
 		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
