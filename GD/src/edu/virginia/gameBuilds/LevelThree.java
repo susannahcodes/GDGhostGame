@@ -40,6 +40,7 @@ class LevelThree extends Game {
 	 int healthWidth = 0;
 	 int foodCollected = 0;
 	 boolean collected = true;
+	 Sprite health = new Sprite("health", "health.png");
 	 SoundManager soundManager;
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
@@ -85,6 +86,7 @@ class LevelThree extends Game {
 	Sprite woodFloor = new Sprite ("wood", "wood.jpg");
 	Sprite table = new Sprite ("table", "table.png");
 	Sprite greyCarpet = new Sprite ("greyCarpet", "greyCarpet.png");
+	Sprite greyCarpet2 = new Sprite ("greyCarpet", "greyCarpet.png");
 	Sprite beigeCarpet = new Sprite ("beigeCarpet", "beigeCarpet.jpg");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
@@ -255,6 +257,12 @@ class LevelThree extends Game {
 		greyCarpet.setXPos(600);
 		greyCarpet.setYPos(180);
 		greyCarpet.setYScale(0.67);
+		
+		greyCarpet2.setXPos(100);
+		greyCarpet2.setYPos(-650);
+		greyCarpet2.setXScale(2.55);
+		greyCarpet2.setYScale(0.75);
+		
 		
 		beigeCarpet.setXPos(100);
 		beigeCarpet.setYPos(195);
@@ -553,6 +561,41 @@ class LevelThree extends Game {
 		 * 	it doesn't truly affect the game but it gives us a lot of error warnings in the console
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
+		
+		
+		healthBar.setXPos((ghost.getXPos() - VIEWPORT_SIZE_X / 2));
+		healthBar.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (healthBar.getXPos() > offsetMaxX){healthBar.setXPos(offsetMaxX);}
+		else if (healthBar.getXPos() < offsetMinX) {healthBar.setXPos(offsetMinX);}
+		if (healthBar.getYPos() > offsetMaxY) {healthBar.setYPos(offsetMaxY);}
+		else if (healthBar.getXPos() < offsetMinY){healthBar.setYPos(offsetMinY);}
+		super.update(pressedKeys);
+		
+		health.setXPos((ghost.getXPos() - (VIEWPORT_SIZE_X / 2)));
+		health.setYPos((ghost.getYPos() - VIEWPORT_SIZE_Y / 2));
+		if (health.getXPos() > offsetMaxX){health.setXPos(offsetMaxX);}
+		else if (health.getXPos() < offsetMinX) {health.setXPos(offsetMinX);}
+		if (health.getYPos() > offsetMaxY) {health.setYPos(offsetMaxY);}
+		else if (health.getXPos() < offsetMinY){health.setYPos(offsetMinY);}
+		super.update(pressedKeys);
+		
+		
+		gameOver.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		gameOver.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (gameOver.getXPos() > offsetMaxX){gameOver.setXPos(offsetMaxX);}
+		else if (gameOver.getXPos() < offsetMinX) {gameOver.setXPos(offsetMinX);}
+		if (gameOver.getYPos() > offsetMaxY) {gameOver.setYPos(offsetMaxY);}
+		else if (gameOver.getXPos() < offsetMinY){gameOver.setYPos(offsetMinY);}
+		super.update(pressedKeys);
+		
+		gameWon.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		gameWon.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (gameWon.getXPos() > offsetMaxX){gameWon.setXPos(offsetMaxX);}
+		else if (gameWon.getXPos() < offsetMinX) {gameWon.setXPos(offsetMinX);}
+		if (gameWon.getYPos() > offsetMaxY) {gameWon.setYPos(offsetMaxY);}
+		else if (gameWon.getXPos() < offsetMinY){gameWon.setYPos(offsetMinY);}
+		super.update(pressedKeys);
+		
 
 		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
@@ -926,9 +969,10 @@ class LevelThree extends Game {
 			grass3.draw(g);
 		}
 
-		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null && redCarpet != null && woodFloor2 != null) {
+		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null && redCarpet != null && woodFloor2 != null && greyCarpet2 != null) {
 			woodFloor.draw(g);
 			greyCarpet.draw(g);
+			greyCarpet2.draw(g);
 			beigeCarpet.draw(g);
 			redCarpet.draw(g);
 			woodFloor2.draw(g);
