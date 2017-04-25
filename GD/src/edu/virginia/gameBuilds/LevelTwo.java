@@ -295,7 +295,7 @@ class LevelTwo extends Game {
 		
 		topHallway.setXPos(567);
 		topHallway.setYPos(-300);
-		topHallway.setXScale(4);
+		topHallway.setXScale(5.05);
 		
 		upperRightHallway.setXPos(1063);
 		upperRightHallway.setYPos(-150);
