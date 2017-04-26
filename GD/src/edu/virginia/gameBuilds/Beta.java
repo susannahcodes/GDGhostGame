@@ -709,7 +709,7 @@ public class Beta extends Game {
 					/***********************************/
 
 
-					if ((ghost.collidesWith(fruit)&& ghostAbilities==false && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(fruit)&& solidEnough==true && !gameOver.isVisible())) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						collected = true;
 						
@@ -727,7 +727,7 @@ public class Beta extends Game {
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-					if ((ghost.collidesWith(cherry) && ghostAbilities == false  && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(cherry) && solidEnough == true  && !gameOver.isVisible())) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						if (healthWidth < 340 && trippedCherry == false) {
 							healthWidth += 170; 

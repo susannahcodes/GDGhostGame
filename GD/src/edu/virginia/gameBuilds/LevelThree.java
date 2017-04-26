@@ -246,7 +246,6 @@ class LevelThree extends Game {
 		healthBar.setXPos(10);
 		health.setXScale(0.004);
 		//healthBar.setYPos(10);
-		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
 		grass.setYPos(0);
 		grass.setXPos(0);
@@ -934,7 +933,7 @@ class LevelThree extends Game {
 					/******************* TAPPING AND VISIBILITY ****************/
 					if (!transKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(88))) {		//checks to see if key has been tapped.
 						System.out.println( "ghost trans: " + (ghost.getTrans()-deltaAlpha > 0.0f));
-						if ( ghost.getTrans()-2*deltaAlpha > 0.0f ) {
+						if ( ghost.getTrans()-deltaAlpha > 0.0f ) {
 							ghost.setTrans(ghost.getTrans()-deltaAlpha);
 						}	
 						transKeyTapped = true;
@@ -965,7 +964,7 @@ class LevelThree extends Game {
 						solidEnough = false;
 					}
 					
-					if ( ghost.getTrans() <=  0.0f + 2*deltaAlpha) {
+					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
 						ghostAbilities = true;
 						solidEnough = false;
 					}
@@ -973,8 +972,7 @@ class LevelThree extends Game {
 
 					/***********************************/
 
-
-					if ((ghost.collidesWith(fruit)&& ghostAbilities==false && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(fruit)&& solidEnough==true && !gameOver.isVisible())) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						fruitCollected = true;
 						
@@ -992,7 +990,8 @@ class LevelThree extends Game {
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-					if ((ghost.collidesWith(cherry) && ghostAbilities == false && !gameOver.isVisible())) {
+
+					if ((ghost.collidesWith(cherry) && solidEnough==true && !gameOver.isVisible())) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						cherryCollected = true;
 						if (health.getXScale() <= 2.05 && trippedCherry == false) {

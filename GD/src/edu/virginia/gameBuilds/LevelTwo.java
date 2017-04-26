@@ -221,15 +221,12 @@ class LevelTwo extends Game {
 		
 		clock = new GameClock();
 		
-		ghost.setVisible(true);
-		
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
 		health.setXScale(0.004);
 		//health.setXPos(10);
 		//healthBar.setYPos(ghost.getXPos()- 400);
 		//healthBar.setYPos(10);
-		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
 		System.out.println("made it");
 		grass.setYPos(0);
@@ -874,7 +871,8 @@ class LevelTwo extends Game {
 					/***********************************/
 
 
-					if ((ghost.collidesWith(fruit)&& ghostAbilities==false && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(fruit)&& solidEnough==true && !gameOver.isVisible())) {
+
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						fruitCollected = true;
 						
@@ -892,7 +890,8 @@ class LevelTwo extends Game {
 						
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
-					if ((ghost.collidesWith(cherry) && ghostAbilities == false && !gameOver.isVisible())) {
+
+					if ((ghost.collidesWith(cherry) && solidEnough == true && !gameOver.isVisible())) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						if (health.getXScale() <= 2.05 && trippedCherry == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -911,7 +910,8 @@ class LevelTwo extends Game {
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
-					if ((ghost.collidesWith(banana) && ghostAbilities == false && !gameOver.isVisible())) {
+
+					if ((ghost.collidesWith(banana) && solidEnough==true && !gameOver.isVisible())) {
 						banana.dispatchEvent(new Event(Event.COIN_PICKED_UP, banana));
 						if (health.getXScale() <= 2.05 &&  trippedBanana == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -930,7 +930,8 @@ class LevelTwo extends Game {
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
-					if ((ghost.collidesWith(strawberry) && ghostAbilities == false && !gameOver.isVisible())) {
+
+					if ((ghost.collidesWith(strawberry) && solidEnough==true && !gameOver.isVisible())) {
 						strawberry.dispatchEvent(new Event(Event.COIN_PICKED_UP, strawberry));
 						if (health.getXScale() <= 2.05 && trippedStrawberry == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -964,7 +965,12 @@ class LevelTwo extends Game {
 	 * */
 	@Override
 	public void draw(Graphics g) {
-		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
+		
+		/**
+		 * There is no line of code translating it back. Might be part of the issue.
+		 */
+		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());		
+		
 		super.draw(g);
 		if (grass != null && grass2 != null && grass3 != null) {
 			grass.draw(g);
