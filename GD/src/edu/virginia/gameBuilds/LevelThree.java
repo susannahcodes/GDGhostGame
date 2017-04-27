@@ -33,11 +33,16 @@ import edu.virginia.lab1test.AStar.Cell;
 
 class LevelThree extends Game {
 	
-	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
-	 * also sorry for naming them according to their colors since this is all gonna change.... */
-	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
-	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
-	public Rectangle hallway = new Rectangle();
+	/******* these rooms check when the enemy and ghost are in the same room*/
+	Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
+	Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
+	Rectangle leftMiddleRoom = new Rectangle(135, 1015, 435, 265);
+	Rectangle rightMiddleRoom = new Rectangle(620, 1015, 435, 265);
+	Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
+	Rectangle bottomRoom = new Rectangle(130, 1310, 960, 180);
+	
+	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(topRoom, topMiddleRoom, leftMiddleRoom, rightMiddleRoom, 
+																										verticalHallway, bottomRoom));
 	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
@@ -152,7 +157,7 @@ class LevelThree extends Game {
 	int room1y = 275+800; 
 
 	
-	Rectangle room1 = new Rectangle();
+	//Rectangle room1 = new Rectangle();
 	
 	int room2x = 1000;
 	int room2y = 550+800; /***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
@@ -334,12 +339,7 @@ class LevelThree extends Game {
 		topRoomBottom.setXPos(100);
 		topRoomBottom.setYPos(-300 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		topRoomBottom.setXScale(4.7);
-		
-		
-		// FOR COLLSION DETECTION
-		hallway.setBounds( (int) upperRightHallway.getXPos()+15, (int) upperRightHallway.getYPos(), (int)  (upperRightHallway.getXPos()-longHallwayRight.getXPos() - 20), (int) (upperRightHallway.getYPos()-longHallwayRight.getYPos() - 20));
-		
-		
+
 		//wall.setXPos(300);
 		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
 
@@ -408,45 +408,43 @@ class LevelThree extends Game {
 		enemy.setTrans(1.0f);
 		enemy.setXPos(room2x);
 		enemy.setYPos(room2y-15 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
-		
-		//room rectangle
-		room1.setBounds(300+vwall.getScaledHeight()+20,500-vwall.getScaledHeight()-20,275,265);
 
-		int wstart = 196-85;
-		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
-		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
-			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
+//		int wstart = 196-85;
+//		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+//		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
+//			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+//
+//		int wstart2 = 196-85;
+//		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+//		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
+//			for(int x = (int) (530-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
+//
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+//		int wstart3 = 196-85;
+//		//int wstart3 = 197-134;
+//		//for(int c = wstart3; c<=wstart2+304+134;c++){	
+//		for(int c = wstart3; c<=wstart2+304+45;c++){	
+//			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
+//		
+//		int wstart4 = 197-wall.getScaledHeight() - 85;
+//		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
+//			for(int x = 350; x<=1176; x++){
+//				int[] e = new int[]{x,c};
+//				blockedList.add(e);
+//			}
+//		}
 
-		int wstart2 = 196-85;
-		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
-		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
-			for(int x = (int) (530-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
-
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
-		int wstart3 = 196-85;
-		//int wstart3 = 197-134;
-		//for(int c = wstart3; c<=wstart2+304+134;c++){	
-		for(int c = wstart3; c<=wstart2+304+45;c++){	
-			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
-		
-		int wstart4 = 197-wall.getScaledHeight() - 85;
-		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
-			for(int x = 350; x<=1176; x++){
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
 		ArrayList<Sprite> sampleColl = new ArrayList<Sprite>();
 		sampleColl.add(vwall2);
 //		sampleColl.add(collDects.get(1));
@@ -470,8 +468,9 @@ class LevelThree extends Game {
 			}
 		}
 		
-		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
+		//room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
 		
+
 		/*********** ATTEMPTING TO ADD SECOND PATH TO ENEMY *****************/
 		
 //		path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
@@ -776,7 +775,24 @@ class LevelThree extends Game {
 					}
 					
 
-					//enemy in the same room as player detection
+					/********* ENEMY COLLISION DETECTION ******/
+					
+					for ( Rectangle room : listOfRooms ) {
+						if(enemy.getHitBox().intersects(room) && ghost.getHitBox().intersects(room) && !ghostAbilities) {
+							if (!gameWon.isVisible() && gameOverB == false) {
+								try {
+									soundManager.playSoundEffect("caught");
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							gameOver.setVisible(true);
+							gameOverB = true;
+							}
+						}
+					}
+					
+					/*
 					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
 						//System.out.println("ENEMY FOUND YOU! GAME OVER");
 						if (!gameWon.isVisible() && gameOverB == false) {
@@ -834,6 +850,7 @@ class LevelThree extends Game {
 							gameOverB = true;
 						}
 					}
+					*/
 					
 	
 					if (foodCollected == 4) {
@@ -1046,6 +1063,7 @@ class LevelThree extends Game {
 	public void draw(Graphics g) {
 		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		super.draw(g);
+		
 		if (grass != null && grass2 != null) {
 			grass.draw(g);
 			grass2.draw(g);
@@ -1138,8 +1156,6 @@ class LevelThree extends Game {
 		if (gameOver != null) {
 			gameOver.draw(g);
 		}
-		
-		
 	}
 
 	//Level Switching code
