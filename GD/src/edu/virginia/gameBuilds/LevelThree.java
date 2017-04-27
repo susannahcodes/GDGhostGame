@@ -36,13 +36,15 @@ class LevelThree extends Game {
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
 	Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
-	Rectangle leftMiddleRoom = new Rectangle(135, 1015, 435, 265);
-	Rectangle rightMiddleRoom = new Rectangle(620, 1015, 435, 265);
+	Rectangle leftMiddleRoom = new Rectangle(135, 1015, 435, 465);
+	Rectangle rightMiddleRoom = new Rectangle(620, 1015, 435, 465);
 	Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
-	Rectangle bottomRoom = new Rectangle(130, 1310, 1160, 180); 		
+	Rectangle bottomRoom = new Rectangle(130, 1310, 1160, 180); 	
+	Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
+	Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
 	
 	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(topRoom, topMiddleRoom, leftMiddleRoom, rightMiddleRoom, 
-																										verticalHallway, bottomRoom));
+																										verticalHallway, bottomRoom, doorwayView1, doorwayView2));
 	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
@@ -681,9 +683,6 @@ class LevelThree extends Game {
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
 		
-		
-		//System.out.println("ghost x,y: " + ghost.getXPos() + ", " + ghost.getYPos());
-		
 		healthBar.setXPos((ghost.getXPos() - VIEWPORT_SIZE_X / 2));
 		healthBar.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
 		if (healthBar.getXPos() > offsetMaxX){healthBar.setXPos(offsetMaxX);}
@@ -739,7 +738,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							//enemyMoveCounter+=1;
 							enemyMoveCounter+=3;		// increases the owner's speed
 						}
@@ -772,7 +771,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter2+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
@@ -800,7 +799,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter3+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter3>=fPath3.size()){
@@ -828,7 +827,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter4+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter4>=fPath4.size()){
@@ -862,7 +861,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter5+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter5>=path4.size()){
@@ -894,7 +893,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter6+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter6>=path3.size()){
@@ -927,7 +926,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter7+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter7>=path2.size()){
@@ -961,7 +960,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter8+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter8>=path1.size()){
@@ -1040,68 +1039,9 @@ class LevelThree extends Game {
 						}
 					}
 					
-					/*
-					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						gameOver.setVisible(true);
-						gameOverB = true;
-						}
-					}
-					
-					if ( orangeRoom.intersects(enemy.getHitBox()) && orangeRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							gameOver.setVisible(true);
-							gameOverB = true;
-						}
-					}
-					
-					//xSystem.out.println("ghost in room " + blueRoom.intersects(ghost.getHitBox()));
-					if ( blueRoom.intersects(enemy.getHitBox()) && blueRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							gameOver.setVisible(true);
-							gameOverB = true;
-						}
-					}
-					
-
-					if ( hallway.intersects(enemy.getHitBox()) && hallway.intersects(ghost.getHitBox()) && !ghostAbilities) {
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							gameOver.setVisible(true);
-							gameOverB = true;
-						}
-					}
-					*/
-					
 	
-					if (foodCollected == 4) {
+					/*** I moved this piece of code to the bottom of the update method **/
+					/*if (foodCollected == 4) {
 
 
 						//System.out.println("A winner is you");
@@ -1109,13 +1049,14 @@ class LevelThree extends Game {
 
 						//System.out.println("A winner is you");
 						if (!gameOver.isVisible()) {
-						gameWon.setVisible(true);}
+							gameWon.setVisible(true);
+						}
 						
 						//pause system here?
 						
 						//switchLevels();
 
-					}
+					}*/
 
 					if(collisionOccured == false){
 						stopL =false;
@@ -1235,7 +1176,7 @@ class LevelThree extends Game {
 						}
 						foodCollected +=1;
 						}
-						
+						collected = false;
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
 
@@ -1294,6 +1235,23 @@ class LevelThree extends Game {
 							strawberryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, strawberryTween));
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
+					
+					if (foodCollected == 4) {
+
+
+						//System.out.println("A winner is you");
+						//winner.setVisible(true);
+
+						//System.out.println("A winner is you");
+						if (!gameOver.isVisible()) {
+							gameWon.setVisible(true);
+						}
+						
+						//pause system here?
+						
+						//switchLevels();
+
+					}
 
 				}
 
@@ -1404,6 +1362,11 @@ class LevelThree extends Game {
 		if (gameOver != null) {
 			gameOver.draw(g);
 		}
+		
+		// this code was just to make sure the hitboxes are positioned correctly
+		//g.setColor(Color.green);
+		//g.drawRect(620, 1015, 435, 465);
+		//g.fillRect(620, 1015, 435, 465);	
 	}
 
 	//Level Switching code
