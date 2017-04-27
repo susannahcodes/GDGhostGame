@@ -339,7 +339,7 @@ class LevelThree extends Game {
 		topHallway.setXScale(2.5);
 		
 		upperRightHallway.setXPos(1063);
-		upperRightHallway.setYPos(-150 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
+		upperRightHallway.setYPos(-150 + 800 +50);		/***** SHIFTED DOWN BY 800 PIXELS AND MOVED DOWN FOR THE ENEMY****/
 		upperRightHallway.setYScale(2);	
 		
 		hallwayBottom.setXPos(1063);
@@ -996,7 +996,7 @@ class LevelThree extends Game {
 
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
 							
-							//System.out.println(wall.getId());
+							System.out.println(wall.getId());
 							
 							collisionOccured = true;
 
