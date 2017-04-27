@@ -2,6 +2,7 @@ package edu.virginia.gameBuilds;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -138,42 +139,7 @@ class LevelThree extends Game {
 	boolean trippedFruit = false;
 	
 	/**** this code for the enemy's movement paths ***/
-//	public int enemyMoveCounter = 1;
-//	public int enemyMoveCounter2 = 1;
-//	private boolean initializeRoute=true;
-//	
-//	private boolean path1Completed = false;
-//	
-//	public int room1x = 400;
-//	public int room1y = 275;
-//
-//	
-//	public Rectangle room1 = new Rectangle();
-//	
-//	
-//	public int room2x = 800;
-//	public int room2y = 275;
-//	
-//	
-//	public Rectangle room2 = new Rectangle();
-//	public boolean gameOverB = false;
-//	
-//	public boolean gtr1 = true;
-//	public boolean room1SetUp = false;
-//	
-//	public boolean gtr2 = false;
-//	public boolean room2SetUp = false;
-//	
-//	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
-//	
-//	private float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
-//	boolean transKeyTapped = false;			// needed to implement tapping of key
-//	boolean visibleKeyTapped = false;			// turns the ghost visible again
-	
-	
-	
-	
-	
+
 	int enemyMoveCounter = 1;
 	int enemyMoveCounter2 = 1;
 	int enemyMoveCounter3 = 1;
@@ -182,15 +148,14 @@ class LevelThree extends Game {
 	
 	boolean path1Completed = false;
 	
-	 int room1x = 400;
-	int room1y = 275;
+	int room1x = 400;
+	int room1y = 275; 
 
 	
 	Rectangle room1 = new Rectangle();
 	
-	
 	int room2x = 1000;
-	int room2y = 550;
+	int room2y = 550; /***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
 	
 	
 	Rectangle room2 = new Rectangle();
@@ -207,9 +172,8 @@ class LevelThree extends Game {
 	//boolean trippedFruit = false;
 	boolean trippedBanana = false;
 	
-	
 	int room3x = 800;
-	int room3y = 330;
+	int room3y = 330; 	/***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
 	
 	boolean gtr3 = false;
 	boolean gtr4 = false;
@@ -220,10 +184,6 @@ class LevelThree extends Game {
 	float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
 	boolean transKeyTapped = false;			// needed to implement tapping of key
 	boolean visibleKeyTapped = false;
-	
-	
-	
-	
 	
 	ArrayList<Cell> path1 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath1 = new ArrayList<Cell>();
@@ -238,6 +198,7 @@ class LevelThree extends Game {
 	ArrayList<Cell> fPath4 = new ArrayList<Cell>();
 	
 	LevelThree(String gameId, int width, int height) {
+		
 		super("Level Build", 1200, 800);
 		
 		clock = new GameClock();
@@ -245,15 +206,14 @@ class LevelThree extends Game {
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
 		health.setXScale(0.004);
-		//healthBar.setYPos(10);
 		ghost.setXPos(3);
 		grass.setYPos(0);
 		grass.setXPos(0);
-		grass2.setYPos(-800);
-		grass3.setYPos(-1400);
+		grass2.setYPos(-800 + 800); 	/***** SHIFTED DOWN BY 800 PIXELS****/
+		grass3.setYPos(-1400 + 800);  /***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		woodFloor2.setXPos(1060);
-		woodFloor2.setYPos(-300);
+		woodFloor2.setYPos(-300 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		//woodFloor2.setRotation(1.57);
 		woodFloor2.setXScale(0.9);
 		woodFloor2.setYScale(2.4);
@@ -261,82 +221,82 @@ class LevelThree extends Game {
 		
 
 		redCarpet.setXPos(600);
-		redCarpet.setYPos(-300);
+		redCarpet.setYPos(-300 + 800); /***** SHIFTED DOWN BY 800 PIXELS****/
 		redCarpet.setYScale(1.53);
 		redCarpet.setXScale(1.53);
 		
 		
 		woodFloor.setXPos(250);
-		woodFloor.setYPos(450);
+		woodFloor.setYPos(450 + 800); /***** SHIFTED DOWN BY 800 PIXELS****/
 		woodFloor.setRotation(1.57);
 		woodFloor.setXScale(2.3);
 		woodFloor.setYScale(0.7);
 		
-		greyCarpet.setXPos(600);
-		greyCarpet.setYPos(180);
+		greyCarpet.setXPos(600); 
+		greyCarpet.setYPos(180 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		greyCarpet.setYScale(0.67);
 		
 		greyCarpet2.setXPos(100);
-		greyCarpet2.setYPos(-650);
+		greyCarpet2.setYPos(-650 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		greyCarpet2.setXScale(2.55);
 		greyCarpet2.setYScale(0.75);
 		
 		
 		beigeCarpet.setXPos(100);
-		beigeCarpet.setYPos(195);
+		beigeCarpet.setYPos(195 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		beigeCarpet.setYScale(0.93);
 		beigeCarpet.setXScale(1.2);
 		//beigeCarpet.setYScale(0.67);
 		
 		table.setXPos(700);
-		table.setYPos(325);
+		table.setYPos(325 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		table.setXScale(0.035);
 		table.setYScale(0.035);
 		
-		ghost.setYPos(780-ghost.getScaledHeight());
+		ghost.setYPos(780-ghost.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		//marioTween.doTween(true);
 		//marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
 		
 		fruit.setXPos(500);
-		fruit.setYPos(300);
+		fruit.setYPos(300 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		fruit.addEventListener(myQuestManager, null);
 		
 		cherry.setXPos(710);
-		cherry.setYPos(310);
+		cherry.setYPos(310 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		cherry.addEventListener(myQuestManager, null);
 		
 		lowerLeft.setXPos(100);
-		lowerLeft.setYPos(400);
+		lowerLeft.setYPos(400 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 
 		rightTop.setXPos(600);
-		rightTop.setYPos (156);
+		rightTop.setYPos (156 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		leftBottom.setXPos(100);
-		leftBottom.setYPos(700);
+		leftBottom.setYPos(700 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		rightBottom.setXPos(600);
-		rightBottom.setYPos(700);
+		rightBottom.setYPos(700 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		
 		wall2.setXPos(300);
-		wall2.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+		wall2.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		wall2.addEventListener(myQuestManager, null);
 		
 		wall4.setXPos(300+wall2.getScaledWidth());
-		wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+		wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight() + 800); 	/***** SHIFTED DOWN BY 800 PIXELS****/
 		wall4.addEventListener(myQuestManager, null);
 		
 		vwall.setXPos(100);
-		vwall.setYPos(500-vwall.getScaledHeight());
+		vwall.setYPos(500-vwall.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		vwall.addEventListener(myQuestManager, null);
 		
 		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
-		vwall2.setYPos(500-vwall.getScaledHeight());
+		vwall2.setYPos(500-vwall.getScaledHeight() + 800);			/***** SHIFTED DOWN BY 800 PIXELS****/
 		vwall2.addEventListener(myQuestManager, null);
 		
 		vwall3.setXPos(1062);
 		//vwall3.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
-		vwall3.setYPos(500-vwall.getScaledHeight());
+		vwall3.setYPos(500-vwall.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		vwall3.addEventListener(myQuestManager, null);
 
 		
@@ -344,35 +304,35 @@ class LevelThree extends Game {
 		
 /**NEW WALLS HERE ************/		
 		longHallwayRight.setXPos(1300); //extended for level 3
-		longHallwayRight.setYPos(-650);
+		longHallwayRight.setYPos(-650 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		longHallwayRight.setYScale(8.67);
 		
 		topHallway.setXPos(957);
-		topHallway.setYPos(-300);
+		topHallway.setYPos(-300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		topHallway.setXScale(2.5);
 		
 		upperRightHallway.setXPos(1063);
-		upperRightHallway.setYPos(-150);
+		upperRightHallway.setYPos(-150 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		upperRightHallway.setYScale(2);	
 		
 		hallwayBottom.setXPos(1063);
-		hallwayBottom.setYPos(700);
+		hallwayBottom.setYPos(700 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		hallwayBottom.setXScale(1.7);
 		
 		houseTop.setXPos(100);
-		houseTop.setYPos(-650);
+		houseTop.setYPos(-650 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		houseTop.setXScale(8);
 		
 		leftHouseTop.setXPos(100);
-		leftHouseTop.setYPos(-650);
+		leftHouseTop.setYPos(-650 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		leftHouseTop.setYScale(2.37);
 		
 		leftSideMiddleRoom.setXPos(567);
-		leftSideMiddleRoom.setYPos(-270);
+		leftSideMiddleRoom.setYPos(-270 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		leftSideMiddleRoom.setYScale(2.8);
 		
 		topRoomBottom.setXPos(100);
-		topRoomBottom.setYPos(-300);
+		topRoomBottom.setYPos(-300 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		topRoomBottom.setXScale(4.7);
 		
 		
@@ -396,13 +356,13 @@ class LevelThree extends Game {
 		banana.setXScale(0.25);
 		banana.setYScale(0.25);
 		banana.setXPos(730);
-		banana.setYPos(-100);
+		banana.setYPos(-100 + 800); 	/***** SHIFTED DOWN BY 800 PIXELS****/
 		banana.addEventListener(myQuestManager, null);
 		
 		strawberry.setXScale(0.5);
 		strawberry.setYScale(0.5);
 		strawberry.setXPos(1170);
-		strawberry.setYPos(300);
+		strawberry.setYPos(300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		strawberry.addEventListener(myQuestManager, null);
 		
 		strawberryTween.addEventListener(myQuestManager, null);
@@ -424,7 +384,7 @@ class LevelThree extends Game {
 		gameOver.setXScale(1.5);
 		gameOver.setYScale(1.5);
 		gameOver.setXPos(170);
-		gameOver.setYPos(300);
+		gameOver.setYPos(300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		gameOver.setVisible(false);
 		
 //		
@@ -441,13 +401,13 @@ class LevelThree extends Game {
 		gameWon.setXScale(1.5);
 		gameWon.setYScale(1.5);
 		gameWon.setXPos(170);
-		gameWon.setYPos(300);
+		gameWon.setYPos(300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		gameWon.setVisible(false);
 		
 		//enemy code
 		enemy.setTrans(1.0f);
 		enemy.setXPos(room2x);
-		enemy.setYPos(room2y-15);
+		enemy.setYPos(room2y-15 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		//room rectangle
 		room1.setBounds(300+vwall.getScaledHeight()+20,500-vwall.getScaledHeight()-20,275,265);
@@ -488,10 +448,7 @@ class LevelThree extends Game {
 			}
 		}
 		
-		
-		
-		
-		
+
 		
 		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
 		
@@ -536,7 +493,7 @@ class LevelThree extends Game {
 		
 		//path2
 		/////////////////////////////////////////////////
-		path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path2 = AStar.test(1, 2000, 2000, room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen2 = path2.size();
 		
 		int q2=pLen2-1;
@@ -551,7 +508,7 @@ class LevelThree extends Game {
 		}
 		/////////////////////////////////////////
 		
-		path3 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room2x, room2y-15, room3x, room3y, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path3 = AStar.test(1, 2000, 2000, room2x, room2y-15, room3x, room3y, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen3 = path3.size();
 		
 		int q3=pLen3-1;
@@ -909,30 +866,34 @@ class LevelThree extends Game {
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
 						if ( stopU==false)
 							{ghost.setYPos(ghost.getYPos()-dy);
-							System.out.println("down is: " + ghost.getYPos());}
+							//System.out.println("down is: " + ghost.getYPos());
+							}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
 						if (stopD==false) {
 							ghost.setYPos(ghost.getYPos() + dy);
-							System.out.println("up is: " + ghost.getYPos()); }
+							//System.out.println("up is: " + ghost.getYPos()); 
+							}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
 						if (stopR==false) {
 							ghost.setXPos(ghost.getXPos() + dx);
-							System.out.println("right is: " + ghost.getXPos());}
+							//System.out.println("right is: " + ghost.getXPos());
+							}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
 						if ( stopL==false)
 							{ghost.setXPos(ghost.getXPos() - dx);
-							System.out.println("left is: " + ghost.getXPos());}
+							//System.out.println("left is: " + ghost.getXPos());
+							}
 					}
 					
 					/******************* TAPPING AND VISIBILITY ****************/
 					if (!transKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(88))) {		//checks to see if key has been tapped.
-						System.out.println( "ghost trans: " + (ghost.getTrans()-deltaAlpha > 0.0f));
+						//System.out.println( "ghost trans: " + (ghost.getTrans()-deltaAlpha > 0.0f));
 						if ( ghost.getTrans()-deltaAlpha > 0.0f ) {
 							ghost.setTrans(ghost.getTrans()-deltaAlpha);
 						}	
