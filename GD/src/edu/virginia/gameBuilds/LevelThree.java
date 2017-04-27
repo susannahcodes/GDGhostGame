@@ -149,6 +149,10 @@ class LevelThree extends Game {
 	int enemyMoveCounter2 = 1;
 	int enemyMoveCounter3 = 1;
 	int enemyMoveCounter4 = 1;
+	int enemyMoveCounter5 = 1;
+	int enemyMoveCounter6 = 1;
+	int enemyMoveCounter7 = 1;
+	int enemyMoveCounter8 = 1;
 	boolean initializeRoute=true;
 	
 	boolean path1Completed = false;
@@ -182,6 +186,10 @@ class LevelThree extends Game {
 	
 	boolean gtr3 = false;
 	boolean gtr4 = false;
+	boolean gtr5 = false;
+	boolean gtr6 = false;
+	boolean gtr7 = false;
+	boolean gtr8 = false;
 	
 	
 	ArrayList<int[]> blockedList = new ArrayList<int[]>();
@@ -201,6 +209,18 @@ class LevelThree extends Game {
 	
 	ArrayList<Cell> path4 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath4 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path5 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath5 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path6 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath6 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path7 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath7 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path8 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath8 = new ArrayList<Cell>();
 	
 	LevelThree(String gameId, int width, int height) {
 		
@@ -408,8 +428,8 @@ class LevelThree extends Game {
 		enemy.setTrans(1.0f);
 //		enemy.setXPos(room2x);
 //		enemy.setYPos(room2y-15 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
-		enemy.setXPos(1200);
-		enemy.setYPos(1350);
+		enemy.setXPos(345);
+		enemy.setYPos(1300);
 
 //		int wstart = 196-85;
 //		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
@@ -447,34 +467,38 @@ class LevelThree extends Game {
 //			}
 //		}
 
-		ArrayList<Sprite> sampleColl = new ArrayList<Sprite>();
-		sampleColl.add(vwall2);
+		//ArrayList<Sprite> sampleColl = new ArrayList<Sprite>();
+		//sampleColl.add(vwall2);
 //		sampleColl.add(collDects.get(1));
 //		sampleColl.add(collDects.get(2));
 		
-		for(Sprite w : collDects){
-			
-			int wstartAll = (int) (w.getYPos()-149);
-			
-			for(int c = wstartAll; c<=wstartAll+w.getScaledHeight()+10;c++){
-				
-				int xy = 1;
-				
-				if(w.getXPos()>(enemy.getHitBox().getWidth()+60)){
-					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth()-60);
-				}
-				
-//				if(w.getXPos()>=enemy.getHitBox().getWidth()){
-//					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth());
+		
+		//*********************DO NOT DELETE BELOW ***********************/
+//		for(Sprite w : sampleColl){
+//			
+//			int wstartAll = (int) (w.getYPos()-149);
+//			
+//			for(int c = wstartAll; c<=wstartAll+w.getScaledHeight()+10;c++){
+//				
+//				int xy = 1;
+//				
+//				if(w.getXPos()>(enemy.getHitBox().getWidth()+60)){
+//					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth()-60);
 //				}
-				
-				for(int x = xy; x<=w.getXPos()+w.getScaledWidth(); x++){
-
-					int[] e = new int[]{x,c};
-					blockedList.add(e);
-				}
-			}
-		}
+//				
+////				if(w.getXPos()>=enemy.getHitBox().getWidth()){
+////					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth());
+////				}
+//				
+//				for(int x = xy; x<=w.getXPos()+w.getScaledWidth(); x++){
+//
+//					int[] e = new int[]{x,c};
+//					blockedList.add(e);
+//				}
+//			}
+//		}
+		
+		//*********************DO NOT DELETE Above ***********************/
 		
 		//room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
 		
@@ -495,12 +519,12 @@ class LevelThree extends Game {
 		
 		/*********** end of second path for enemy code *********/
 		
-		
+		/******************************Creates the path**********************/
 		
 		
 		
 		System.out.println("Called 1");
-		path1 = AStar.test(1, 4000, 4000, 1135, 1300, 1135, 750, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path1 = AStar.test(1, 4000, 4000, 350, 1300, 1135, 1300, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen = path1.size();
 		
 		int q=pLen-1;
@@ -525,7 +549,7 @@ class LevelThree extends Game {
 		//path2
 		/////////////////////////////////////////////////
 		System.out.println("Called 2");
-		path2 = AStar.test(1, 4000, 4000, 1120, 750, 820, 750,/*room1x, room1y-15, 1200, 500,/*room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path2 = AStar.test(1, 4000, 4000, 1135, 1300, 1135, 520,/*room1x, room1y-15, 1200, 500,/*room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen2 = path2.size();
 		
 		int q2=pLen2-1;
@@ -540,7 +564,7 @@ class LevelThree extends Game {
 		}
 		/////////////////////////////////////////
 		System.out.println("Called 3");
-		path3 = AStar.test(1, 4000, 4000, 850, 750, 1135, 750,/*1200, 400,/*room2x, room2y-15, room3x, room3y, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path3 = AStar.test(1, 4000, 4000, 1135, 520, 790, 520,/*1200, 400,/*room2x, room2y-15, room3x, room3y, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen3 = path3.size();
 		
 		int q3=pLen3-1;
@@ -555,7 +579,8 @@ class LevelThree extends Game {
 		}
 		
 		System.out.println("Called 4");
-		path4 = AStar.test(1, 4000, 4000, 1135, 750, 1135, 1300,/*room3x, room3y,  room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path4 = AStar.test(1, 4000, 4000, 790, 520, 790, 325,/*room3x, room3y,  room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		System.out.println("finished path 4");
 		int pLen4 = path4.size();
 		
 		int q4=pLen4-1;
@@ -569,6 +594,67 @@ class LevelThree extends Game {
 			q4-=1;
 		}
 		
+//		System.out.println("Called 5");
+//		path5 = AStar.test(1, 4000, 4000, 820, 325, 820, 525, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen5 = path5.size();
+//		
+//		int q5=pLen5-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q5>=0){
+//			Cell temp = new Cell(path5.get(q5).i,path5.get(q5).j);
+//			fPath5.add(temp);
+//			q5-=1;
+//		}
+//		System.out.println("Called 6");
+//		//path6 = AStar.test(1, 4000, 4000, 820, 525, 1130, 525, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen6 = path6.size();
+//		
+//		int q6=pLen6-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q6>=0){
+//			Cell temp = new Cell(path6.get(q6).i,path6.get(q6).j);
+//			fPath6.add(temp);
+//			q6-=1;
+//		}
+//		System.out.println("Called 7");
+//		//path7 = AStar.test(1, 4000, 4000, 1130, 525, 1130, 1300, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen7 = path7.size();
+//		
+//		int q7=pLen7-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q7>=0){
+//			Cell temp = new Cell(path7.get(q7).i,path7.get(q7).j);
+//			fPath7.add(temp);
+//			q7-=1;
+//		}
+//		System.out.println("Called 8");
+//		//path8 = AStar.test(1, 4000, 4000, 1130, 1300, 345, 1300, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen8 = path8.size();
+//		
+//		int q8=pLen8-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q8>=0){
+//			Cell temp = new Cell(path8.get(q8).i,path8.get(q8).j);
+//			fPath8.add(temp);
+//			q8-=1;
+//		}
+//		
 		
 		//initializeRoute = false;
 	}
@@ -751,15 +837,154 @@ class LevelThree extends Game {
 							enemyMoveCounter4=1;
 							gtr2 = false;
 
-							gtr1 = true;
+							gtr1 = false;
 							
 							gtr3 = false;
 							
 							gtr4 = false;
 							
+							gtr5 = true;
+							
 						}
 						
 					}
+					
+					
+					
+					
+					if(gtr5 == true){
+						
+						
+						
+						if(enemyMoveCounter5<path4.size()){
+							Cell moveTo = path4.get(enemyMoveCounter5);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter5+=3;		// makes the owner move faster
+						}
+						if(enemyMoveCounter5>=path4.size()){
+							
+							
+							enemyMoveCounter5=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = true;
+							
+						}
+						
+					}
+					
+
+					if(gtr6 == true){
+						
+						
+						
+						if(enemyMoveCounter6<path3.size()){
+							Cell moveTo = path3.get(enemyMoveCounter6);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter6+=3;		// makes the owner move faster
+						}
+						if(enemyMoveCounter6>=path3.size()){
+							
+							
+							enemyMoveCounter6=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = true;
+							
+						}
+						
+					}
+					
+					
+					if(gtr7 == true){
+						
+						
+						
+						if(enemyMoveCounter7<path2.size()){
+							Cell moveTo = path2.get(enemyMoveCounter7);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter7+=3;		// makes the owner move faster
+						}
+						if(enemyMoveCounter7>=path2.size()){
+							
+							
+							enemyMoveCounter7=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = false;
+							gtr8 = true;
+							
+						}
+						
+					}
+					
+					
+					if(gtr8 == true){
+						
+						
+						
+						if(enemyMoveCounter8<path1.size()){
+							Cell moveTo = path1.get(enemyMoveCounter8);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter8+=3;		// makes the owner move faster
+						}
+						if(enemyMoveCounter8>=path1.size()){
+							
+							
+							enemyMoveCounter8=1;
+							gtr2 = false;
+
+							gtr1 = true;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = false;
+							gtr8 = false;
+							
+						}
+						
+					}
+					
+					
 					
 					juggler.nextFrame();
 					
