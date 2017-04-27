@@ -7,7 +7,7 @@ public class fruitSprite extends Sprite {
 
 	public fruitSprite(String id) {
 		super(id, "orange.png");
-		super.setXScale(.4);
-		super.setYScale(.5);
+		super.setXScale(0.18);
+		super.setYScale(0.18);
 	}
 }

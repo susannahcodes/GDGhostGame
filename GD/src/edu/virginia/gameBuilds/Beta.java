@@ -82,6 +82,7 @@ public class Beta extends Game {
 	Sprite table = new Sprite ("table", "table.png");
 	Sprite greyCarpet = new Sprite ("greyCarpet", "greyCarpet.png");
 	Sprite beigeCarpet = new Sprite ("beigeCarpet", "beigeCarpet.jpg");
+	Sprite bed = new Sprite ("bed", "bed.png");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
 	
@@ -213,6 +214,11 @@ public class Beta extends Game {
 		fruit.setXPos(500);
 		fruit.setYPos(300);
 		fruit.addEventListener(myQuestManager, null);
+		
+		bed.setXPos(130);
+		bed.setYPos(300);
+		bed.setXScale(0.4);
+		bed.setYScale(0.4);
 		
 		cherry.setXPos(710);
 		cherry.setYPos(310);
@@ -761,8 +767,9 @@ public class Beta extends Game {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
-		if (grass != null && sky != null) {
+		if (grass != null ) {
 			grass.draw(g);
+			
 		}
 
 		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
@@ -770,6 +777,7 @@ public class Beta extends Game {
 			greyCarpet.draw(g);
 			beigeCarpet.draw(g);
 			table.draw(g);
+			bed.draw(g);
 		}
 		if (fruit != null) {
 			fruit.draw(g);

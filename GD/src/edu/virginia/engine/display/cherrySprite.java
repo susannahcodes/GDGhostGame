@@ -5,7 +5,7 @@ import edu.virginia.engine.events.IEventListener;
 public class cherrySprite extends Sprite {
 	public cherrySprite(String id) {
 		super(id, "cherry.png");
-		super.setXScale(.1);
-		super.setYScale(.1);
+		super.setXScale(0.18);
+		super.setYScale(0.18);
 	}
 }

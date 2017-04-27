@@ -285,8 +285,8 @@ class LevelTwo extends Game {
 		cherry.setYPos(310);
 		cherry.addEventListener(myQuestManager, null);
 		
-		strawberry.setXScale(0.5);
-		strawberry.setYScale(0.5);
+		strawberry.setXScale(0.18);
+		strawberry.setYScale(0.18);
 		strawberry.setXPos(1170);
 		strawberry.setYPos(300);
 		strawberry.addEventListener(myQuestManager, null);
