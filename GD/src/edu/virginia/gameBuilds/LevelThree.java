@@ -39,7 +39,7 @@ class LevelThree extends Game {
 	Rectangle leftMiddleRoom = new Rectangle(135, 1015, 435, 265);
 	Rectangle rightMiddleRoom = new Rectangle(620, 1015, 435, 265);
 	Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
-	Rectangle bottomRoom = new Rectangle(130, 1310, 960, 180);
+	Rectangle bottomRoom = new Rectangle(130, 1310, 1160, 180); 		
 	
 	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(topRoom, topMiddleRoom, leftMiddleRoom, rightMiddleRoom, 
 																										verticalHallway, bottomRoom));
@@ -63,7 +63,7 @@ class LevelThree extends Game {
 	ghostSprite ghost = new ghostSprite("ghost");
 	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 	
-	WallSprite wall = new WallSprite("testWall");
+	//WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
@@ -94,7 +94,7 @@ class LevelThree extends Game {
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
 	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3, topHallway, hallwayBottom, leftSideMiddleRoom, 
-																													longHallwayRight, upperRightHallway, wall, wall2, wall3, vwall3, leftHouseTop, leftSideMiddleRoom,houseTop,topRoomBottom));
+																													longHallwayRight, upperRightHallway, wall2, vwall3, leftHouseTop, leftSideMiddleRoom,houseTop,topRoomBottom));
 
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
@@ -406,8 +406,10 @@ class LevelThree extends Game {
 		
 		//enemy code
 		enemy.setTrans(1.0f);
-		enemy.setXPos(room2x);
-		enemy.setYPos(room2y-15 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+//		enemy.setXPos(room2x);
+//		enemy.setYPos(room2y-15 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		enemy.setXPos(1200);
+		enemy.setYPos(1350);
 
 //		int wstart = 196-85;
 //		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
@@ -449,17 +451,23 @@ class LevelThree extends Game {
 		sampleColl.add(vwall2);
 //		sampleColl.add(collDects.get(1));
 //		sampleColl.add(collDects.get(2));
-		for(Sprite w : sampleColl){
-			int wstartAll = (int) (w.getYPos()-w.getScaledHeight()-85);
-//			if(w.getYPos()>=85){
-//				wstartAll = (int) (w.getYPos()-85);
-//			}
-			//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+		
+		for(Sprite w : collDects){
+			
+			int wstartAll = (int) (w.getYPos()-149);
+			
 			for(int c = wstartAll; c<=wstartAll+w.getScaledHeight()+10;c++){
-				int xy = (int) (w.getXPos()-enemy.getHitBox().getWidth()-60);
+				
+				int xy = 1;
+				
+				if(w.getXPos()>(enemy.getHitBox().getWidth()+60)){
+					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth()-60);
+				}
+				
 //				if(w.getXPos()>=enemy.getHitBox().getWidth()){
 //					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth());
 //				}
+				
 				for(int x = xy; x<=w.getXPos()+w.getScaledWidth(); x++){
 
 					int[] e = new int[]{x,c};
@@ -492,7 +500,7 @@ class LevelThree extends Game {
 		
 		
 		System.out.println("Called 1");
-		path1 = AStar.test(1, 4000, 4000, room2x, room2y-15, room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path1 = AStar.test(1, 4000, 4000, 1135, 1300, 1135, 750, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen = path1.size();
 		
 		int q=pLen-1;
@@ -510,10 +518,14 @@ class LevelThree extends Game {
 		//////////////////////////////////////////////////////////
 		
 		
+		
+		System.out.println(wall3.getYPos());
+		
+		
 		//path2
 		/////////////////////////////////////////////////
 		System.out.println("Called 2");
-		path2 = AStar.test(1, 4000, 4000, room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path2 = AStar.test(1, 4000, 4000, 1120, 750, 820, 750,/*room1x, room1y-15, 1200, 500,/*room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen2 = path2.size();
 		
 		int q2=pLen2-1;
@@ -528,7 +540,7 @@ class LevelThree extends Game {
 		}
 		/////////////////////////////////////////
 		System.out.println("Called 3");
-		path3 = AStar.test(1, 4000, 4000, room2x, room2y-15, room3x, room3y, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path3 = AStar.test(1, 4000, 4000, 850, 750, 1135, 750,/*1200, 400,/*room2x, room2y-15, room3x, room3y, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen3 = path3.size();
 		
 		int q3=pLen3-1;
@@ -543,10 +555,10 @@ class LevelThree extends Game {
 		}
 		
 		System.out.println("Called 4");
-		path4 = AStar.test(1, 4000, 4000, room3x, room3y,  room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		path4 = AStar.test(1, 4000, 4000, 1135, 750, 1135, 1300,/*room3x, room3y,  room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen4 = path4.size();
 		
-		int q4=pLen3-1;
+		int q4=pLen4-1;
 		
 		
 		/** prints the path **/
@@ -583,6 +595,8 @@ class LevelThree extends Game {
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
 		
+		
+		//System.out.println("ghost x,y: " + ghost.getXPos() + ", " + ghost.getYPos());
 		
 		healthBar.setXPos((ghost.getXPos() - VIEWPORT_SIZE_X / 2));
 		healthBar.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
@@ -655,6 +669,7 @@ class LevelThree extends Game {
 							gtr1 = false;
 							gtr2 = true;
 							gtr3 = false;
+							gtr4 = false;
 							
 							
 						}
@@ -680,9 +695,11 @@ class LevelThree extends Game {
 							enemyMoveCounter2=1;
 							gtr2 = false;
 
-							gtr1 = true;
+							gtr1 = false;
 							
-							gtr3 = false;
+							gtr3 = true;
+							
+							gtr4 = false;
 						}
 						
 					}
@@ -708,7 +725,9 @@ class LevelThree extends Game {
 
 							gtr1 = false;
 							
-							gtr3 = true;
+							gtr3 = false;
+							
+							gtr4 = true;
 						}
 						
 					}
@@ -723,7 +742,7 @@ class LevelThree extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							//enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							enemyMoveCounter4+=3;		// makes the owner move faster
 						}
 						if(enemyMoveCounter4>=fPath4.size()){
@@ -735,6 +754,8 @@ class LevelThree extends Game {
 							gtr1 = true;
 							
 							gtr3 = false;
+							
+							gtr4 = false;
 							
 						}
 						
@@ -750,6 +771,8 @@ class LevelThree extends Game {
 					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
 
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
+							
+							//System.out.println(wall.getId());
 							
 							collisionOccured = true;
 
@@ -1009,7 +1032,7 @@ class LevelThree extends Game {
 							cherryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
-					if ((ghost.collidesWith(banana) && ghostAbilities == false && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(banana) && solidEnough == true && !gameOver.isVisible())) {
 						banana.dispatchEvent(new Event(Event.COIN_PICKED_UP, banana));
 						if (health.getXScale() <= 2.05 &&  trippedBanana == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -1028,7 +1051,7 @@ class LevelThree extends Game {
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
-					if ((ghost.collidesWith(strawberry) && ghostAbilities == false && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(strawberry) && solidEnough == true && !gameOver.isVisible())) {
 						strawberry.dispatchEvent(new Event(Event.COIN_PICKED_UP, strawberry));
 						if (health.getXScale() <= 2.05 && trippedStrawberry == false) {
 							health.setXScale(health.getXScale() + 0.4);

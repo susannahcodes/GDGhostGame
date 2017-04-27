@@ -36,6 +36,7 @@ public class AStar {
     public static void setBlocked(int i, int j){
 //        System.out.println("size of grid: "+grid.length);
 //        System.out.println("input i: "+ i);
+//        System.out.println("input j: "+ j);
     	grid[i][j] = null;
     }
     
