@@ -89,8 +89,8 @@ class LevelThree extends Game {
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
 	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3, topHallway, hallwayBottom, leftSideMiddleRoom, 
-																													longHallwayRight, upperRightHallway, wall, wall2, wall3, vwall3, leftHouseTop, leftSideMiddleRoom));
-	
+																													longHallwayRight, upperRightHallway, wall, wall2, wall3, vwall3, leftHouseTop, leftSideMiddleRoom,houseTop,topRoomBottom));
+
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
 	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
@@ -149,13 +149,13 @@ class LevelThree extends Game {
 	boolean path1Completed = false;
 	
 	int room1x = 400;
-	int room1y = 275; 
+	int room1y = 275+800; 
 
 	
 	Rectangle room1 = new Rectangle();
 	
 	int room2x = 1000;
-	int room2y = 550; /***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
+	int room2y = 550+800; /***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
 	
 	
 	Rectangle room2 = new Rectangle();
@@ -173,7 +173,7 @@ class LevelThree extends Game {
 	boolean trippedBanana = false;
 	
 	int room3x = 800;
-	int room3y = 330; 	/***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
+	int room3y = 330+800; 	/***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
 	
 	boolean gtr3 = false;
 	boolean gtr4 = false;
@@ -447,8 +447,28 @@ class LevelThree extends Game {
 				blockedList.add(e);
 			}
 		}
-		
+		ArrayList<Sprite> sampleColl = new ArrayList<Sprite>();
+		sampleColl.add(vwall2);
+//		sampleColl.add(collDects.get(1));
+//		sampleColl.add(collDects.get(2));
+		for(Sprite w : sampleColl){
+			int wstartAll = (int) (w.getYPos()-w.getScaledHeight()-85);
+//			if(w.getYPos()>=85){
+//				wstartAll = (int) (w.getYPos()-85);
+//			}
+			//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+			for(int c = wstartAll; c<=wstartAll+w.getScaledHeight()+10;c++){
+				int xy = (int) (w.getXPos()-enemy.getHitBox().getWidth()-60);
+//				if(w.getXPos()>=enemy.getHitBox().getWidth()){
+//					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth());
+//				}
+				for(int x = xy; x<=w.getXPos()+w.getScaledWidth(); x++){
 
+					int[] e = new int[]{x,c};
+					blockedList.add(e);
+				}
+			}
+		}
 		
 		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
 		
@@ -472,8 +492,8 @@ class LevelThree extends Game {
 		
 		
 		
-		
-		path1 = AStar.test(1, 2000, 2000, room2x, room2y-15, room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		System.out.println("Called 1");
+		path1 = AStar.test(1, 4000, 4000, room2x, room2y-15, room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen = path1.size();
 		
 		int q=pLen-1;
@@ -493,7 +513,8 @@ class LevelThree extends Game {
 		
 		//path2
 		/////////////////////////////////////////////////
-		path2 = AStar.test(1, 2000, 2000, room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		System.out.println("Called 2");
+		path2 = AStar.test(1, 4000, 4000, room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen2 = path2.size();
 		
 		int q2=pLen2-1;
@@ -507,8 +528,8 @@ class LevelThree extends Game {
 			q2-=1;
 		}
 		/////////////////////////////////////////
-		
-		path3 = AStar.test(1, 2000, 2000, room2x, room2y-15, room3x, room3y, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		System.out.println("Called 3");
+		path3 = AStar.test(1, 4000, 4000, room2x, room2y-15, room3x, room3y, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen3 = path3.size();
 		
 		int q3=pLen3-1;
@@ -522,7 +543,8 @@ class LevelThree extends Game {
 			q3-=1;
 		}
 		
-		path4 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room3x, room3y,  room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		System.out.println("Called 4");
+		path4 = AStar.test(1, 4000, 4000, room3x, room3y,  room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
 		int pLen4 = path4.size();
 		
 		int q4=pLen3-1;

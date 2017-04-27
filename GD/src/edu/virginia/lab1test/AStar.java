@@ -34,7 +34,9 @@ public class AStar {
     static int endI, endJ;
             
     public static void setBlocked(int i, int j){
-        grid[i][j] = null;
+//        System.out.println("size of grid: "+grid.length);
+//        System.out.println("input i: "+ i);
+    	grid[i][j] = null;
     }
     
     public static void setStartCell(int i, int j){
@@ -161,6 +163,8 @@ public class AStar {
              for blocked cells.
            */
            if(blocked!=null)for(int i=0;i<blocked.size();++i){
+        	   //System.out.println(i);
+        	   
                setBlocked(blocked.get(i)[0], blocked.get(i)[1]);
            }
            
