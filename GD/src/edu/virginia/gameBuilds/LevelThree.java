@@ -55,13 +55,22 @@ class LevelThree extends Game {
 	 boolean bananaCollected = false;
 	 int foodCollected = 0;
 	 boolean collected = true;
-	 Sprite health = new Sprite("health", "health.png");
-	 SoundManager soundManager;
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
+	Sprite strawberry = new Sprite ("strawberry", "strawberry.png");
+	Sprite banana = new Sprite ("banana", "banana.png");
+	Tween fruitTween = new Tween(fruit, new TweenTransition() );
+	Tween cherryTween = new Tween(cherry, new TweenTransition());
+	Tween strawberryTween = new Tween(strawberry, new TweenTransition());
+	Tween bananaTween = new Tween(banana, new TweenTransition());
+	
+	ArrayList<Sprite> listOfFruits = new ArrayList<Sprite>(Arrays.asList(fruit, cherry, strawberry, banana));
+	
+	 Sprite health = new Sprite("health", "health.png");
+	 SoundManager soundManager;
+	
 	Sprite grass = new Sprite("grass", "grass.jpg");
 	Sprite grass2 = new Sprite("grass2", "grass.jpg");
-	//Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
 	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 	
@@ -74,9 +83,6 @@ class LevelThree extends Game {
 	WallSprite houseTop = new WallSprite("houseTop");
 	Sprite woodFloor2 = new Sprite ("wood", "wood.jpg");
 	Sprite redCarpet = new Sprite ("redCarpet", "redCarpet.jpg");
-	private Sprite strawberry = new Sprite ("strawberry", "strawberry.png");
-	private Sprite banana = new Sprite ("banana", "banana.png");
-	
 
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
@@ -108,13 +114,6 @@ class LevelThree extends Game {
 	Sprite beigeCarpet = new Sprite ("beigeCarpet", "beigeCarpet.jpg");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
-	
-	//Tween marioTween = new Tween(ghost, new TweenTransition() );
-	Tween fruitTween = new Tween(fruit, new TweenTransition() );
-	Tween cherryTween = new Tween(cherry, new TweenTransition());
-
-	Tween strawberryTween = new Tween(strawberry, new TweenTransition());
-	Tween bananaTween = new Tween(banana, new TweenTransition());
 	
 	TweenJuggler juggler = new TweenJuggler();
 	
@@ -231,6 +230,7 @@ class LevelThree extends Game {
 		clock = new GameClock();
 		
 		this.getScenePanel().setBackground(Color.gray);
+		
 		healthBar.setXPos(10);
 		health.setXScale(0.004);
 		ghost.setXPos(3);
@@ -245,8 +245,6 @@ class LevelThree extends Game {
 		woodFloor2.setXScale(0.9);
 		woodFloor2.setYScale(2.4);
 		
-		
-
 		redCarpet.setXPos(600);
 		redCarpet.setYPos(-300 + 800); /***** SHIFTED DOWN BY 800 PIXELS****/
 		redCarpet.setYScale(1.53);
@@ -326,8 +324,6 @@ class LevelThree extends Game {
 		vwall3.setYPos(500-vwall.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		vwall3.addEventListener(myQuestManager, null);
 
-		
-		
 		
 /**NEW WALLS HERE ************/		
 		longHallwayRight.setXPos(1300); //extended for level 3
@@ -740,7 +736,7 @@ class LevelThree extends Game {
 							enemy.setYPos(ym);
 							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							//enemyMoveCounter+=1;
-							enemyMoveCounter+=3;		// increases the owner's speed
+							enemyMoveCounter+=5;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -772,7 +768,7 @@ class LevelThree extends Game {
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
 							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter2+=3;		// makes the owner move faster
+							enemyMoveCounter2+=5;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
 							
@@ -828,7 +824,7 @@ class LevelThree extends Game {
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
 							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter4+=3;		// makes the owner move faster
+							enemyMoveCounter4+=5;		// makes the owner move faster
 						}
 						if(enemyMoveCounter4>=fPath4.size()){
 							
@@ -894,7 +890,7 @@ class LevelThree extends Game {
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
 							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter6+=3;		// makes the owner move faster
+							enemyMoveCounter6+=5;		// makes the owner move faster
 						}
 						if(enemyMoveCounter6>=path3.size()){
 							
@@ -961,7 +957,7 @@ class LevelThree extends Game {
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
 							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter8+=3;		// makes the owner move faster
+							enemyMoveCounter8+=5;		// makes the owner move faster
 						}
 						if(enemyMoveCounter8>=path1.size()){
 							
@@ -992,7 +988,7 @@ class LevelThree extends Game {
 //						//System.out.println("PATH ONE COMPLETED");
 //					}
 										
-					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
+					for(Sprite wall : collDects){			
 
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
 							
