@@ -2,6 +2,7 @@ package edu.virginia.gameBuilds;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -32,77 +33,95 @@ import edu.virginia.lab1test.AStar.Cell;
 
 class LevelTwo extends Game {
 	
+<<<<<<< HEAD
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
 	public DisplayObjectContainer levelTwo = new DisplayObjectContainer("LevelTwo", "health.png");
 	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
 	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
+=======
+	/******* these rooms check when the enemy and ghost are in the same room*/
+	Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
+	Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
+	Rectangle leftMiddleRoom = new Rectangle(135, 1015, 435, 465);
+	Rectangle rightMiddleRoom = new Rectangle(620, 1015, 435, 465);
+	Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
+	Rectangle bottomRoom = new Rectangle(130, 1310, 1160, 180); 	
+	Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
+	Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
+>>>>>>> origin/master
 	
-	// THIS SHOULD MAKE GHOST VISIBLE AT START OF GAME
-	ghostSprite ghost = new ghostSprite("ghost");
+	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(topRoom, topMiddleRoom, leftMiddleRoom, rightMiddleRoom, 
+																										verticalHallway, bottomRoom, doorwayView1, doorwayView2));
 	
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	 int healthWidth = 0;
-	 int foodCollected = 0;
+	 
 	 boolean fruitCollected = false;
 	 boolean strawberryCollected = false;
 	 boolean cherryCollected = false;
 	 boolean bananaCollected = false;
+	 int foodCollected = 0;
 	 boolean collected = true;
-	 SoundManager soundManager;
 	fruitSprite fruit = new fruitSprite("fruit");
 	cherrySprite cherry = new cherrySprite("cherry");
+	Sprite strawberry = new Sprite ("strawberry", "strawberry.png");
+	Sprite banana = new Sprite ("banana", "banana.png");
+	Tween fruitTween = new Tween(fruit, new TweenTransition() );
+	Tween cherryTween = new Tween(cherry, new TweenTransition());
+	Tween strawberryTween = new Tween(strawberry, new TweenTransition());
+	Tween bananaTween = new Tween(banana, new TweenTransition());
+	
+	ArrayList<Sprite> listOfFruits = new ArrayList<Sprite>(Arrays.asList(fruit, cherry, strawberry, banana));
+	
+	 Sprite health = new Sprite("health", "health.png");
+	 SoundManager soundManager;
+	
 	Sprite grass = new Sprite("grass", "grass.jpg");
 	Sprite grass2 = new Sprite("grass2", "grass.jpg");
-	Sprite grass3 = new Sprite("grass2", "grass.jpg");
-	Sprite health = new Sprite("health", "health.png");
-	private Sprite strawberry = new Sprite ("strawberry", "strawberry.png");
-	private Sprite banana = new Sprite ("banana", "banana.png");
-	Sprite sky = new Sprite("sky", "sky.png");
-	//ghostSprite ghost = new ghostSprite("ghost");
+	ghostSprite ghost = new ghostSprite("ghost");
 	private DisplayObjectContainer camera = new DisplayObjectContainer("Camera", null);
 	
-	WallSprite wall = new WallSprite("testWall");
+	//WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
 	WallSprite topHallway = new WallSprite("topHallway"); 
 	WallSprite hallwayBottom = new WallSprite("hallwayBottom");
-	VertWallSprite leftSideMiddleRoom = new VertWallSprite("leftSideMiddleRoom");
+	WallSprite houseTop = new WallSprite("houseTop");
+	Sprite woodFloor2 = new Sprite ("wood", "wood.jpg");
+	Sprite redCarpet = new Sprite ("redCarpet", "redCarpet.jpg");
 
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
-	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
-	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");
+	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");    	//use this wall's pos for collision detection
+	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway");	//use this wall's pos for collision detection
+	VertWallSprite leftHouseTop = new VertWallSprite("leftHouseTop");
+	VertWallSprite leftSideMiddleRoom = new VertWallSprite("leftSideMiddleRoom");
+	Sprite grass3 = new Sprite("grass2", "grass.jpg");
+	
+	WallSprite topRoomBottom = new WallSprite ("topRoomBottom");
 	
 	VertWallSprite lowerLeft = new VertWallSprite("lowerLeft");
-	//VertWallSprite lowerRight = new VertWallSprite("lowerRight");
 	LongWallSprite rightTop = new LongWallSprite("rightTop");
 	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
 	//for collision detection
 	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall, wall2,vwall,vwall2,wall3,wall4));
 	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3, topHallway, hallwayBottom, leftSideMiddleRoom, 
-																					longHallwayRight, upperRightHallway, wall, wall2, wall3, vwall3));
-	
+																													longHallwayRight, upperRightHallway, wall2, vwall3, leftHouseTop, leftSideMiddleRoom,houseTop,topRoomBottom));
+
 	
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
 	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
 	Sprite woodFloor = new Sprite ("wood", "wood.jpg");
-	Sprite woodFloor2 = new Sprite ("wood", "wood.jpg");
 	Sprite table = new Sprite ("table", "table.png");
 	Sprite greyCarpet = new Sprite ("greyCarpet", "greyCarpet.png");
+	Sprite greyCarpet2 = new Sprite ("greyCarpet", "greyCarpet.png");
 	Sprite beigeCarpet = new Sprite ("beigeCarpet", "beigeCarpet.jpg");
-	Sprite redCarpet = new Sprite ("redCarpet", "redCarpet.jpg");
 	
 	enemySprite enemy = new enemySprite("EnemyOne");
-	
-	//Tween marioTween = new Tween(ghost, new TweenTransition() );
-	Tween fruitTween = new Tween(fruit, new TweenTransition() );
-	Tween cherryTween = new Tween(cherry, new TweenTransition());
-	Tween strawberryTween = new Tween(strawberry, new TweenTransition());
-	Tween bananaTween = new Tween(banana, new TweenTransition());
 	
 	TweenJuggler juggler = new TweenJuggler();
 	
@@ -131,62 +150,30 @@ class LevelTwo extends Game {
 //	public boolean trippedCherry = false;
 //	public boolean trippedFruit = false;
 	boolean trippedCherry = false;
-	boolean trippedStrawberry = false;
 	boolean trippedFruit = false;
-	boolean trippedBanana = false;
 	
 	/**** this code for the enemy's movement paths ***/
-//	public int enemyMoveCounter = 1;
-//	public int enemyMoveCounter2 = 1;
-//	private boolean initializeRoute=true;
-//	
-//	private boolean path1Completed = false;
-//	
-//	public int room1x = 400;
-//	public int room1y = 275;
-//
-//	
-//	public Rectangle room1 = new Rectangle();
-//	
-//	
-//	public int room2x = 800;
-//	public int room2y = 275;
-//	
-//	
-//	public Rectangle room2 = new Rectangle();
-//	public boolean gameOverB = false;
-//	
-//	public boolean gtr1 = true;
-//	public boolean room1SetUp = false;
-//	
-//	public boolean gtr2 = false;
-//	public boolean room2SetUp = false;
-//	
-//	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
-//	
-//	private float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
-//	boolean transKeyTapped = false;			// needed to implement tapping of key
-//	boolean visibleKeyTapped = false;			// turns the ghost visible again
-	
-	
-	
-	
-	
+
 	int enemyMoveCounter = 1;
 	int enemyMoveCounter2 = 1;
+	int enemyMoveCounter3 = 1;
+	int enemyMoveCounter4 = 1;
+	int enemyMoveCounter5 = 1;
+	int enemyMoveCounter6 = 1;
+	int enemyMoveCounter7 = 1;
+	int enemyMoveCounter8 = 1;
 	boolean initializeRoute=true;
 	
 	boolean path1Completed = false;
 	
-	 int room1x = 400;
-	int room1y = 275;
+	int room1x = 400;
+	int room1y = 275+800; 
 
 	
-	Rectangle room1 = new Rectangle();
+	//Rectangle room1 = new Rectangle();
 	
-	
-	int room2x = 800;
-	int room2y = 275;
+	int room2x = 1000;
+	int room2y = 550+800; /***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
 	
 	
 	Rectangle room2 = new Rectangle();
@@ -198,15 +185,27 @@ class LevelTwo extends Game {
 	boolean gtr2 = false;
 	boolean room2SetUp = false;
 	
+	//boolean trippedCherry = false;
+	boolean trippedStrawberry = false;
+	//boolean trippedFruit = false;
+	boolean trippedBanana = false;
+	
+	int room3x = 800;
+	int room3y = 330+800; 	/***** NEEDS TO BE SHIFTED DOWN BY 800 PIXELS****/
+	
+	boolean gtr3 = false;
+	boolean gtr4 = false;
+	boolean gtr5 = false;
+	boolean gtr6 = false;
+	boolean gtr7 = false;
+	boolean gtr8 = false;
+	
+	
 	ArrayList<int[]> blockedList = new ArrayList<int[]>();
 	
 	float deltaAlpha = (float) 0.1;		// controls how quickly the ghost becomes invisible/visible
 	boolean transKeyTapped = false;			// needed to implement tapping of key
 	boolean visibleKeyTapped = false;
-	
-	
-	
-	
 	
 	ArrayList<Cell> path1 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath1 = new ArrayList<Cell>();
@@ -214,11 +213,27 @@ class LevelTwo extends Game {
 	ArrayList<Cell> path2 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
 	
+	ArrayList<Cell> path3 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath3 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path4 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath4 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path5 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath5 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path6 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath6 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path7 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath7 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path8 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath8 = new ArrayList<Cell>();
+	
 	LevelTwo(String gameId, int width, int height) {
 		
-		super("Level Build", 1200, 800);
-		
-		
+		super("Level Two", 1200, 800);
 		
 		clock = new GameClock();
 		
@@ -255,159 +270,166 @@ class LevelTwo extends Game {
 		
 		
 		this.getScenePanel().setBackground(Color.gray);
+		
 		healthBar.setXPos(10);
 		health.setXScale(0.004);
-		//health.setXPos(10);
-		//healthBar.setYPos(ghost.getXPos()- 400);
-		//healthBar.setYPos(10);
 		ghost.setXPos(3);
-		System.out.println("made it");
 		grass.setYPos(0);
 		grass.setXPos(0);
-		grass2.setYPos(-800);
-		grass3.setYPos(-1400);
-		//grass.setXScale(0.75);
-		//grass.setYScale(0.25);
-		//sky.setYScale(0.5);
-		//sky.setXScale(0.9);
-		//sky.setYPos(0);
-		
-		woodFloor.setXPos(250);
-		woodFloor.setYPos(450);
-		woodFloor.setRotation(1.57);
-		woodFloor.setXScale(2.3);
-		woodFloor.setYScale(0.7);
-		
+		grass2.setYPos(-800 + 800); 	/***** SHIFTED DOWN BY 800 PIXELS****/
+		grass3.setYPos(-1400 + 800);  /***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		woodFloor2.setXPos(1060);
-		woodFloor2.setYPos(-300);
+		woodFloor2.setYPos(-300 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		//woodFloor2.setRotation(1.57);
 		woodFloor2.setXScale(0.9);
 		woodFloor2.setYScale(2.4);
 		
-		greyCarpet.setXPos(600);
-		greyCarpet.setYPos(180);
+		redCarpet.setXPos(600);
+		redCarpet.setYPos(-300 + 800); /***** SHIFTED DOWN BY 800 PIXELS****/
+		redCarpet.setYScale(1.53);
+		redCarpet.setXScale(1.53);
+		
+		
+		woodFloor.setXPos(250);
+		woodFloor.setYPos(450 + 800); /***** SHIFTED DOWN BY 800 PIXELS****/
+		woodFloor.setRotation(1.57);
+		woodFloor.setXScale(2.3);
+		woodFloor.setYScale(0.7);
+		
+		greyCarpet.setXPos(600); 
+		greyCarpet.setYPos(180 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		greyCarpet.setYScale(0.67);
 		
+		greyCarpet2.setXPos(100);
+		greyCarpet2.setYPos(-650 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		greyCarpet2.setXScale(2.55);
+		greyCarpet2.setYScale(0.75);
+		
+		
 		beigeCarpet.setXPos(100);
-		beigeCarpet.setYPos(195);
+		beigeCarpet.setYPos(195 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		beigeCarpet.setYScale(0.93);
 		beigeCarpet.setXScale(1.2);
 		//beigeCarpet.setYScale(0.67);
 		
-		
-		redCarpet.setXPos(600);
-		redCarpet.setYPos(-300);
-		redCarpet.setYScale(1.53);
-		redCarpet.setXScale(1.53);
-		
 		table.setXPos(700);
-		table.setYPos(325);
+		table.setYPos(325 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		table.setXScale(0.035);
 		table.setYScale(0.035);
 		
-		ghost.setYPos(780-ghost.getScaledHeight());
+		ghost.setYPos(780-ghost.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		//marioTween.doTween(true);
 		//marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);	
 		
 		fruit.setXPos(500);
-		fruit.setYPos(300);
+		fruit.setYPos(300 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		fruit.addEventListener(myQuestManager, null);
 		
 		cherry.setXPos(710);
-		cherry.setYPos(310);
+		cherry.setYPos(310 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		cherry.addEventListener(myQuestManager, null);
 		
-		strawberry.setXScale(0.18);
-		strawberry.setYScale(0.18);
-		strawberry.setXPos(1170);
-		strawberry.setYPos(300);
-		strawberry.addEventListener(myQuestManager, null);
-		
-		banana.setXScale(0.25);
-		banana.setYScale(0.25);
-		banana.setXPos(730);
-		banana.setYPos(-100);
-		banana.addEventListener(myQuestManager, null);
-		
-		
 		lowerLeft.setXPos(100);
-		lowerLeft.setYPos(400);
-		
-//		lowerRight.setXPos(1062);
-//		lowerRight.setYPos(400);
-		
+		lowerLeft.setYPos(400 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+
 		rightTop.setXPos(600);
-		rightTop.setYPos (156);
+		rightTop.setYPos (156 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		leftBottom.setXPos(100);
-		leftBottom.setYPos(700);
+		leftBottom.setYPos(700 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		rightBottom.setXPos(600);
-		rightBottom.setYPos(700);
+		rightBottom.setYPos(700 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		
 		
 		wall2.setXPos(300);
-		wall2.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+		wall2.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		wall2.addEventListener(myQuestManager, null);
 		
 		wall4.setXPos(300+wall2.getScaledWidth());
-		wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight());
+		wall4.setYPos(500-vwall.getScaledHeight()-wall2.getScaledHeight() + 800); 	/***** SHIFTED DOWN BY 800 PIXELS****/
 		wall4.addEventListener(myQuestManager, null);
 		
 		vwall.setXPos(100);
-		vwall.setYPos(500-vwall.getScaledHeight());
+		vwall.setYPos(500-vwall.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		vwall.addEventListener(myQuestManager, null);
 		
 		vwall2.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
-		vwall2.setYPos(500-vwall.getScaledHeight());
+		vwall2.setYPos(500-vwall.getScaledHeight() + 800);			/***** SHIFTED DOWN BY 800 PIXELS****/
 		vwall2.addEventListener(myQuestManager, null);
 		
 		vwall3.setXPos(1062);
 		//vwall3.setXPos(300+(2*wall2.getScaledWidth())-vwall.getScaledWidth());
-		vwall3.setYPos(500-vwall.getScaledHeight());
+		vwall3.setYPos(500-vwall.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		vwall3.addEventListener(myQuestManager, null);
 
 		
-		
-		
 /**NEW WALLS HERE ************/		
-		longHallwayRight.setXPos(1300);
-		longHallwayRight.setYPos(-275);
-		longHallwayRight.setYScale(6.3);
+		longHallwayRight.setXPos(1300); //extended for level 3
+		longHallwayRight.setYPos(-650 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		longHallwayRight.setYScale(8.67);
 		
-		leftSideMiddleRoom.setXPos(567);
-		leftSideMiddleRoom.setYPos(-270);
-		leftSideMiddleRoom.setYScale(2.8);
-		
-		topHallway.setXPos(567);
-		topHallway.setYPos(-300);
-		topHallway.setXScale(5.05);
+		topHallway.setXPos(957);
+		topHallway.setYPos(-300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		topHallway.setXScale(2.5);
 		
 		upperRightHallway.setXPos(1063);
-		upperRightHallway.setYPos(-150);
+		upperRightHallway.setYPos(-150 + 800 +50);		/***** SHIFTED DOWN BY 800 PIXELS AND MOVED DOWN FOR THE ENEMY****/
 		upperRightHallway.setYScale(2);	
-	
+		
 		hallwayBottom.setXPos(1063);
-		hallwayBottom.setYPos(700);
+		hallwayBottom.setYPos(700 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
 		hallwayBottom.setXScale(1.7);
 		
+		houseTop.setXPos(100);
+		houseTop.setYPos(-650 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
+		houseTop.setXScale(8);
 		
+		leftHouseTop.setXPos(100);
+		leftHouseTop.setYPos(-650 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		leftHouseTop.setYScale(2.37);
 		
+		leftSideMiddleRoom.setXPos(567);
+		leftSideMiddleRoom.setYPos(-270 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		leftSideMiddleRoom.setYScale(2.8);
+		
+		topRoomBottom.setXPos(100);
+		topRoomBottom.setYPos(-300 + 800);		/***** SHIFTED DOWN BY 800 PIXELS****/
+		topRoomBottom.setXScale(4.7);
+
 		//wall.setXPos(300);
 		//wall.setYPos(vwall.getYPos()+vwall.getScaledHeight());
 
 		fruitTween.addEventListener(myQuestManager, null);
+		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
+		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
 		fruitTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 		
 		cherryTween.addEventListener(myQuestManager, null);
+		//coinTween.animate(TweenableParam.POP_TO_CENTER, fruit.getYPos(), this.getScenePanel().getHeight()/2-(fruit.getScaledHeight()/2)-50, 6000);
+		//coinTween.animate(TweenableParam.SWELL, fruit.getXScale(), .05, 6000);
 		cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		banana.setXScale(0.25);
+		banana.setYScale(0.25);
+		banana.setXPos(730);
+		banana.setYPos(-100 + 800); 	/***** SHIFTED DOWN BY 800 PIXELS****/
+		banana.addEventListener(myQuestManager, null);
+		
+		strawberry.setXScale(0.5);
+		strawberry.setYScale(0.5);
+		strawberry.setXPos(1170);
+		strawberry.setYPos(300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		strawberry.addEventListener(myQuestManager, null);
 		
 		strawberryTween.addEventListener(myQuestManager, null);
 		strawberryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 		
 		bananaTween.addEventListener(myQuestManager, null);
 		bananaTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		
 		
 		
 		
@@ -420,10 +442,10 @@ class LevelTwo extends Game {
 		gameOver.setXScale(1.5);
 		gameOver.setYScale(1.5);
 		gameOver.setXPos(170);
-		gameOver.setYPos(300);
+		gameOver.setYPos(300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		gameOver.setVisible(false);
 		
-		
+//		
 //		try {
 //			soundManager = new SoundManager();
 //			soundManager.loadSoundEffect("caught", "resources/caught.wav");
@@ -437,94 +459,88 @@ class LevelTwo extends Game {
 		gameWon.setXScale(1.5);
 		gameWon.setYScale(1.5);
 		gameWon.setXPos(170);
-		gameWon.setYPos(300);
+		gameWon.setYPos(300 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		gameWon.setVisible(false);
 		
 		//enemy code
 		enemy.setTrans(1.0f);
-		enemy.setXPos(800);
-		enemy.setYPos(100);
-		
-		//room rectangle
-		room1.setBounds(300+vwall.getScaledHeight()+20,500-vwall.getScaledHeight()-20,275,265);
-		
-		System.out.println(vwall.getScaledWidth());
-//		int wstart = 196-134;
-//		for(int c = wstart; c<=wstart+304+134;c++){	
+//		enemy.setXPos(room2x);
+//		enemy.setYPos(room2y-15 + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
+		enemy.setXPos(345);
+		enemy.setYPos(1300);
+
+//		int wstart = 196-85;
+//		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+//		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
 //			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
 //				int[] e = new int[]{x,c};
 //				blockedList.add(e);
 //			}
 //		}
-//		
-//		int wstart2 = 197-134;
-//		for(int c = wstart2; c<=wstart2+304+134;c++){	
-//			for(int x = 600-76-vwall.getScaledWidth(); x<=600; x++){
+//
+//		int wstart2 = 196-85;
+//		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
+//		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
+//			for(int x = (int) (530-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
+//
 //				int[] e = new int[]{x,c};
 //				blockedList.add(e);
 //			}
 //		}
-//		
-//		int wstart3 = 197-134;
-//		for(int c = wstart3; c<=wstart2+304+134;c++){	
+//		int wstart3 = 196-85;
+//		//int wstart3 = 197-134;
+//		//for(int c = wstart3; c<=wstart2+304+134;c++){	
+//		for(int c = wstart3; c<=wstart2+304+45;c++){	
 //			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
 //				int[] e = new int[]{x,c};
 //				blockedList.add(e);
 //			}
 //		}
 //		
-//		int wstart4 = 197-wall.getScaledHeight() - 134;
+//		int wstart4 = 197-wall.getScaledHeight() - 85;
 //		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
 //			for(int x = 350; x<=1176; x++){
 //				int[] e = new int[]{x,c};
 //				blockedList.add(e);
 //			}
 //		}
-		
-		
-		int wstart = 196-85;
-		//int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
-		for(int c = wstart; c<=wstart+vwall.getScaledHeight()+45;c++){	
-			for(int x = 100 - vwall.getScaledWidth(); x<=100; x++){
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
 
-		int wstart2 = 196-85;
-		//int wstart2 = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
-		for(int c = wstart2; c<=wstart2+vwall.getScaledHeight()+45;c++){	
-			for(int x = (int) (530-enemy.getHitBox().getWidth()-vwall.getScaledWidth()); x<=600; x++){
+		//ArrayList<Sprite> sampleColl = new ArrayList<Sprite>();
+		//sampleColl.add(vwall2);
+//		sampleColl.add(collDects.get(1));
+//		sampleColl.add(collDects.get(2));
+		
+		
+		//*********************DO NOT DELETE BELOW ***********************/
+//		for(Sprite w : sampleColl){
+//			
+//			int wstartAll = (int) (w.getYPos()-149);
+//			
+//			for(int c = wstartAll; c<=wstartAll+w.getScaledHeight()+10;c++){
+//				
+//				int xy = 1;
+//				
+//				if(w.getXPos()>(enemy.getHitBox().getWidth()+60)){
+//					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth()-60);
+//				}
+//				
+////				if(w.getXPos()>=enemy.getHitBox().getWidth()){
+////					xy = (int) (w.getXPos()-enemy.getHitBox().getWidth());
+////				}
+//				
+//				for(int x = xy; x<=w.getXPos()+w.getScaledWidth(); x++){
+//
+//					int[] e = new int[]{x,c};
+//					blockedList.add(e);
+//				}
+//			}
+//		}
+		
+		//*********************DO NOT DELETE Above ***********************/
+		
+		//room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
+		
 
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
-		int wstart3 = 196-85;
-		//int wstart3 = 197-134;
-		//for(int c = wstart3; c<=wstart2+304+134;c++){	
-		for(int c = wstart3; c<=wstart2+304+45;c++){	
-			for(int x = 1100-76;x<=1100+ vwall.getScaledWidth();x++){
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
-		
-		int wstart4 = 197-wall.getScaledHeight() - 85;
-		for(int c = wstart4; c<=wstart4+wall2.getScaledHeight();c++){	
-			for(int x = 350; x<=1176; x++){
-				int[] e = new int[]{x,c};
-				blockedList.add(e);
-			}
-		}
-		
-		
-		
-		
-		
-		
-		room1.setBounds(300+vwall.getScaledWidth(),500-vwall.getScaledHeight(),(2*wall2.getScaledWidth())-(2*vwall.getScaledWidth()),vwall.getScaledHeight());
-		
 		/*********** ATTEMPTING TO ADD SECOND PATH TO ENEMY *****************/
 		
 //		path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), (int)enemy.getXPos(), (int)enemy.getYPos(), room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
@@ -541,70 +557,160 @@ class LevelTwo extends Game {
 		
 		/*********** end of second path for enemy code *********/
 		
+		/******************************Creates the path**********************/
+		
+		
+		
+		System.out.println("Called 1");
+		path1 = AStar.test(1, 4000, 4000, 350, 1300, 1135, 1300, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		int pLen = path1.size();
+		
+		int q=pLen-1;
+		
+		
+		/** prints the path **/
+		 
+		
+		while(q>=0){
+			Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
+			fPath1.add(temp);
+			q-=1;
+		}
+		
+		//////////////////////////////////////////////////////////
+		
+		
+		
+		System.out.println(wall3.getYPos());
+		
+		
+		//path2
+		/////////////////////////////////////////////////
+		System.out.println("Called 2");
+		path2 = AStar.test(1, 4000, 4000, 1135, 1300, 1135, 520,/*room1x, room1y-15, 1200, 500,/*room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		int pLen2 = path2.size();
+		
+		int q2=pLen2-1;
+		
+		
+		/** prints the path **/
+		
+		while(q2>=0){
+			Cell temp = new Cell(path2.get(q2).i,path2.get(q2).j);
+			fPath2.add(temp);
+			q2-=1;
+		}
+		/////////////////////////////////////////
+		System.out.println("Called 3");
+		path3 = AStar.test(1, 4000, 4000, 1135, 520, 790, 520,/*1200, 400,/*room2x, room2y-15, room3x, room3y, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		int pLen3 = path3.size();
+		
+		int q3=pLen3-1;
+		
+		
+		/** prints the path **/
+		
+		while(q3>=0){
+			Cell temp = new Cell(path3.get(q3).i,path3.get(q3).j);
+			fPath3.add(temp);
+			q3-=1;
+		}
+		
+		System.out.println("Called 4");
+		path4 = AStar.test(1, 4000, 4000, 790, 520, 790, 325,/*room3x, room3y,  room2x, room2y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+		System.out.println("finished path 4");
+		int pLen4 = path4.size();
+		
+		int q4=pLen4-1;
+		
+		
+		/** prints the path **/
+		
+		while(q4>=0){
+			Cell temp = new Cell(path4.get(q4).i,path4.get(q4).j);
+			fPath4.add(temp);
+			q4-=1;
+		}
+		
+//		System.out.println("Called 5");
+//		path5 = AStar.test(1, 4000, 4000, 820, 325, 820, 525, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen5 = path5.size();
+//		
+//		int q5=pLen5-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q5>=0){
+//			Cell temp = new Cell(path5.get(q5).i,path5.get(q5).j);
+//			fPath5.add(temp);
+//			q5-=1;
+//		}
+//		System.out.println("Called 6");
+//		//path6 = AStar.test(1, 4000, 4000, 820, 525, 1130, 525, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen6 = path6.size();
+//		
+//		int q6=pLen6-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q6>=0){
+//			Cell temp = new Cell(path6.get(q6).i,path6.get(q6).j);
+//			fPath6.add(temp);
+//			q6-=1;
+//		}
+//		System.out.println("Called 7");
+//		//path7 = AStar.test(1, 4000, 4000, 1130, 525, 1130, 1300, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen7 = path7.size();
+//		
+//		int q7=pLen7-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q7>=0){
+//			Cell temp = new Cell(path7.get(q7).i,path7.get(q7).j);
+//			fPath7.add(temp);
+//			q7-=1;
+//		}
+//		System.out.println("Called 8");
+//		//path8 = AStar.test(1, 4000, 4000, 1130, 1300, 345, 1300, /*room2x, room2y-15, room1x, room1y-15, */blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
+//		int pLen8 = path8.size();
+//		
+//		int q8=pLen8-1;
+//		
+//		
+//		/** prints the path **/
+//		 
+//		
+//		while(q8>=0){
+//			Cell temp = new Cell(path8.get(q8).i,path8.get(q8).j);
+//			fPath8.add(temp);
+//			q8-=1;
+//		}
+//		
+		
 		//initializeRoute = false;
-		
-		
-		
-		//path one
-				///////////////////////////////////////////////////////
-				
-				path1 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room2x, room2y-15, room1x, room1y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-				int pLen = path1.size();
-				
-				int q=pLen-1;
-				
-				
-				/** prints the path **/
-				 
-				
-				while(q>=0){
-					Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
-					fPath1.add(temp);
-					q-=1;
-				}
-				
-				//////////////////////////////////////////////////////////
-				
-				
-				//path2
-				/////////////////////////////////////////////////
-			
-				path2 = AStar.test(1, this.getScenePanel().getWidth(), this.getScenePanel().getHeight(), room1x, room1y-15, room2x, room2y-15, blockedList);		// made room1y -> room1y-15 because enemy wasn't fully in the room
-				int pLen2 = path2.size();
-				
-				int q2=pLen2-1;
-				
-				
-				/** prints the path **/
-				
-				while(q2>=0){
-					Cell temp = new Cell(path2.get(q2).i,path2.get(q2).j);
-					fPath2.add(temp);
-					q2-=1;
-				}
-				/////////////////////////////////////////
-		
-		
-		
-		
 	}
 	
-	public void switchPath(){
-		if(gtr1 == true){
-			gtr1 = false;
-			room1SetUp = false;
-			gtr2 = true;
-		}
-		
-		if(gtr2 == true){
-			
-			gtr2 = false;
-			room2SetUp = false;
-			gtr1 = true;
-		}
-	}
-	
-	
+//	public void switchPath(){
+//		if(gtr1 == true){
+//			gtr1 = false;
+//			room1SetUp = false;
+//			gtr2 = true;
+//		}
+//		
+//		if(gtr2 == true){
+//			
+//			gtr2 = false;
+//			room2SetUp = false;
+//			gtr1 = true;
+//		}
+//	}
 
 	public void update(ArrayList<String> pressedKeys) {
 
@@ -612,6 +718,7 @@ class LevelTwo extends Game {
 		 * 	it doesn't truly affect the game but it gives us a lot of error warnings in the console
 		 * but it seems to make the drawing of the objects to the screen slow...might want to ask Floryan
 		 */
+		
 		healthBar.setXPos((ghost.getXPos() - VIEWPORT_SIZE_X / 2));
 		healthBar.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
 		if (healthBar.getXPos() > offsetMaxX){healthBar.setXPos(offsetMaxX);}
@@ -645,6 +752,7 @@ class LevelTwo extends Game {
 		else if (gameWon.getXPos() < offsetMinY){gameWon.setYPos(offsetMinY);}
 		super.update(pressedKeys);
 		
+
 		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
 		if (camera.getXPos() > offsetMaxX){camera.setXPos(offsetMaxX);}
@@ -666,9 +774,9 @@ class LevelTwo extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
 							//enemyMoveCounter+=1;
-							enemyMoveCounter+=2;		// increases the owner's speed
+							enemyMoveCounter+=5;		// increases the owner's speed
 						}
 						
 						if(enemyMoveCounter>=fPath1.size()){
@@ -681,6 +789,8 @@ class LevelTwo extends Game {
 							//switchPath();
 							gtr1 = false;
 							gtr2 = true;
+							gtr3 = false;
+							gtr4 = false;
 							
 							
 						}
@@ -697,8 +807,8 @@ class LevelTwo extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
-							enemyMoveCounter2+=2;		// makes the owner move faster
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter2+=5;		// makes the owner move faster
 						}
 						if(enemyMoveCounter2>=fPath2.size()){
 							
@@ -706,10 +816,209 @@ class LevelTwo extends Game {
 							enemyMoveCounter2=1;
 							gtr2 = false;
 
-							gtr1 = true;
+							gtr1 = false;
+							
+							gtr3 = true;
+							
+							gtr4 = false;
 						}
 						
 					}
+					
+					if(gtr3 == true){
+						
+						
+						
+						if(enemyMoveCounter3<fPath3.size()){
+							Cell moveTo = fPath3.get(enemyMoveCounter3);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter3+=3;		// makes the owner move faster
+						}
+						if(enemyMoveCounter3>=fPath3.size()){
+							
+							
+							enemyMoveCounter3=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = true;
+						}
+						
+					}
+					
+					if(gtr4 == true){
+						
+						
+						
+						if(enemyMoveCounter4<fPath4.size()){
+							Cell moveTo = fPath4.get(enemyMoveCounter4);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter4+=5;		// makes the owner move faster
+						}
+						if(enemyMoveCounter4>=fPath4.size()){
+							
+							
+							enemyMoveCounter4=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							
+							gtr5 = true;
+							
+						}
+						
+					}
+					
+					
+					
+					
+					if(gtr5 == true){
+						
+						
+						
+						if(enemyMoveCounter5<path4.size()){
+							Cell moveTo = path4.get(enemyMoveCounter5);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter5+=3;		// makes the owner move faster
+						}
+						if(enemyMoveCounter5>=path4.size()){
+							
+							
+							enemyMoveCounter5=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = true;
+							
+						}
+						
+					}
+					
+
+					if(gtr6 == true){
+						
+						
+						
+						if(enemyMoveCounter6<path3.size()){
+							Cell moveTo = path3.get(enemyMoveCounter6);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter6+=5;		// makes the owner move faster
+						}
+						if(enemyMoveCounter6>=path3.size()){
+							
+							
+							enemyMoveCounter6=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = true;
+							
+						}
+						
+					}
+					
+					
+					if(gtr7 == true){
+						
+						
+						
+						if(enemyMoveCounter7<path2.size()){
+							Cell moveTo = path2.get(enemyMoveCounter7);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter7+=3;		// makes the owner move faster
+						}
+						if(enemyMoveCounter7>=path2.size()){
+							
+							
+							enemyMoveCounter7=1;
+							gtr2 = false;
+
+							gtr1 = false;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = false;
+							gtr8 = true;
+							
+						}
+						
+					}
+					
+					
+					if(gtr8 == true){
+						
+						
+						
+						if(enemyMoveCounter8<path1.size()){
+							Cell moveTo = path1.get(enemyMoveCounter8);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter8+=5;		// makes the owner move faster
+						}
+						if(enemyMoveCounter8>=path1.size()){
+							
+							
+							enemyMoveCounter8=1;
+							gtr2 = false;
+
+							gtr1 = true;
+							
+							gtr3 = false;
+							
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = false;
+							gtr8 = false;
+							
+						}
+						
+					}
+					
 					
 					
 					juggler.nextFrame();
@@ -719,9 +1028,11 @@ class LevelTwo extends Game {
 //						//System.out.println("PATH ONE COMPLETED");
 //					}
 										
-					for(Sprite wall : collDects){			// does code have ability to cycle through every wall object in 1/60 of a second?
-						
+					for(Sprite wall : collDects){			
+
 						if(ghost.collidesWith(wall) && ghostAbilities==false){
+							
+							System.out.println(wall.getId());
 							
 							collisionOccured = true;
 
@@ -746,65 +1057,40 @@ class LevelTwo extends Game {
 						}
 					}
 					
+					/********* ENEMY COLLISION DETECTION ******/
+					
+					for ( Rectangle room : listOfRooms ) {
+						if(enemy.getHitBox().intersects(room) && ghost.getHitBox().intersects(room) && !ghostAbilities) {
+							if (!gameWon.isVisible() && gameOverB == false) {
+								try {
+									soundManager.playSoundEffect("caught");
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							gameOver.setVisible(true);
+							gameOverB = true;
+							}
+						}
+					}
+	
+					/*** I moved this piece of code to the bottom of the update method **/
+					/*if (foodCollected == 4) {
 
-					//enemy in the same room as player detection
-					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						gameOver.setVisible(true);
-						gameOverB = true;
-						}
-					}
-					
-					if ( orangeRoom.intersects(enemy.getHitBox()) && orangeRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							gameOver.setVisible(true);
-							gameOverB = true;
-						}
-					}
-					
-					//xSystem.out.println("ghost in room " + blueRoom.intersects(ghost.getHitBox()));
-					if ( blueRoom.intersects(enemy.getHitBox()) && blueRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							gameOver.setVisible(true);
-							gameOverB = true;
-						}
-					}
-					
-					if (foodCollected == 4) {
 
 						//System.out.println("A winner is you");
 						//winner.setVisible(true);
 
 						//System.out.println("A winner is you");
 						if (!gameOver.isVisible()) {
-						gameWon.setVisible(true);}
+							gameWon.setVisible(true);
+						}
 						
 						//pause system here?
 						
-						switchLevels();
+						//switchLevels();
 
-					}
+					}*/
 
 					if(collisionOccured == false){
 						stopL =false;
@@ -825,6 +1111,7 @@ class LevelTwo extends Game {
 					}
 
 
+
 					if (myQuestManager.questCompleted) {
 						if (fruitCollected == true) {
 							
@@ -832,40 +1119,44 @@ class LevelTwo extends Game {
 						}
 						else if (cherryCollected == true) {cherryTween.doTween(myQuestManager.tweenComplete);}
 						else if (strawberryCollected == true) {strawberryTween.doTween(myQuestManager.tweenComplete);}
-						else if (bananaCollected == true) {bananaTween.doTween(myQuestManager.tweenComplete);}
-						
-				/****** COME BACK TO THIS */
-					
-						//questConfirm.setVisible(true);		
-					}
+						else if (bananaCollected == true) {bananaTween.doTween(myQuestManager.tweenComplete);} }
 					
 					if (pressedKeys.contains("Q")) {
 						System.exit(0);
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(38)) ) {
-						if ( stopU==false) {
-							ghost.setYPos(ghost.getYPos()-dy);}
+						if ( stopU==false)
+							{ghost.setYPos(ghost.getYPos()-dy);
+							//System.out.println("down is: " + ghost.getYPos());
+							}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
-						if ( stopD==false) {
-							ghost.setYPos(ghost.getYPos() + dy);}
+						if (stopD==false) {
+							ghost.setYPos(ghost.getYPos() + dy);
+							//System.out.println("up is: " + ghost.getYPos()); 
+							}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
-						if ( stopR==false){
-							ghost.setXPos(ghost.getXPos() + dx); }
+						if (stopR==false) {
+							ghost.setXPos(ghost.getXPos() + dx);
+							//System.out.println("right is: " + ghost.getXPos());
+							}
 					}
 
 					if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
-						if (stopL==false) {
-							ghost.setXPos(ghost.getXPos() - dx);}
+						if ( stopL==false)
+							{ghost.setXPos(ghost.getXPos() - dx);
+							//System.out.println("left is: " + ghost.getXPos());
+							}
 					}
 					
 					/******************* TAPPING AND VISIBILITY ****************/
 					if (!transKeyTapped && pressedKeys.contains(KeyEvent.getKeyText(88))) {		//checks to see if key has been tapped.
-						if ( ghost.getTrans()-2*deltaAlpha > 0.0f ) {
+						//System.out.println( "ghost trans: " + (ghost.getTrans()-deltaAlpha > 0.0f));
+						if ( ghost.getTrans()-deltaAlpha > 0.0f ) {
 							ghost.setTrans(ghost.getTrans()-deltaAlpha);
 						}	
 						transKeyTapped = true;
@@ -896,21 +1187,20 @@ class LevelTwo extends Game {
 						solidEnough = false;
 					}
 					
-					if ( ghost.getTrans() <=  0.0f + 2*deltaAlpha) {
+					if ( ghost.getTrans() <=  0.0f + deltaAlpha) {
 						ghostAbilities = true;
 						solidEnough = false;
 					}
 
+
 					/***********************************/
 
-
 					if ((ghost.collidesWith(fruit)&& solidEnough==true && !gameOver.isVisible())) {
-
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						fruitCollected = true;
 						
 						if (health.getXScale() <= 2.05 && trippedFruit == false) {
-						health.setXScale(health.getXScale() + 0.4);
+							health.setXScale(health.getXScale() + 0.4);
 						trippedFruit = true;
 						try {
 							soundManager.playSoundEffect("munch");
@@ -920,15 +1210,15 @@ class LevelTwo extends Game {
 						}
 						foodCollected +=1;
 						}
-						
+						collected = false;
 						fruitTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 					}
 
-					if ((ghost.collidesWith(cherry) && solidEnough == true && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(cherry) && solidEnough==true && !gameOver.isVisible())) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
+						cherryCollected = true;
 						if (health.getXScale() <= 2.05 && trippedCherry == false) {
 							health.setXScale(health.getXScale() + 0.4);
-							cherryCollected = true;
 							trippedCherry = true;
 							try {
 								soundManager.playSoundEffect("munch");
@@ -942,9 +1232,7 @@ class LevelTwo extends Game {
 							cherryTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
-					
-
-					if ((ghost.collidesWith(banana) && solidEnough==true && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(banana) && solidEnough == true && !gameOver.isVisible())) {
 						banana.dispatchEvent(new Event(Event.COIN_PICKED_UP, banana));
 						if (health.getXScale() <= 2.05 &&  trippedBanana == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -963,8 +1251,7 @@ class LevelTwo extends Game {
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
-
-					if ((ghost.collidesWith(strawberry) && solidEnough==true && !gameOver.isVisible())) {
+					if ((ghost.collidesWith(strawberry) && solidEnough == true && !gameOver.isVisible())) {
 						strawberry.dispatchEvent(new Event(Event.COIN_PICKED_UP, strawberry));
 						if (health.getXScale() <= 2.05 && trippedStrawberry == false) {
 							health.setXScale(health.getXScale() + 0.4);
@@ -983,6 +1270,22 @@ class LevelTwo extends Game {
 							//makes orange tween even though it's the cherry that's being overlapped
 						}
 					
+					if (foodCollected == 4) {
+
+
+						//System.out.println("A winner is you");
+						//winner.setVisible(true);
+
+						//System.out.println("A winner is you");
+						if (!gameOver.isVisible()) {
+							gameWon.setVisible(true);
+						}
+						
+						//pause system here?
+						
+						//switchLevels();
+
+					}
 
 				}
 
@@ -998,13 +1301,9 @@ class LevelTwo extends Game {
 	 * */
 	@Override
 	public void draw(Graphics g) {
-		
-		/**
-		 * There is no line of code translating it back. Might be part of the issue.
-		 */
-		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());		
-		
+		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		super.draw(g);
+<<<<<<< HEAD
 		levelTwo.draw(g);
 //		if (grass != null && grass2 != null && grass3 != null) {
 //			grass.draw(g);
@@ -1021,6 +1320,24 @@ class LevelTwo extends Game {
 //			redCarpet.draw(g);
 //			table.draw(g);
 //		}
+=======
+		
+		if (grass != null && grass2 != null) {
+			grass.draw(g);
+			grass2.draw(g);
+			grass3.draw(g);
+		}
+
+		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null && redCarpet != null && woodFloor2 != null && greyCarpet2 != null) {
+			woodFloor.draw(g);
+			greyCarpet.draw(g);
+			greyCarpet2.draw(g);
+			beigeCarpet.draw(g);
+			redCarpet.draw(g);
+			woodFloor2.draw(g);
+			table.draw(g);
+		}
+>>>>>>> origin/master
 //		g.setColor(Color.blue);
 //		g.fillRect (1100, -300, 230, 1000);
 //		g.setColor(Color.green);//entryway
@@ -1057,21 +1374,16 @@ class LevelTwo extends Game {
 //			banana.draw(g);
 //		}
 		
-		//g.setColor(Color.red);
-		
-		
+		g.setColor(Color.red);
+		g.fillRect(20, 30, healthWidth, 22);
 		health.draw(g);
 		healthBar.draw(g);
-		//g.fillRect(20, 30, healthWidth, 22);
 		
-		
-		if (ghost != null) {
-			ghost.draw(g);
-		}
 		
 		if (enemy != null) {
 			enemy.draw(g);
 		}
+<<<<<<< HEAD
 //		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && leftSideMiddleRoom != null) {
 //			lowerLeft.draw(g);
 //			//lowerRight.draw(g);
@@ -1084,6 +1396,22 @@ class LevelTwo extends Game {
 //			hallwayBottom.draw(g);
 //			leftSideMiddleRoom.draw(g);
 //		}
+=======
+		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && houseTop != null && leftHouseTop != null && topRoomBottom != null && leftSideMiddleRoom != null) {
+			lowerLeft.draw(g);
+			rightTop.draw(g);
+			leftBottom.draw(g);
+			rightBottom.draw(g);
+			longHallwayRight.draw(g);
+			topHallway.draw(g);
+			upperRightHallway.draw(g);
+			hallwayBottom.draw(g);
+			houseTop.draw(g);
+			leftHouseTop.draw(g);
+			topRoomBottom.draw(g);
+			leftSideMiddleRoom.draw(g);
+		}
+>>>>>>> origin/master
 
 		
 		for ( Sprite wall : collDects ) {
@@ -1091,7 +1419,11 @@ class LevelTwo extends Game {
 				wall.draw(g);
 			}
 		}
+		if (ghost != null) {
+			ghost.draw(g);
+		}
 		
+<<<<<<< HEAD
 //		if (gameWon != null) {
 //			gameWon.draw(g);
 //		}
@@ -1099,34 +1431,38 @@ class LevelTwo extends Game {
 //		if (gameOver != null) {
 //			gameOver.draw(g);
 //		}
+=======
+		if (gameWon != null) {
+			gameWon.draw(g);
+		}
+		
+		if (gameOver != null) {
+			gameOver.draw(g);
+		}
+		
+		// this code was just to make sure the hitboxes are positioned correctly
+		//g.setColor(Color.green);
+		//g.drawRect(620, 1015, 435, 465);
+		//g.fillRect(620, 1015, 435, 465);	
+>>>>>>> origin/master
 	}
 
 	//Level Switching code
 		//add a new if statment for each new level
 		public void switchLevels(){
-			if(Beta.atLevelOne == true){
-				System.out.println("it should be working");
-				Beta.currentGame.exitGame();
-				Beta.atLevelOne = false;
-				Beta.atLevelTwo = true;
-				Game game = new LevelTwo("Level 2", 1200, 800);
-				Beta.currentGame = game;
-				Beta.currentGame.start();
-				
-			}
 			
-			if(Beta.atLevelTwo == true){
-				System.out.println("level 3 entered");
+				System.out.println("level 2 entered");
 				Beta.currentGame.exitGame();
 				Beta.atLevelThree = true;
 				Beta.atLevelTwo = false;
-				Game game = new LevelThree("LevelThree", 1200, 800);
+				Game game = new LevelTwo("Level Two", 1200, 800);
 				//Game game = new Beta();
 				Beta.currentGame = game;
 				Beta.currentGame.start();
 				
-			}
+			
 		}
+		
 
 		
 
@@ -1134,7 +1470,7 @@ class LevelTwo extends Game {
 
 	
 			//Game game = new Beta();
-			LevelTwo level2 = new LevelTwo("Test", 1200, 800);
+			LevelTwo level2 = new LevelTwo("LevelTwo", 1200, 800);
 			Beta.currentGame = level2;
 			
 			Beta.currentGame.start();
@@ -1143,3 +1479,4 @@ class LevelTwo extends Game {
 
 //private GameClock clock2;
 }
+

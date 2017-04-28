@@ -1386,8 +1386,8 @@ class LevelFive extends Game {
 
 	
 			//Game game = new Beta();
-			LevelFive level2 = new LevelFive("Test", 1200, 800);
-			Beta.currentGame = level2;
+			LevelFive level5 = new LevelFive("Test", 1200, 800);
+			Beta.currentGame = level5;
 			
 			Beta.currentGame.start();
 		}

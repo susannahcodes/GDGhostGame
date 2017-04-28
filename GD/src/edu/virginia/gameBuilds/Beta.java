@@ -37,10 +37,13 @@ import edu.virginia.lab1test.QuestManager;
 public class Beta extends Game {
 
 	public DisplayObjectContainer levelOne = new DisplayObjectContainer("LevelOne", "health.png");
+<<<<<<< HEAD
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
 	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
 	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
+=======
+>>>>>>> origin/master
 
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	//Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
@@ -48,7 +51,7 @@ public class Beta extends Game {
 	Rectangle leftMiddleRoom = new Rectangle(135, 215, 435, 465);
 	Rectangle rightMiddleRoom = new Rectangle(620, 215, 435, 465);
 	//Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
-	Rectangle bottomRoom = new Rectangle(130, 510, 1160, 180); 	
+	Rectangle bottomRoom = new Rectangle(130, 510, 900, 180); 	
 	//Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
 	//Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
 	
@@ -707,6 +710,7 @@ public class Beta extends Game {
 								}
 							gameOver.setVisible(true);
 							gameOverB = true;
+							//System.out.println(room);
 							}
 						}
 					}
@@ -832,6 +836,21 @@ public class Beta extends Game {
 		if (gameOver != null) {
 			gameOver.draw(g);
 		}
+		
+		/*testing the hitboxes
+		g.setColor(Color.green);
+		g.drawRect(135, 215, 435, 465);
+		g.fillRect(135, 215, 435, 465);
+		g.setColor(Color.blue);
+		g.drawRect((int)enemy.getHitBox().getX(), (int)enemy.getHitBox().getY(), (int)enemy.getHitBox().getWidth(), (int) enemy.getHitBox().getHeight());
+		g.drawRect((int)ghost.getHitBox().getX(), (int)ghost.getHitBox().getY(), (int)ghost.getHitBox().getWidth(), (int) ghost.getHitBox().getHeight());
+		g.drawRect(620, 215, 435, 465);
+		g.fillRect(620, 215, 435, 465);
+		g.setColor(Color.blue);
+		g.drawRect(130, 510, 900, 180); 	
+		g.fillRect(130, 510, 900, 180); 
+		*/
+		
 	}
 
 	//Level Switching code
