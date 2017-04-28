@@ -35,13 +35,12 @@ import edu.virginia.lab1test.AStar.Cell;
 import edu.virginia.lab1test.QuestManager;
 
 public class Beta extends Game {
-<<<<<<< HEAD
+
 	public DisplayObjectContainer levelOne = new DisplayObjectContainer("LevelOne", "health.png");
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
 	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
 	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
-=======
 
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	//Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
@@ -54,8 +53,7 @@ public class Beta extends Game {
 	//Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
 	
 	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(leftMiddleRoom, rightMiddleRoom, bottomRoom));
-	
->>>>>>> origin/master
+
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	public int healthWidth = 0;
 	public int foodCollected = 0;

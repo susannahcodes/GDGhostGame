@@ -34,6 +34,7 @@ class LevelTwo extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
+	public DisplayObjectContainer levelTwo = new DisplayObjectContainer("LevelTwo", "health.png");
 	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
 	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
 	
@@ -220,6 +221,38 @@ class LevelTwo extends Game {
 		
 		
 		clock = new GameClock();
+		
+		levelTwo.add(grass);
+		levelTwo.add(grass2);
+		levelTwo.add(grass3);
+		levelTwo.add(woodFloor);
+		levelTwo.add(woodFloor2);
+		levelTwo.add(greyCarpet);
+		levelTwo.add(table);
+		levelTwo.add(beigeCarpet);
+		levelTwo.add(fruit);
+		levelTwo.add(cherry);
+		levelTwo.add(strawberry);
+		levelTwo.add(banana);
+		//levelTwo.add(bed);
+		levelTwo.add(lowerLeft);
+		//levelTwo.add(lowerRight);
+		levelTwo.add(rightTop);
+		levelTwo.add(leftBottom);
+		levelTwo.add(rightBottom);
+		levelTwo.add(vwall);
+		levelTwo.add(wall2);
+		levelTwo.add(wall4);
+		levelTwo.add(vwall2);
+		levelTwo.add(vwall3);
+		levelTwo.add(gameWon);
+		levelTwo.add(gameOver);
+		levelTwo.add(longHallwayRight);
+		levelTwo.add(leftSideMiddleRoom);
+		levelTwo.add(topHallway);
+		levelTwo.add(upperRightHallway);
+		levelTwo.add(hallwayBottom);
+		
 		
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
@@ -972,56 +1005,57 @@ class LevelTwo extends Game {
 		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());		
 		
 		super.draw(g);
-		if (grass != null && grass2 != null && grass3 != null) {
-			grass.draw(g);
-			grass2.draw(g);
-			grass3.draw(g);
-			//sky.draw(g);
-		}
-
-		if (woodFloor != null && woodFloor2 != null && greyCarpet != null && beigeCarpet != null && table != null && redCarpet != null) {
-			woodFloor.draw(g);
-			woodFloor2.draw(g);
-			greyCarpet.draw(g);
-			beigeCarpet.draw(g);
-			redCarpet.draw(g);
-			table.draw(g);
-		}
+		levelTwo.draw(g);
+//		if (grass != null && grass2 != null && grass3 != null) {
+//			grass.draw(g);
+//			grass2.draw(g);
+//			grass3.draw(g);
+//			//sky.draw(g);
+//		}
+//
+//		if (woodFloor != null && woodFloor2 != null && greyCarpet != null && beigeCarpet != null && table != null && redCarpet != null) {
+//			woodFloor.draw(g);
+//			woodFloor2.draw(g);
+//			greyCarpet.draw(g);
+//			beigeCarpet.draw(g);
+//			redCarpet.draw(g);
+//			table.draw(g);
+//		}
 //		g.setColor(Color.blue);
 //		g.fillRect (1100, -300, 230, 1000);
 //		g.setColor(Color.green);//entryway
 //		g.fillRect(600, -300, 500, 480);
-		g.setColor(Color.orange);//leftroom
+//		g.setColor(Color.orange);//leftroom
 		//g.drawRect (600, 197, 500, 303);
 		//g.fillRect(600, 197, 500, 303);
-		if (fruit != null) {
-			fruit.draw(g);
-			//wall.draw(g);
-			wall2.draw(g);
-			//wall3.draw(g);
-			wall4.draw(g);
-			vwall.draw(g);
-			vwall2.draw(g);
-			vwall3.draw(g);
-		}
+//		if (fruit != null) {
+//			fruit.draw(g);
+//			//wall.draw(g);
+//			wall2.draw(g);
+//			//wall3.draw(g);
+//			wall4.draw(g);
+//			vwall.draw(g);
+//			vwall2.draw(g);
+//			vwall3.draw(g);
+//		}
 
-
-		if (fruit != null) {
-			fruit.draw(g);
-
-		}
-		
-		if (cherry != null) {
-			cherry.draw(g);
-		}
-		
-		if (strawberry != null) {
-			strawberry.draw(g);
-		}
-		
-		if (banana != null) {
-			banana.draw(g);
-		}
+//
+//		if (fruit != null) {
+//			fruit.draw(g);
+//
+//		}
+//		
+//		if (cherry != null) {
+//			cherry.draw(g);
+//		}
+//		
+//		if (strawberry != null) {
+//			strawberry.draw(g);
+//		}
+//		
+//		if (banana != null) {
+//			banana.draw(g);
+//		}
 		
 		//g.setColor(Color.red);
 		
@@ -1038,18 +1072,18 @@ class LevelTwo extends Game {
 		if (enemy != null) {
 			enemy.draw(g);
 		}
-		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && leftSideMiddleRoom != null) {
-			lowerLeft.draw(g);
-			//lowerRight.draw(g);
-			rightTop.draw(g);
-			leftBottom.draw(g);
-			rightBottom.draw(g);
-			longHallwayRight.draw(g);
-			topHallway.draw(g);
-			upperRightHallway.draw(g);
-			hallwayBottom.draw(g);
-			leftSideMiddleRoom.draw(g);
-		}
+//		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && leftSideMiddleRoom != null) {
+//			lowerLeft.draw(g);
+//			//lowerRight.draw(g);
+//			rightTop.draw(g);
+//			leftBottom.draw(g);
+//			rightBottom.draw(g);
+//			longHallwayRight.draw(g);
+//			topHallway.draw(g);
+//			upperRightHallway.draw(g);
+//			hallwayBottom.draw(g);
+//			leftSideMiddleRoom.draw(g);
+//		}
 
 		
 		for ( Sprite wall : collDects ) {
@@ -1058,13 +1092,13 @@ class LevelTwo extends Game {
 			}
 		}
 		
-		if (gameWon != null) {
-			gameWon.draw(g);
-		}
-		
-		if (gameOver != null) {
-			gameOver.draw(g);
-		}
+//		if (gameWon != null) {
+//			gameWon.draw(g);
+//		}
+//		
+//		if (gameOver != null) {
+//			gameOver.draw(g);
+//		}
 	}
 
 	//Level Switching code
