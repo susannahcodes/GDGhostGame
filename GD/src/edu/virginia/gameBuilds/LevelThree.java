@@ -1388,8 +1388,8 @@ class LevelThree extends Game {
 
 	
 			//Game game = new Beta();
-			LevelThree level2 = new LevelThree("Test", 1200, 800);
-			Beta.currentGame = level2;
+			LevelThree level3 = new LevelThree("Test", 1200, 800);
+			Beta.currentGame = level3;
 			
 			Beta.currentGame.start();
 		}

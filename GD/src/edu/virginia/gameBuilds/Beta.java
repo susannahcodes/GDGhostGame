@@ -42,7 +42,7 @@ public class Beta extends Game {
 	Rectangle leftMiddleRoom = new Rectangle(135, 215, 435, 465);
 	Rectangle rightMiddleRoom = new Rectangle(620, 215, 435, 465);
 	//Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
-	Rectangle bottomRoom = new Rectangle(130, 510, 1160, 180); 	
+	Rectangle bottomRoom = new Rectangle(130, 510, 900, 180); 	
 	//Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
 	//Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
 	
@@ -685,6 +685,7 @@ public class Beta extends Game {
 								}
 							gameOver.setVisible(true);
 							gameOverB = true;
+							System.out.println(room);
 							}
 						}
 					}
@@ -809,6 +810,25 @@ public class Beta extends Game {
 		if (gameOver != null) {
 			gameOver.draw(g);
 		}
+		
+		//testing the hitboxes
+		g.setColor(Color.green);
+		g.drawRect(135, 215, 435, 465);
+		//g.fillRect(135, 215, 435, 465);
+		
+		g.setColor(Color.blue);
+		g.drawRect((int)enemy.getXPos(), (int)enemy.getYPos(), (int)enemy.getHitBox().getWidth(), (int) enemy.getHitBox().getHeight());
+		
+		g.drawRect((int)ghost.getXPos(), (int)ghost.getYPos(), (int)ghost.getHitBox().getWidth(), (int) ghost.getHitBox().getHeight());
+		
+		/*
+		g.drawRect(620, 215, 435, 465);
+		g.fillRect(620, 215, 435, 465);
+		g.setColor(Color.blue);
+		g.drawRect(130, 510, 900, 180); 	
+		g.fillRect(130, 510, 900, 180); 
+		*/
+		
 	}
 
 	//Level Switching code
