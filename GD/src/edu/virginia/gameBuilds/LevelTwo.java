@@ -33,13 +33,10 @@ import edu.virginia.lab1test.AStar.Cell;
 
 class LevelTwo extends Game {
 	
-<<<<<<< HEAD
-	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
-	 * also sorry for naming them according to their colors since this is all gonna change.... */
+
 	public DisplayObjectContainer levelTwo = new DisplayObjectContainer("LevelTwo", "health.png");
-	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
-	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
-=======
+
+
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
 	Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
@@ -49,7 +46,7 @@ class LevelTwo extends Game {
 	Rectangle bottomRoom = new Rectangle(130, 1310, 1160, 180); 	
 	Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
 	Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
->>>>>>> origin/master
+
 	
 	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(topRoom, topMiddleRoom, leftMiddleRoom, rightMiddleRoom, 
 																										verticalHallway, bottomRoom, doorwayView1, doorwayView2));
@@ -1303,7 +1300,7 @@ class LevelTwo extends Game {
 	public void draw(Graphics g) {
 		g.translate((int)-camera.getXPos(), (int)-camera.getYPos());
 		super.draw(g);
-<<<<<<< HEAD
+
 		levelTwo.draw(g);
 //		if (grass != null && grass2 != null && grass3 != null) {
 //			grass.draw(g);
@@ -1320,7 +1317,7 @@ class LevelTwo extends Game {
 //			redCarpet.draw(g);
 //			table.draw(g);
 //		}
-=======
+
 		
 		if (grass != null && grass2 != null) {
 			grass.draw(g);
@@ -1337,7 +1334,7 @@ class LevelTwo extends Game {
 			woodFloor2.draw(g);
 			table.draw(g);
 		}
->>>>>>> origin/master
+
 //		g.setColor(Color.blue);
 //		g.fillRect (1100, -300, 230, 1000);
 //		g.setColor(Color.green);//entryway
@@ -1383,7 +1380,7 @@ class LevelTwo extends Game {
 		if (enemy != null) {
 			enemy.draw(g);
 		}
-<<<<<<< HEAD
+
 //		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && leftSideMiddleRoom != null) {
 //			lowerLeft.draw(g);
 //			//lowerRight.draw(g);
@@ -1396,7 +1393,7 @@ class LevelTwo extends Game {
 //			hallwayBottom.draw(g);
 //			leftSideMiddleRoom.draw(g);
 //		}
-=======
+
 		if (lowerLeft != null && rightTop != null && leftBottom != null && longHallwayRight != null && topHallway != null && upperRightHallway != null && hallwayBottom != null && houseTop != null && leftHouseTop != null && topRoomBottom != null && leftSideMiddleRoom != null) {
 			lowerLeft.draw(g);
 			rightTop.draw(g);
@@ -1411,7 +1408,7 @@ class LevelTwo extends Game {
 			topRoomBottom.draw(g);
 			leftSideMiddleRoom.draw(g);
 		}
->>>>>>> origin/master
+
 
 		
 		for ( Sprite wall : collDects ) {
@@ -1423,7 +1420,7 @@ class LevelTwo extends Game {
 			ghost.draw(g);
 		}
 		
-<<<<<<< HEAD
+
 //		if (gameWon != null) {
 //			gameWon.draw(g);
 //		}
@@ -1431,7 +1428,7 @@ class LevelTwo extends Game {
 //		if (gameOver != null) {
 //			gameOver.draw(g);
 //		}
-=======
+
 		if (gameWon != null) {
 			gameWon.draw(g);
 		}
@@ -1444,7 +1441,7 @@ class LevelTwo extends Game {
 		//g.setColor(Color.green);
 		//g.drawRect(620, 1015, 435, 465);
 		//g.fillRect(620, 1015, 435, 465);	
->>>>>>> origin/master
+
 	}
 
 	//Level Switching code

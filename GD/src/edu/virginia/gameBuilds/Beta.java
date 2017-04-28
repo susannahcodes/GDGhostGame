@@ -37,13 +37,7 @@ import edu.virginia.lab1test.QuestManager;
 public class Beta extends Game {
 
 	public DisplayObjectContainer levelOne = new DisplayObjectContainer("LevelOne", "health.png");
-<<<<<<< HEAD
-	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
-	 * also sorry for naming them according to their colors since this is all gonna change.... */
-	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
-	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
-=======
->>>>>>> origin/master
+
 
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	//Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
