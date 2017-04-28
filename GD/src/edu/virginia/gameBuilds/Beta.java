@@ -36,6 +36,8 @@ import edu.virginia.lab1test.QuestManager;
 
 public class Beta extends Game {
 
+	public DisplayObjectContainer levelOne = new DisplayObjectContainer("LevelOne", "health.png");
+
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	//Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
 	//Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
@@ -47,7 +49,7 @@ public class Beta extends Game {
 	//Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
 	
 	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(leftMiddleRoom, rightMiddleRoom, bottomRoom));
-	
+
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	public int healthWidth = 0;
 	public int foodCollected = 0;
@@ -179,6 +181,30 @@ public class Beta extends Game {
 		super("Beta Build", 1200, 800);
 		
 		clock = new GameClock();
+		
+		levelOne.add(grass);
+		//levelOne.add(ghost);
+		//levelOne.add(enemy);
+		levelOne.add(woodFloor);
+		levelOne.add(greyCarpet);
+		levelOne.add(table);
+		levelOne.add(beigeCarpet);
+		levelOne.add(fruit);
+		levelOne.add(cherry);
+		levelOne.add(bed);
+		levelOne.add(lowerLeft);
+		levelOne.add(lowerRight);
+		levelOne.add(rightTop);
+		levelOne.add(leftBottom);
+		levelOne.add(rightBottom);
+		levelOne.add(vwall);
+		levelOne.add(wall2);
+		levelOne.add(wall4);
+		levelOne.add(vwall2);
+		levelOne.add(vwall3);
+		levelOne.add(gameWon);
+		levelOne.add(gameOver);
+		
 		
 		this.getScenePanel().setBackground(Color.gray);
 		healthBar.setXPos(10);
@@ -563,17 +589,9 @@ public class Beta extends Game {
 					}
 					
 					if (foodCollected == 2) {
-
-						//System.out.println("A winner is you");
-						//winner.setVisible(true);
-
-						//System.out.println("A winner is you");
 						if (!gameOver.isVisible()) {
 						gameWon.setVisible(true);}
-						
-						//pause system here?
 						healthWidth = 0;
-						//soundManager.
 						switchLevels();
 
 					}
@@ -743,44 +761,45 @@ public class Beta extends Game {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
-		if (grass != null ) {
-			grass.draw(g);
-			
-		}
-
-		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
-			woodFloor.draw(g);
-			greyCarpet.draw(g);
-			beigeCarpet.draw(g);
-			table.draw(g);
-			bed.draw(g);
-		}
-		if (fruit != null) {
-			fruit.draw(g);
-			//wall.draw(g);
-			wall2.draw(g);
-			//wall3.draw(g);
-			wall4.draw(g);
-			vwall.draw(g);
-			vwall2.draw(g);
-			vwall3.draw(g);
-		}
-
-
-		if (fruit != null) {
-			fruit.draw(g);
-
-		}
-		
-		if (cherry != null) {
-			cherry.draw(g);
-		}
-		
-		g.setColor(Color.red);
-		g.fillRect(20, 30, healthWidth, 22);
-		healthBar.draw(g);
-		
-		
+		levelOne.draw(g);
+//		if (grass != null ) {
+//			grass.draw(g);
+//			
+//		}
+//
+//		if (woodFloor != null && greyCarpet != null && beigeCarpet != null && table != null) {
+//			woodFloor.draw(g);
+//			greyCarpet.draw(g);
+//			beigeCarpet.draw(g);
+//			table.draw(g);
+//			bed.draw(g);
+//		}
+//		if (fruit != null) {
+//			fruit.draw(g);
+//			//wall.draw(g);
+//			wall2.draw(g);
+//			//wall3.draw(g);
+//			wall4.draw(g);
+//			vwall.draw(g);
+//			vwall2.draw(g);
+//			vwall3.draw(g);
+//		}
+//
+//
+//		if (fruit != null) {
+//			fruit.draw(g);
+//
+//		}
+//		
+//		if (cherry != null) {
+//			cherry.draw(g);
+//		}
+//		
+//		g.setColor(Color.red);
+//		g.fillRect(20, 30, healthWidth, 22);
+//		healthBar.draw(g);
+//		
+//		
 		if (ghost != null) {
 			ghost.draw(g);
 		}
@@ -788,13 +807,13 @@ public class Beta extends Game {
 		if (enemy != null) {
 			enemy.draw(g);
 		}
-		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null) {
-			lowerLeft.draw(g);
-			lowerRight.draw(g);
-			rightTop.draw(g);
-			leftBottom.draw(g);
-			rightBottom.draw(g);
-		}
+//		if (lowerLeft != null && lowerRight != null && rightTop != null && leftBottom != null) {
+//			lowerLeft.draw(g);
+//			lowerRight.draw(g);
+//			rightTop.draw(g);
+//			leftBottom.draw(g);
+//			rightBottom.draw(g);
+//		}
 
 		
 		for ( Sprite wall : collDects ) {
