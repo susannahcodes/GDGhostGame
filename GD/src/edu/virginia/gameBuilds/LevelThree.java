@@ -36,8 +36,8 @@ class LevelThree extends Game {
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
 	Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
-	Rectangle leftMiddleRoom = new Rectangle(135, 1015, 435, 465);
-	Rectangle rightMiddleRoom = new Rectangle(620, 1015, 435, 465);
+	Rectangle leftMiddleRoom = new Rectangle(135, 215, 400, 465);
+	Rectangle rightMiddleRoom = new Rectangle(625, 215, 420, 465);
 	Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
 	Rectangle bottomRoom = new Rectangle(130, 1310, 1160, 180); 	
 	Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 

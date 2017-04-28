@@ -48,8 +48,8 @@ public class Beta extends Game {
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	//Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
 	//Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
-	Rectangle leftMiddleRoom = new Rectangle(135, 215, 435, 465);
-	Rectangle rightMiddleRoom = new Rectangle(620, 215, 435, 465);
+	Rectangle leftMiddleRoom = new Rectangle(135, 215, 400, 465);
+	Rectangle rightMiddleRoom = new Rectangle(625, 215, 420, 465);
 	//Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
 	Rectangle bottomRoom = new Rectangle(130, 510, 900, 180); 	
 	//Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
@@ -839,16 +839,10 @@ public class Beta extends Game {
 		
 		/*testing the hitboxes
 		g.setColor(Color.green);
-		g.drawRect(135, 215, 435, 465);
-		g.fillRect(135, 215, 435, 465);
+		g.drawRect((int)rightMiddleRoom.getX(), (int) rightMiddleRoom.getY(), (int) rightMiddleRoom.getWidth(), (int) rightMiddleRoom.getHeight());
 		g.setColor(Color.blue);
 		g.drawRect((int)enemy.getHitBox().getX(), (int)enemy.getHitBox().getY(), (int)enemy.getHitBox().getWidth(), (int) enemy.getHitBox().getHeight());
 		g.drawRect((int)ghost.getHitBox().getX(), (int)ghost.getHitBox().getY(), (int)ghost.getHitBox().getWidth(), (int) ghost.getHitBox().getHeight());
-		g.drawRect(620, 215, 435, 465);
-		g.fillRect(620, 215, 435, 465);
-		g.setColor(Color.blue);
-		g.drawRect(130, 510, 900, 180); 	
-		g.fillRect(130, 510, 900, 180); 
 		*/
 		
 	}
