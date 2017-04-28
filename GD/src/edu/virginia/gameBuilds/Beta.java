@@ -34,17 +34,28 @@ import edu.virginia.lab1test.AStar;
 import edu.virginia.lab1test.AStar.Cell;
 import edu.virginia.lab1test.QuestManager;
 
-
-
-
-
-
 public class Beta extends Game {
+<<<<<<< HEAD
 	public DisplayObjectContainer levelOne = new DisplayObjectContainer("LevelOne", "health.png");
 	/******* these rooms check when the enemy and ghost are in the same room. idk why it works auto for the green room 
 	 * also sorry for naming them according to their colors since this is all gonna change.... */
 	public Rectangle orangeRoom = new Rectangle(620, 180, 460, 260);
 	public Rectangle blueRoom = new Rectangle(120, 520, 960, 20);
+=======
+
+	/******* these rooms check when the enemy and ghost are in the same room*/
+	//Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
+	//Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
+	Rectangle leftMiddleRoom = new Rectangle(135, 215, 435, 465);
+	Rectangle rightMiddleRoom = new Rectangle(620, 215, 435, 465);
+	//Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
+	Rectangle bottomRoom = new Rectangle(130, 510, 1160, 180); 	
+	//Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
+	//Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
+	
+	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(leftMiddleRoom, rightMiddleRoom, bottomRoom));
+	
+>>>>>>> origin/master
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	public int healthWidth = 0;
 	public int foodCollected = 0;
@@ -583,51 +594,6 @@ public class Beta extends Game {
 						}
 					}
 					
-
-					//enemy in the same room as player detection
-					if(enemy.getHitBox().intersects(room1) && ghost.getHitBox().intersects(room1)&&ghostAbilities==false){
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						gameOver.setVisible(true);
-						gameOverB = true;
-						}
-					}
-					
-					if ( orangeRoom.intersects(enemy.getHitBox()) && orangeRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							gameOver.setVisible(true);
-							gameOverB = true;
-						}
-					}
-					
-					//xSystem.out.println("ghost in room " + blueRoom.intersects(ghost.getHitBox()));
-					if ( blueRoom.intersects(enemy.getHitBox()) && blueRoom.intersects(ghost.getHitBox()) && !ghostAbilities) {
-						//System.out.println("ENEMY FOUND YOU! GAME OVER");
-						if (!gameWon.isVisible() && gameOverB == false) {
-							try {
-								soundManager.playSoundEffect("caught");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							gameOver.setVisible(true);
-							gameOverB = true;
-						}
-					}
-					
 					if (foodCollected == 2) {
 						if (!gameOver.isVisible()) {
 						gameWon.setVisible(true);}
@@ -727,8 +693,25 @@ public class Beta extends Game {
 						solidEnough = false;
 					}
 
-
-					/***********************************/
+					
+					/********* ENEMY COLLISION DETECTION ******/
+					
+					for ( Rectangle room : listOfRooms ) {
+						//System.out.println("enemy hitbox intersects room?: " + enemy.getHitBox().intersects(room) + " ghost hitbox intersects room?: " + ghost.getHitBox().intersects(room) + " ghost Abilitites?: " + ghostAbilities);
+						//System.out.println();
+						if(enemy.getHitBox().intersects(room) && ghost.getHitBox().intersects(room) && !ghostAbilities) {
+							if (!gameWon.isVisible() && gameOverB == false) {
+								try {
+									soundManager.playSoundEffect("caught");
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							gameOver.setVisible(true);
+							gameOverB = true;
+							}
+						}
+					}
 
 
 					if ((ghost.collidesWith(fruit)&& solidEnough==true && !gameOver.isVisible())) {

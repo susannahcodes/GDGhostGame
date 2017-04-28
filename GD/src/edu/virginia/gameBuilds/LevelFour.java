@@ -31,7 +31,7 @@ import edu.virginia.lab1test.AStar;
 import edu.virginia.lab1test.QuestManager;
 import edu.virginia.lab1test.AStar.Cell;
 
-class LevelThree extends Game {
+class LevelFour extends Game {
 	
 	/******* these rooms check when the enemy and ghost are in the same room*/
 	Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
@@ -223,9 +223,9 @@ class LevelThree extends Game {
 	ArrayList<Cell> path8 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath8 = new ArrayList<Cell>();
 	
-	LevelThree(String gameId, int width, int height) {
+	LevelFour(String gameId, int width, int height) {
 		
-		super("Level Three", 1200, 800);
+		super("Level Four", 1200, 800);
 		
 		clock = new GameClock();
 		
@@ -1369,11 +1369,11 @@ class LevelThree extends Game {
 		//add a new if statment for each new level
 		public void switchLevels(){
 			
-				System.out.println("level 3 entered");
+				System.out.println("level 4 entered");
 				Beta.currentGame.exitGame();
 				Beta.atLevelThree = true;
 				Beta.atLevelTwo = false;
-				Game game = new LevelThree("LevelThree", 1200, 800);
+				Game game = new LevelFour("Level Four", 1200, 800);
 				//Game game = new Beta();
 				Beta.currentGame = game;
 				Beta.currentGame.start();
@@ -1388,7 +1388,7 @@ class LevelThree extends Game {
 
 	
 			//Game game = new Beta();
-			LevelThree level2 = new LevelThree("Test", 1200, 800);
+			LevelFour level2 = new LevelFour("Test", 1200, 800);
 			Beta.currentGame = level2;
 			
 			Beta.currentGame.start();
