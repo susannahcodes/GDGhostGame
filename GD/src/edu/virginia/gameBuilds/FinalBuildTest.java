@@ -63,6 +63,7 @@ public class FinalBuildTest extends Game {
 			leftMiddleRoom, rightMiddleRoom, bottomRoom));
 
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
+	Sprite health = new Sprite("health", "health.png");
 	public int healthWidth = 0;
 	public int foodCollected = 0;
 	private boolean collected = true;
@@ -110,7 +111,6 @@ public class FinalBuildTest extends Game {
 			rightBottom, vwall3));
 
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
-	Sprite gameWon = new Sprite("gameWon", "gameWon.png");
 	Sprite woodFloor = new Sprite("wood", "wood.jpg");
 	Sprite table = new Sprite("table", "table.png");
 	Sprite greyCarpet = new Sprite("greyCarpet", "greyCarpet.png");
@@ -126,10 +126,12 @@ public class FinalBuildTest extends Game {
 	Sprite woodFloor2 = new Sprite("wood", "wood.jpg");
 	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
 	VertWallSprite vwall6L2 = new VertWallSprite("vwall6L2"); // use this wall's
+	Sprite titleScreen = new Sprite("titleScreen", "titleScreen.png");
 	Sprite menu2 = new Sprite("menu2", "menu2.png");
 	Sprite menu3 = new Sprite("menu3", "menu3.png");
 	Sprite menu4 = new Sprite("menu4", "menu4.png");
 	Sprite menu5 = new Sprite("menu5", "menu5.png");
+	public boolean titleScreenActive = true;
 	public boolean menu2Active = true;
 	public boolean menu3Active = true;
 	public boolean menu4Active = true;
@@ -157,9 +159,7 @@ public class FinalBuildTest extends Game {
 
 	TweenJuggler juggler = new TweenJuggler();
 
-	// boolean trippedCherry = false;
 	boolean trippedStrawberry = false;
-	// boolean trippedFruit = false;
 	boolean trippedBanana = false;
 
 	private GameClock clock;
@@ -285,10 +285,11 @@ public class FinalBuildTest extends Game {
 		levelOne.add(wall4);
 		levelOne.add(vwall2);
 		levelOne.add(vwall3);
-		// levelOne.add(gameWon);
 		levelOne.add(gameOver);
 		levelOne.add(ghost);
 		levelOne.add(enemy);
+		levelOne.add(healthBar);
+		levelOne.add(titleScreen);
 
 		// levelTwo
 		levelTwo.add(grass);
@@ -313,7 +314,6 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(vwall2);
 		// LevelTwo.add(vwall6L2);
 		levelTwo.add(vwall3);
-		levelTwo.add(gameWon);
 		levelTwo.add(gameOver);
 		levelTwo.add(ghost);
 		levelTwo.add(enemy);
@@ -324,6 +324,7 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(hallwayBottom);
 		levelTwo.add(strawberry);
 		levelTwo.add(menu2);
+		levelTwo.add(healthBar);
 
 		// levelThree
 		levelThree.add(grass);
@@ -350,7 +351,6 @@ public class FinalBuildTest extends Game {
 		levelThree.add(vwall2);
 		// LevelThree.add(vwall6L2);
 		levelThree.add(vwall3);
-		levelThree.add(gameWon);
 		levelThree.add(gameOver);
 		levelThree.add(ghost);
 		levelThree.add(enemy);
@@ -360,6 +360,7 @@ public class FinalBuildTest extends Game {
 		levelThree.add(upperRightHallway);
 		levelThree.add(hallwayBottom);
 		levelThree.add(menu3);
+		levelThree.add(healthBar);
 
 		// levelFour
 		levelFour.add(grass);
@@ -386,7 +387,6 @@ public class FinalBuildTest extends Game {
 		levelFour.add(vwall2);
 		// LevelThree.add(vwall6L2);
 		levelFour.add(vwall3);
-		levelFour.add(gameWon);
 		levelFour.add(gameOver);
 		levelFour.add(ghost);
 		levelFour.add(enemy);
@@ -399,6 +399,7 @@ public class FinalBuildTest extends Game {
 		levelFour.add(houseTop);
 		levelFour.add(topRoomBottom);
 		levelFour.add(menu4);
+		levelFour.add(healthBar);
 
 		// levelFive
 		levelFive.add(grass);
@@ -425,7 +426,6 @@ public class FinalBuildTest extends Game {
 		levelFive.add(vwall2);
 		// LevelThree.add(vwall6L2);
 		levelFive.add(vwall3);
-		levelFive.add(gameWon);
 		levelFive.add(gameOver);
 		levelFive.add(ghost);
 		levelFive.add(enemy);
@@ -438,6 +438,7 @@ public class FinalBuildTest extends Game {
 		levelFive.add(houseTop);
 		levelFive.add(topRoomBottom);
 		levelFive.add(menu5);
+		levelFive.add(healthBar);
 
 		this.getScenePanel().setBackground(Color.gray);
 
@@ -516,6 +517,7 @@ public class FinalBuildTest extends Game {
 		cherry.setYPos(310 + 800);
 		cherry.addEventListener(myQuestManager, null);
 
+		health.setXScale(0.004);
 		vwall6L2.setYPos(-300 + 800);
 		vwall6L2.setYPos(1300);
 
@@ -635,6 +637,7 @@ public class FinalBuildTest extends Game {
 		/***** SHIFTED DOWN BY 800 PIXELS ****/
 		banana.addEventListener(myQuestManager, null);
 
+		//titleScreen.setVisible(true);
 		menu2.setVisible(false);
 		menu3.setVisible(false);
 		menu4.setVisible(false);
@@ -800,25 +803,34 @@ public class FinalBuildTest extends Game {
 		}
 		super.update(pressedKeys);
 
-		gameWon.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
-		gameWon.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
-		if (gameWon.getXPos() > offsetMaxX) {
-			gameWon.setXPos(offsetMaxX);
-		} else if (gameWon.getXPos() < offsetMinX) {
-			gameWon.setXPos(offsetMinX);
-		}
-		if (gameWon.getYPos() > offsetMaxY) {
-			gameWon.setYPos(offsetMaxY);
-		} else if (gameWon.getXPos() < offsetMinY) {
-			gameWon.setYPos(offsetMinY);
-		}
-		super.update(pressedKeys);
-
 		menu2.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		menu2.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
 
+		titleScreen.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		titleScreen.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (titleScreen.getXPos() > offsetMaxX) {
+			titleScreen.setXPos(offsetMaxX);
+		} else if (titleScreen.getXPos() < offsetMinX) {
+			titleScreen.setXPos(offsetMinX);
+		}
+		if (titleScreen.getYPos() > offsetMaxY) {
+			titleScreen.setYPos(offsetMaxY);
+		} else if (titleScreen.getXPos() < offsetMinY) {
+			titleScreen.setYPos(offsetMinY);
+		}
+
 		menu3.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		menu3.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (menu3.getXPos() > offsetMaxX) {
+			menu3.setXPos(offsetMaxX);
+		} else if (menu3.getXPos() < offsetMinX) {
+			menu3.setXPos(offsetMinX);
+		}
+		if (menu3.getYPos() > offsetMaxY) {
+			menu3.setYPos(offsetMaxY);
+		} else if (menu3.getXPos() < offsetMinY) {
+			menu3.setYPos(offsetMinY);
+		}
 
 		menu4.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		menu4.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
@@ -1144,12 +1156,10 @@ public class FinalBuildTest extends Game {
 					}
 
 					if (foodCollected == maxFood) {
-						// if (!gameOver.isVisible()) {
-						// // gameWon.setVisible(true);
-						// }
 						healthWidth = 0;
-						System.out.println("swtichinglevels");
-						switchLevels();
+						if (atLevelFive == false) {
+							switchLevels();
+						}
 					}
 
 					if (collisionOccured == false) {
@@ -1187,10 +1197,18 @@ public class FinalBuildTest extends Game {
 					}
 					// questConfirm.setVisible(true);
 				}
+
+				if (pressedKeys.contains("S") && titleScreen.isVisible()) {
+					System.out.println("got through menu and S pressed");
+					titleScreen.setVisible(false);
+					titleScreenActive = false;
+				}
+				
 				if ((pressedKeys.contains("N") && menu2.isVisible())
 						|| (pressedKeys.contains("N") && menu3.isVisible())
 						|| (pressedKeys.contains("N") && menu4.isVisible())
 						|| (pressedKeys.contains("N") && menu5.isVisible())) {
+
 					if (menu2.isVisible()) {
 						menu2.setVisible(false);
 						menu2Active = false;
@@ -1217,28 +1235,32 @@ public class FinalBuildTest extends Game {
 				if (pressedKeys.contains(KeyEvent.getKeyText(38))) {
 					if (stopU == false && !(menu2.isVisible())
 							&& !(menu3.isVisible()) && !(menu4.isVisible())
-							&& !(menu5.isVisible()))
+							&& !(menu5.isVisible())
+							&& !(titleScreen.isVisible()))
 						ghost.setYPos(ghost.getYPos() - dy);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
 					if (stopD == false && !(menu2.isVisible())
 							&& !(menu3.isVisible()) && !(menu4.isVisible())
-							&& !(menu5.isVisible()))
+							&& !(menu5.isVisible())
+							&& !(titleScreen.isVisible()))
 						ghost.setYPos(ghost.getYPos() + dy);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
 					if (stopR == false && !(menu2.isVisible())
 							&& !(menu3.isVisible()) && !(menu4.isVisible())
-							&& !(menu5.isVisible()))
+							&& !(menu5.isVisible())
+							&& !(titleScreen.isVisible()))
 						ghost.setXPos(ghost.getXPos() + dx);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
 					if (stopL == false && !(menu2.isVisible())
 							&& !(menu3.isVisible()) && !(menu4.isVisible())
-							&& !(menu5.isVisible()))
+							&& !(menu5.isVisible())
+							&& !(titleScreen.isVisible()))
 						ghost.setXPos(ghost.getXPos() - dx);
 				}
 
@@ -1295,7 +1317,7 @@ public class FinalBuildTest extends Game {
 					if (enemy.getHitBox().intersects(room)
 							&& ghost.getHitBox().intersects(room)
 							&& !ghostAbilities) {
-						if (!gameWon.isVisible() && gameOverB == false) {
+						if (gameOverB == false) {
 							try {
 								soundManager.playSoundEffect("caught");
 							} catch (Exception e) {
@@ -1408,22 +1430,20 @@ public class FinalBuildTest extends Game {
 	 * */
 	@Override
 	public void draw(Graphics g) {
-
 		g.translate((int) -camera.getXPos(), (int) -camera.getYPos());
 		super.draw(g);
+		if (titleScreenActive == true) {
+			titleScreen.setVisible(true);
+			System.out.println("titleScreenDrawn" + " visibility: "
+					+ titleScreen.isVisible());
+			titleScreen.draw(g);
+		}
 
-		// insert title splash screen here
 		if (atLevelOne == true) {
 			levelOne.draw(g);
 			g.setColor(Color.red);
 			g.fillRect(20, 30, healthWidth, 22);
 			healthBar.draw(g);
-
-			// for (Sprite wall : collDects) {
-			// if (wall != null) {
-			// wall.draw(g);
-			// }
-			// }
 		}
 
 		// else { levelTwo.draw(g);}
@@ -1439,7 +1459,7 @@ public class FinalBuildTest extends Game {
 		}
 		if (atLevelThree == true) {
 			if (menu3Active == true) {
-				System.out.println("about to put up menu for 3");
+				// System.out.println("about to put up menu for 3");
 				menu3.setVisible(true);
 			} else {
 				menu3.setVisible(false);
@@ -1448,7 +1468,7 @@ public class FinalBuildTest extends Game {
 		}
 		if (atLevelFour == true) {
 			if (menu4Active == true) {
-				System.out.println("about to put up menu for 4");
+				// System.out.println("about to put up menu for 4");
 				menu4.setVisible(true);
 			} else {
 				menu4.setVisible(false);
@@ -1475,19 +1495,19 @@ public class FinalBuildTest extends Game {
 			atLevelOne = false;
 			atLevelTwo = true;
 		} else if (atLevelTwo == true) {
-			System.out.println("entering level 2 (switchlevels)");
+			// System.out.println("entering level 2 (switchlevels)");
 			foodCollected = 0;
 			maxFood = 1; // supposed to be 6
 			atLevelTwo = false;
 			atLevelThree = true;
 		} else if (atLevelThree == true) {
-			System.out.println("entering level 3(switchlevels)");
+			// System.out.println("entering level 3(switchlevels)");
 			foodCollected = 0;
 			maxFood = 8;
 			atLevelThree = false;
 			atLevelFour = true;
 		} else if (atLevelFour == true) {
-			System.out.println("entering level 4");
+			// System.out.println("entering level 4");
 			foodCollected = 0;
 			maxFood = 10;
 			atLevelFour = false;
