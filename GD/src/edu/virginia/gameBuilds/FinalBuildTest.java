@@ -296,6 +296,7 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(upperRightHallway);
 		levelTwo.add(hallwayBottom);
 		levelTwo.add(strawberry);
+		levelTwo.add(menu2);
 
 		// levelThree
 		levelThree.add(grass);
@@ -601,6 +602,9 @@ public class FinalBuildTest extends Game {
 		banana.setYPos(-100 + 800);
 		/***** SHIFTED DOWN BY 800 PIXELS ****/
 		banana.addEventListener(myQuestManager, null);
+		
+		menu2.setVisible(false);
+		
 
 		strawberry.setXScale(0.25);
 		strawberry.setYScale(0.25);
@@ -796,6 +800,7 @@ public class FinalBuildTest extends Game {
 			healthBar.setYPos(offsetMinY);
 		}
 		super.update(pressedKeys);
+		
 
 		gameOver.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		gameOver.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
@@ -824,6 +829,21 @@ public class FinalBuildTest extends Game {
 			gameWon.setYPos(offsetMinY);
 		}
 		super.update(pressedKeys);
+		
+		
+		menu2.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		menu2.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+//		if (gameWon.getXPos() > offsetMaxX) {
+//			gameWon.setXPos(offsetMaxX);
+//		} else if (gameWon.getXPos() < offsetMinX) {
+//			gameWon.setXPos(offsetMinX);
+//		}
+//		if (gameWon.getYPos() > offsetMaxY) {
+//			gameWon.setYPos(offsetMaxY);
+//		} else if (gameWon.getXPos() < offsetMinY) {
+//			gameWon.setYPos(offsetMinY);
+//		}
+//		super.update(pressedKeys);
 
 		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
@@ -974,32 +994,35 @@ public class FinalBuildTest extends Game {
 					}
 					// questConfirm.setVisible(true);
 				}
-
+				if (pressedKeys.contains ("N") && menu2.isVisible()) {
+					menu2.setVisible(false);
+					menu2Active = false;
+				}
 				if (pressedKeys.contains("Q")) {
 					System.exit(0);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(38))) {
-					if (stopU == false)
-						menu2Active = false;
+					if (stopU == false && !(menu2.isVisible()))
+						//menu2Active = false;
 						ghost.setYPos(ghost.getYPos() - dy);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
-					if (stopD == false)
-						menu2Active = false;
+					if (stopD == false && !(menu2.isVisible()))
+						//menu2Active = false;
 						ghost.setYPos(ghost.getYPos() + dy);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
-					if (stopR == false)
-						menu2Active = false;
+					if (stopR == false && !(menu2.isVisible()))
+						//menu2Active = false;
 						ghost.setXPos(ghost.getXPos() + dx);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
-					if (stopL == false)
-						menu2Active = false;
+					if (stopL == false && !(menu2.isVisible()))
+						//menu2Active = false;
 						ghost.setXPos(ghost.getXPos() - dx);
 				}
 
@@ -1210,9 +1233,9 @@ public class FinalBuildTest extends Game {
 
 		if (atLevelTwo == true) {
 			System.out.println("entering level 2");
-			if (menu2Active == true){
-				menu2.draw(g);
-			}
+			if (menu2Active == true) {
+			menu2.setVisible(true);}
+			else {menu2.setVisible(false);}
 			levelTwo.draw(g);
 		}
 		if (atLevelThree == true) {
