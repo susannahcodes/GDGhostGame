@@ -94,6 +94,7 @@ public class FinalBuildTest extends Game {
 	WallSprite wall2 = new WallSprite("testWall2");
 	WallSprite wall3 = new WallSprite("testWall3");
 	WallSprite wall4 = new WallSprite("testWall4");
+	//VertWallSprite vwall6L2 = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall = new VertWallSprite("vertWallOne");
 	VertWallSprite vwall2 = new VertWallSprite("vertWallTwo");
 	VertWallSprite vwall3 = new VertWallSprite("vertWallThree");
@@ -125,7 +126,7 @@ public class FinalBuildTest extends Game {
 	WallSprite houseTop = new WallSprite("houseTop");
 	Sprite woodFloor2 = new Sprite("wood", "wood.jpg");
 	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
-	VertWallSprite vwall6L2 = new VertWallSprite("vwall6L2"); // use this wall's
+	 // use this wall's
 	Sprite titleScreen = new Sprite("titleScreen", "titleScreen.png");
 	Sprite menu2 = new Sprite("menu2", "menu2.png");
 	Sprite menu3 = new Sprite("menu3", "menu3.png");
@@ -136,9 +137,6 @@ public class FinalBuildTest extends Game {
 	public boolean menu3Active = true;
 	public boolean menu4Active = true;
 	public boolean menu5Active = true;
-	// pos for
-	// collision
-	// detection
 	VertWallSprite longHallwayRightLevel2 = new VertWallSprite(
 			"longHallwayRight"); // us
 	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway"); // use
@@ -150,6 +148,7 @@ public class FinalBuildTest extends Game {
 																				// detection
 	VertWallSprite leftHouseTop = new VertWallSprite("leftHouseTop");
 	VertWallSprite leftSideMiddleRoom = new VertWallSprite("leftSideMiddleRoom");
+	Sprite l2Wall = new Sprite("l2Wall", "updownwall.png");
 	Sprite redCarpet = new Sprite("redCarpet", "redCarpet.jpg");
 	enemySprite enemy = new enemySprite("EnemyOne");
 
@@ -322,13 +321,12 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(wall2);
 		levelTwo.add(wall4);
 		levelTwo.add(vwall2);
-		// LevelTwo.add(vwall6L2);
+		LevelTwo.add(l2Wall);
 		levelTwo.add(vwall3);
 		levelTwo.add(gameOver);
 		levelTwo.add(ghost);
 		levelTwo.add(enemy);
 		levelTwo.add(longHallwayRightLevel2);
-		// levelTwo.add(leftSideMiddleRoom);
 		levelTwo.add(topHallwayLevelTwo);
 		levelTwo.add(upperRightHallway);
 		levelTwo.add(hallwayBottom);
@@ -359,7 +357,6 @@ public class FinalBuildTest extends Game {
 		levelThree.add(wall2);
 		levelThree.add(wall4);
 		levelThree.add(vwall2);
-		// LevelThree.add(vwall6L2);
 		levelThree.add(vwall3);
 		levelThree.add(gameOver);
 		levelThree.add(ghost);
@@ -387,7 +384,6 @@ public class FinalBuildTest extends Game {
 		levelFour.add(cherry);
 		levelFour.add(bed);
 		levelFour.add(lowerLeft);
-		// levelFour.add(lowerRight);
 		levelFour.add(rightTop);
 		levelFour.add(leftBottom);
 		levelFour.add(rightBottom);
@@ -395,7 +391,6 @@ public class FinalBuildTest extends Game {
 		levelFour.add(wall2);
 		levelFour.add(wall4);
 		levelFour.add(vwall2);
-		// LevelThree.add(vwall6L2);
 		levelFour.add(vwall3);
 		levelFour.add(gameOver);
 		levelFour.add(ghost);
@@ -426,7 +421,6 @@ public class FinalBuildTest extends Game {
 		levelFive.add(cherry);
 		levelFive.add(bed);
 		levelFive.add(lowerLeft);
-		// levelFive.add(lowerRight);
 		levelFive.add(rightTop);
 		levelFive.add(leftBottom);
 		levelFive.add(rightBottom);
@@ -434,7 +428,6 @@ public class FinalBuildTest extends Game {
 		levelFive.add(wall2);
 		levelFive.add(wall4);
 		levelFive.add(vwall2);
-		// LevelThree.add(vwall6L2);
 		levelFive.add(vwall3);
 		levelFive.add(gameOver);
 		levelFive.add(ghost);
@@ -528,8 +521,8 @@ public class FinalBuildTest extends Game {
 		cherry.addEventListener(myQuestManager, null);
 
 		health.setXScale(0.004);
-		vwall6L2.setYPos(-300 + 800);
-		vwall6L2.setYPos(1300);
+		l2Wall.setYPos(-300 + 800);
+		l2Wall.setYPos(1300);
 
 		lowerLeft.setXPos(100);
 		lowerLeft.setYPos(400 + 800);
