@@ -126,7 +126,8 @@ public class FinalBuildTest extends Game {
 	Sprite woodFloor2 = new Sprite("wood", "wood.jpg");
 	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
 	VertWallSprite vwall6L2 = new VertWallSprite("vwall6L2"); // use this wall's
-																// pos for
+	Sprite menu2 = new Sprite("menu2", "menu2.png");	
+	public boolean menu2Active = true;// pos for
 																// collision
 																// detection
 	VertWallSprite longHallwayRightLevel2 = new VertWallSprite(
@@ -980,21 +981,25 @@ public class FinalBuildTest extends Game {
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(38))) {
 					if (stopU == false)
+						menu2Active = false;
 						ghost.setYPos(ghost.getYPos() - dy);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(40))) {
 					if (stopD == false)
+						menu2Active = false;
 						ghost.setYPos(ghost.getYPos() + dy);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(39))) {
 					if (stopR == false)
+						menu2Active = false;
 						ghost.setXPos(ghost.getXPos() + dx);
 				}
 
 				if (pressedKeys.contains(KeyEvent.getKeyText(37))) {
 					if (stopL == false)
+						menu2Active = false;
 						ghost.setXPos(ghost.getXPos() - dx);
 				}
 
@@ -1186,23 +1191,28 @@ public class FinalBuildTest extends Game {
 	public void draw(Graphics g) {
 		g.translate((int) -camera.getXPos(), (int) -camera.getYPos());
 		super.draw(g);
+		
+		//insert title splash screen here
 		if (atLevelOne == true) {
 			levelOne.draw(g);
 			g.setColor(Color.red);
 			g.fillRect(20, 30, healthWidth, 22);
 			healthBar.draw(g);
 
-			for (Sprite wall : collDects) {
-				if (wall != null) {
-					wall.draw(g);
-				}
-			}
+//			for (Sprite wall : collDects) {
+//				if (wall != null) {
+//					wall.draw(g);
+//				}
+//			}
 		}
 
 		// else { levelTwo.draw(g);}
 
 		if (atLevelTwo == true) {
 			System.out.println("entering level 2");
+			if (menu2Active == true){
+				menu2.draw(g);
+			}
 			levelTwo.draw(g);
 		}
 		if (atLevelThree == true) {
