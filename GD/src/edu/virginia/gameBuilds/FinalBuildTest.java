@@ -185,41 +185,61 @@ public class FinalBuildTest extends Game {
 	public boolean trippedFruit = false;
 
 	/**** this code for the enemy's movement paths ***/
-	public int enemyMoveCounter = 1;
-	public int enemyMoveCounter2 = 1;
-	private boolean initializeRoute = true;
+	
+	int enemyMark1X = 350;
+	int enemyMark1Y = 1300;
+	
+	int enemyMark2X = 1135;
+	int enemyMark2Y = 1300;
+	
+	int enemyMark3X = 1135;
+	int enemyMark3Y = 520;
+	
+	int enemyMark4X = 790;
+	int enemyMark4Y = 520;
+	
+	int enemyMark5X = 790;
+	int enemyMark5Y = 325;
 
-	private boolean path1Completed = false;
+	int enemyMoveCounter = 1;
+	int enemyMoveCounter2 = 1;
+	int enemyMoveCounter3 = 1;
+	int enemyMoveCounter4 = 1;
+	int enemyMoveCounter5 = 1;
+	int enemyMoveCounter6 = 1;
+	int enemyMoveCounter7 = 1;
+	int enemyMoveCounter8 = 1;
 
-	public int room1x = 300;
-	public int room1y = 275;
-
-	public Rectangle room1 = new Rectangle();
-
-	public int room2x = 800;
-	public int room2y = 275;
-
-	public Rectangle room2 = new Rectangle();
-	public boolean gameOverB = false;
-
-	public boolean gtr1 = true;
-	public boolean room1SetUp = false;
-
-	public boolean gtr2 = false;
-	public boolean room2SetUp = false;
+	boolean gtr1 = true;
+	boolean gtr2 = false;
+	boolean gtr3 = false;
+	boolean gtr4 = false;
+	boolean gtr5 = false;
+	boolean gtr6 = false;
+	boolean gtr7 = false;
+	boolean gtr8 = false;
 
 	public ArrayList<int[]> blockedList = new ArrayList<int[]>();
+	
+	public boolean gameOverB = false;
 
 	private float deltaAlpha = (float) 0.1; // controls how quickly the ghost
 											// becomes invisible/visible
 	boolean transKeyTapped = false; // needed to implement tapping of key
 	boolean visibleKeyTapped = false; // turns the ghost visible again
 	public int maxFood = 2;
+	
 	ArrayList<Cell> path1 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath1 = new ArrayList<Cell>();
 
 	ArrayList<Cell> path2 = new ArrayList<Cell>();
 	ArrayList<Cell> fPath2 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path3 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath3 = new ArrayList<Cell>();
+	
+	ArrayList<Cell> path4 = new ArrayList<Cell>();
+	ArrayList<Cell> fPath4 = new ArrayList<Cell>();
 
 	// fields necessary for level switching
 
@@ -410,6 +430,7 @@ public class FinalBuildTest extends Game {
 		levelFive.add(topRoomBottom);
 
 		this.getScenePanel().setBackground(Color.gray);
+		
 		healthBar.setXPos(10);
 		// healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
@@ -454,7 +475,7 @@ public class FinalBuildTest extends Game {
 		table.setXScale(0.035);
 		table.setYScale(0.035);
 
-		ghost.setYPos(780 - ghost.getScaledHeight());
+		ghost.setYPos(780-ghost.getScaledHeight() + 800);	/***** SHIFTED DOWN BY 800 PIXELS****/
 		marioTween.doTween(true);
 		marioTween.animate(TweenableParam.FADE_IN, 0.0f, 1.0f, 6000);
 
@@ -643,126 +664,79 @@ public class FinalBuildTest extends Game {
 
 		// enemy code
 		enemy.setTrans(1.0f);
-
-		enemy.setXPos(room2x);
-		enemy.setYPos(room2y - 15 + 800);
-
-		//
-
-		// room rectangle
-		room1.setBounds(300 + vwall.getScaledHeight() + 20,
-				500 - vwall.getScaledHeight() - 20, 275, 265);
-		// System.out.println("room1 rectangle: " + room1);
-
-		System.out.println(vwall.getScaledWidth());
-		int wstart = 196 - 85;
-		// int wstart = (int) (vwall.getYPos() - enemy.getHitBox().getHeight());
-		for (int c = wstart; c <= wstart + vwall.getScaledHeight() + 45; c++) {
-			for (int x = 100 - vwall.getScaledWidth(); x <= 100; x++) {
-				int[] e = new int[] { x, c };
-				blockedList.add(e);
-			}
-		}
-
-		int wstart2 = 196 - 85;
-		// int wstart2 = (int) (vwall.getYPos() -
-		// enemy.getHitBox().getHeight());
-		for (int c = wstart2; c <= wstart2 + vwall.getScaledHeight() + 45; c++) {
-			for (int x = (int) (530 - enemy.getHitBox().getWidth() - vwall
-					.getScaledWidth()); x <= 600; x++) {
-
-				int[] e = new int[] { x, c };
-				blockedList.add(e);
-			}
-		}
-		int wstart3 = 196 - 85;
-		// int wstart3 = 197-134;
-		// for(int c = wstart3; c<=wstart2+304+134;c++){
-		for (int c = wstart3; c <= wstart2 + 304 + 45; c++) {
-			for (int x = 1100 - 76; x <= 1100 + vwall.getScaledWidth(); x++) {
-				int[] e = new int[] { x, c };
-				blockedList.add(e);
-			}
-		}
-
-		int wstart4 = 197 - wall.getScaledHeight() - 85;
-		for (int c = wstart4; c <= wstart4 + wall2.getScaledHeight(); c++) {
-			for (int x = 350; x <= 1176; x++) {
-				int[] e = new int[] { x, c };
-				blockedList.add(e);
-			}
-		}
-
-		room1.setBounds(300 + vwall.getScaledWidth(),
-				500 - vwall.getScaledHeight(), (2 * wall2.getScaledWidth())
-						- (2 * vwall.getScaledWidth()), vwall.getScaledHeight());
-
-		/*********** ATTEMPTING TO ADD SECOND PATH TO ENEMY *****************/
-
-		room2.setBounds(300 + vwall.getScaledWidth(),
-				500 - vwall.getScaledHeight(), (2 * wall2.getScaledWidth())
-						- (2 * vwall.getScaledWidth()), vwall.getScaledHeight()); // ahhh
-																					// idk
-																					// what
-																					// im
-																					// doing
-
-		// path one
-		// /////////////////////////////////////////////////////
-		path1 = AStar.test(1, this.getScenePanel().getWidth(), this
-				.getScenePanel().getHeight(), room2x, room2y - 15, room1x,
-				room1y - 15, blockedList); // made room1y -> room1y-15 because
-											// enemy wasn't fully in the room
+		enemy.setXPos(350);
+		enemy.setYPos(1300);
+		
+		/******************************Creates the path**********************/
+		
+		System.out.println("Called 1");
+		path1 = AStar.test(1, 4000, 4000, enemyMark1X, enemyMark1Y, enemyMark2X, enemyMark2Y, blockedList);		
 		int pLen = path1.size();
-
-		int q = pLen - 1;
+		
+		int q=pLen-1;
 
 		/** prints the path **/
-
-		while (q >= 0) {
-			Cell temp = new Cell(path1.get(q).i, path1.get(q).j);
+		while(q>=0){
+			Cell temp = new Cell(path1.get(q).i,path1.get(q).j);
 			fPath1.add(temp);
-			q -= 1;
+			q-=1;
 		}
-
-		// ////////////////////////////////////////////////////////
-
-		// path2
-		// ///////////////////////////////////////////////
-		path2 = AStar.test(1, this.getScenePanel().getWidth(), this
-				.getScenePanel().getHeight(), room1x, room1y - 15, room2x,
-				room2y - 15, blockedList); // made room1y -> room1y-15 because
-											// enemy wasn't fully in the room
+		
+		//////////////////////////////////////////////////////////
+		
+		
+		
+		System.out.println(wall3.getYPos());
+		
+		
+		//path2
+		/////////////////////////////////////////////////
+		System.out.println("Called 2");
+		path2 = AStar.test(1, 4000, 4000, enemyMark2X, enemyMark2Y, enemyMark3X, enemyMark3Y,  blockedList);		
 		int pLen2 = path2.size();
-
-		int q2 = pLen2 - 1;
-
+		
+		int q2=pLen2-1;
+		
+		
 		/** prints the path **/
-
-		while (q2 >= 0) {
-			Cell temp = new Cell(path2.get(q2).i, path2.get(q2).j);
+		
+		while(q2>=0){
+			Cell temp = new Cell(path2.get(q2).i,path2.get(q2).j);
 			fPath2.add(temp);
-			q2 -= 1;
+			q2-=1;
 		}
-		// ///////////////////////////////////////
-
-		/*********** end of second path for enemy code *********/
-
-	}
-
-	public void switchPath() {
-		if (gtr1 == true) {
-			gtr1 = false;
-			room1SetUp = false;
-			gtr2 = true;
+		/////////////////////////////////////////
+		System.out.println("Called 3");
+		path3 = AStar.test(1, 4000, 4000, enemyMark3X, enemyMark3Y, enemyMark4X, enemyMark4Y, blockedList);		
+		int pLen3 = path3.size();
+		
+		int q3=pLen3-1;
+		
+		
+		/** prints the path **/
+		
+		while(q3>=0){
+			Cell temp = new Cell(path3.get(q3).i,path3.get(q3).j);
+			fPath3.add(temp);
+			q3-=1;
+		}
+		
+		System.out.println("Called 4");
+		path4 = AStar.test(1, 4000, 4000, enemyMark4X, enemyMark4Y, enemyMark1X, enemyMark1Y, blockedList);	
+		System.out.println("finished path 4");
+		int pLen4 = path4.size();
+		
+		int q4=pLen4-1;
+		
+		
+		/** prints the path **/
+		
+		while(q4>=0){
+			Cell temp = new Cell(path4.get(q4).i,path4.get(q4).j);
+			fPath4.add(temp);
+			q4-=1;
 		}
 
-		if (gtr2 == true) {
-
-			gtr2 = false;
-			room2SetUp = false;
-			gtr1 = true;
-		}
 	}
 
 	public void update(ArrayList<String> pressedKeys) {
@@ -863,7 +837,230 @@ public class FinalBuildTest extends Game {
 		if (ghost != null) {
 			if (fruit != null) {
 				if (enemy != null) {
+					
+					
+					/*************** START OF ENEMY'S PATHS CODE *****************/
+					if(gtr1 == true){
+						if(enemyMoveCounter<fPath1.size()){
+							Cell moveTo = fPath1.get(enemyMoveCounter);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							//enemyMoveCounter+=1;
+							enemyMoveCounter+=5;		// increases the owner's speed
+						}
+						
+						if(enemyMoveCounter>=fPath1.size()){
+							enemyMoveCounter=1;
+							
+							if ( atLevelTwo ) {
+								gtr1 = false;
+								gtr2 = true;
+								gtr3 = false;
+								gtr4 = false;	
+							}
+							
+							else {
+								gtr1 = false;
+								gtr2 = false;
+								gtr3 = false;
+								gtr4 = false;
+								gtr8 = true;
+							}
+							
+							/*
+							gtr1 = false;
+							gtr2 = true;
+							gtr3 = false;
+							gtr4 = false;	
+							*/
+						}
+					}
+					
 
+					if(gtr2 == true){
+						if (enemyMoveCounter2<fPath2.size()){
+							Cell moveTo = fPath2.get(enemyMoveCounter2);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter2+=5;		// makes the owner move faster
+						}
+						
+						if (enemyMoveCounter2>=fPath2.size()){
+							enemyMoveCounter2=1;
+							
+							if ( atLevelTwo ) {
+								gtr1 = false;
+								gtr2 = false;
+								gtr3 = false;	
+								gtr4 = false;
+								gtr7 = true;
+							}
+							
+							else {
+								gtr1 = true;
+								gtr2 = false;
+								gtr3 = false;	
+								gtr4 = false;
+								gtr7 = false;
+							}
+							/*
+							gtr2 = false;
+							gtr1 = false;
+							gtr3 = true;	
+							gtr4 = false;
+							*/
+						}
+					}
+					
+					
+					if(gtr3 == true){
+						if(enemyMoveCounter3<fPath3.size()){
+							Cell moveTo = fPath3.get(enemyMoveCounter3);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter3+=3;		// makes the owner move faster
+						}
+						
+						if (enemyMoveCounter3>=fPath3.size()){
+							enemyMoveCounter3=1;
+							gtr2 = false;
+							gtr1 = false;
+							gtr3 = false;
+							gtr4 = true;
+						}
+					}
+					
+					
+					if(gtr4 == true){
+						if (enemyMoveCounter4<fPath4.size()){
+							Cell moveTo = fPath4.get(enemyMoveCounter4);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter4+=5;		// makes the owner move faster
+						}
+						
+						if(enemyMoveCounter4>=fPath4.size()){
+							enemyMoveCounter4=1;
+							gtr2 = false;
+							gtr1 = false;		
+							gtr3 = false;	
+							gtr4 = false;
+							gtr5 = true;
+						}		
+					}
+					
+					
+					if(gtr5 == true){
+						if(enemyMoveCounter5<path4.size()){
+							Cell moveTo = path4.get(enemyMoveCounter5);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter5+=3;		// makes the owner move faster
+						}
+						
+						if (enemyMoveCounter5>=path4.size()){
+							enemyMoveCounter5=1;
+							gtr2 = false;
+							gtr1 = false;
+							gtr3 = false;
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = true;
+						}
+					}
+					
+					
+					if(gtr6 == true){
+						if (enemyMoveCounter6<path3.size()){
+							Cell moveTo = path3.get(enemyMoveCounter6);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goBackward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter6+=5;		// makes the owner move faster
+						}
+						
+						if (enemyMoveCounter6>=path3.size()){
+							enemyMoveCounter6=1;
+							gtr2 = false;
+							gtr1 = false;	
+							gtr3 = false;
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = true;
+						}	
+					}
+					
+					
+					if(gtr7 == true){
+						if(enemyMoveCounter7<path2.size()){
+							Cell moveTo = path2.get(enemyMoveCounter7);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter7+=3;		// makes the owner move faster
+						}
+						
+						if (enemyMoveCounter7>=path2.size()){	
+							enemyMoveCounter7=1;
+							gtr1 = false;
+							gtr2 = false;							
+							gtr3 = false;
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = false;
+							gtr8 = true;	
+						}
+					}
+					
+					
+					if (gtr8 == true){
+						if(enemyMoveCounter8<path1.size()){
+							Cell moveTo = path1.get(enemyMoveCounter8);
+							int xm = moveTo.i;
+							int ym = moveTo.j;
+							enemy.setXPos(xm);
+							enemy.setYPos(ym);
+							enemy.goForward(true);			// THIS IS WHERE TO TELL THE SPRITE TO CHANGE DIRECTIONS
+							enemyMoveCounter8+=5;		// makes the owner move faster
+						}
+						
+						if (enemyMoveCounter8>=path1.size()){
+							enemyMoveCounter8=1;
+							gtr1 = true;
+							gtr2 = false;				
+							gtr3 = false;	
+							gtr4 = false;
+							gtr5 = false;
+							gtr6 = false;
+							gtr7 = false;
+							gtr8 = false;
+						}
+					}
+					
+		/*************** END OFENEMY'S PATHS CODE *****************/
+
+					/*
 					if (gtr1 == true) {
 
 						if (enemyMoveCounter < fPath1.size()) {
@@ -872,17 +1069,12 @@ public class FinalBuildTest extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goForward(true); // THIS IS WHERE TO TELL THE
-													// SPRITE TO CHANGE
-													// DIRECTIONS
-							// enemyMoveCounter+=1;
-							enemyMoveCounter += 1; // increases the owner's
-													// speed
+							enemy.goForward(true); 
+							enemyMoveCounter += 1; 
 						}
 
 						if (enemyMoveCounter >= fPath1.size()) {
 							enemyMoveCounter = 1;
-							// switchPath();
 							gtr1 = false;
 							gtr2 = true;
 
@@ -898,12 +1090,10 @@ public class FinalBuildTest extends Game {
 							int ym = moveTo.j;
 							enemy.setXPos(xm);
 							enemy.setYPos(ym);
-							enemy.goBackward(true); // THIS IS WHERE TO TELL THE
-													// SPRITE TO CHANGE
-													// DIRECTIONS
-							enemyMoveCounter2 += 1; // makes the owner move
-													// faster
+							enemy.goBackward(true); 
+							enemyMoveCounter2 += 1; 
 						}
+						
 						if (enemyMoveCounter2 >= fPath2.size()) {
 
 							enemyMoveCounter2 = 1;
@@ -911,8 +1101,9 @@ public class FinalBuildTest extends Game {
 
 							gtr1 = true;
 						}
-
-					}
+					} */
+					
+					
 
 					juggler.nextFrame();
 
@@ -956,7 +1147,6 @@ public class FinalBuildTest extends Game {
 						healthWidth = 0;
 						System.out.println("swtichinglevels");
 						switchLevels();
-
 					}
 
 					if (collisionOccured == false) {
@@ -1028,34 +1218,14 @@ public class FinalBuildTest extends Game {
 
 				/******************* TAPPING AND VISIBILITY ****************/
 				if (!transKeyTapped
-						&& pressedKeys.contains(KeyEvent.getKeyText(88))) { // checks
-																			// to
-																			// see
-																			// if
-																			// key
-																			// has
-																			// been
-																			// tapped.
+						&& pressedKeys.contains(KeyEvent.getKeyText(88))) { 
 					if (ghost.getTrans() - deltaAlpha > 0.0f) {
 						ghost.setTrans(ghost.getTrans() - deltaAlpha);
 					}
 					transKeyTapped = true;
 				}
 
-				if (!pressedKeys.contains(KeyEvent.getKeyText(88))) { // if
-																		// it
-																		// has
-																		// been
-																		// tapped,
-																		// set
-																		// it
-																		// to
-																		// be
-																		// true
-																		// and
-																		// make
-																		// slightly
-																		// trans
+				if (!pressedKeys.contains(KeyEvent.getKeyText(88))) {
 					transKeyTapped = false;
 				}
 
@@ -1212,6 +1382,7 @@ public class FinalBuildTest extends Game {
 	 * */
 	@Override
 	public void draw(Graphics g) {
+		
 		g.translate((int) -camera.getXPos(), (int) -camera.getYPos());
 		super.draw(g);
 		
@@ -1239,15 +1410,15 @@ public class FinalBuildTest extends Game {
 			levelTwo.draw(g);
 		}
 		if (atLevelThree == true) {
-			System.out.println("entering level 3");
+			//System.out.println("entering level 3");
 			levelThree.draw(g);
 		}
 		if (atLevelFour == true) {
-			System.out.println("entering level 4");
+			//System.out.println("entering level 4");
 			levelFour.draw(g);
 		}
 		if (atLevelFive == true) { // atLevelFive
-			System.out.println("entering final level");
+			//System.out.println("entering final level");
 			levelFive.draw(g);
 		}
 
