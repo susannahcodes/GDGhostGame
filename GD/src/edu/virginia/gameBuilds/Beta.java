@@ -2,11 +2,8 @@ package edu.virginia.gameBuilds;
 
 import edu.virginia.engine.display.Game;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -33,6 +30,7 @@ import edu.virginia.engine.util.SoundManager;
 import edu.virginia.lab1test.AStar;
 import edu.virginia.lab1test.AStar.Cell;
 import edu.virginia.lab1test.QuestManager;
+import edu.virginia.gameBuilds.LevelTwo;
 
 public class Beta extends Game {
 
@@ -63,6 +61,7 @@ public class Beta extends Game {
 	Sprite grass = new Sprite("grass", "grass.jpg");
 	Sprite sky = new Sprite("sky", "sky.png");
 	ghostSprite ghost = new ghostSprite("ghost");
+	//public boolean levelOne = true;
 	
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
@@ -762,8 +761,9 @@ public class Beta extends Game {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
-		levelOne.draw(g);
-//		if (grass != null ) {
+		if (atLevelOne == true) {
+		levelOne.draw(g); 
+		//		if (grass != null ) {
 //			grass.draw(g);
 //			
 //		}
@@ -796,11 +796,11 @@ public class Beta extends Game {
 //			cherry.draw(g);
 //		}
 //		
-//		g.setColor(Color.red);
-//		g.fillRect(20, 30, healthWidth, 22);
-//		healthBar.draw(g);
-//		
-//		
+		g.setColor(Color.red);
+		g.fillRect(20, 30, healthWidth, 22);
+		healthBar.draw(g);
+		
+		
 		if (ghost != null) {
 			ghost.draw(g);
 		}
@@ -822,14 +822,14 @@ public class Beta extends Game {
 				wall.draw(g);
 			}
 		}
-		
-		if (gameWon != null) {
-			gameWon.draw(g);
-		}
-		
-		if (gameOver != null) {
-			gameOver.draw(g);
-		}
+//		
+//		if (gameWon != null) {
+//			gameWon.draw(g);
+//		}
+//		
+//		if (gameOver != null) {
+//			gameOver.draw(g);
+//		}
 		
 		/*testing the hitboxes
 		g.setColor(Color.green);
@@ -839,14 +839,23 @@ public class Beta extends Game {
 		g.drawRect((int)ghost.getHitBox().getX(), (int)ghost.getHitBox().getY(), (int)ghost.getHitBox().getWidth(), (int) ghost.getHitBox().getHeight());
 		*/
 		
+		
+		}
+		else {
+			System.out.println("entering level 2");
+			LevelTwo.levelTwo.draw(g);
+		}
+		
 	}
 
 	//Level Switching code
 		//add a new if statment for each new level
 		public void switchLevels(){
-				System.out.println("Switch to Level2");
-				currentGame.exitGame();
-				Game game = new LevelTwo("Level 2", 1200, 800);
+				atLevelOne = false;
+				atLevelTwo = true;
+				//System.out.println("Switch to Level2");
+				//currentGame.exitGame();
+				//Game game = new LevelTwo("Level 2", 1200, 800);
 				//currentGame = game;
 				currentGame.start();
 				

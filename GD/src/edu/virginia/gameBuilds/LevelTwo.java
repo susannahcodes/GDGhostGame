@@ -34,7 +34,7 @@ import edu.virginia.lab1test.AStar.Cell;
 class LevelTwo extends Game {
 	
 
-	public DisplayObjectContainer levelTwo = new DisplayObjectContainer("LevelTwo", "health.png");
+	public static DisplayObjectContainer levelTwo = new DisplayObjectContainer("LevelTwo", "health.png");
 
 
 	/******* these rooms check when the enemy and ghost are in the same room*/
