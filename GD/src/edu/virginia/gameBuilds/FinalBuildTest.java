@@ -1165,6 +1165,7 @@ public class FinalBuildTest extends Game {
 
 	}
 
+
 	public void update(ArrayList<String> pressedKeys) {
 		//System.out.println("Food Collected: " + foodCollected);
 		/**
@@ -1942,12 +1943,9 @@ public class FinalBuildTest extends Game {
 
 					}
 				}
-<<<<<<< HEAD
-				}
-				
-				
-				
-=======
+
+		}
+
 				
 				
 				/************* FRUIT COLLISION DETECTION ************/
@@ -1970,7 +1968,7 @@ public class FinalBuildTest extends Game {
 				if(collidedAtAll == false){
 					fruitColliding = false;
 				}*/
->>>>>>> origin/master
+
 
 				/*
 				if (((ghost.collidesWith(bananaL2) && !(bananaL2 == null) && solidEnough == true))
@@ -2565,20 +2563,7 @@ public class FinalBuildTest extends Game {
 							TweenEvent.TWEEN_EVENT_COMPLETE, strawberryTweenL5));
 				} */
 
-			}
-<<<<<<< HEAD
-	}
-	
-=======
 		}
-		
-		if (pressedKeys.contains(KeyEvent.getKeyText(65))) { 
-			//System.out.println("X pos: " + ghost.getXPos() + " Y pos: " + ghost.getYPos()); 
-			//System.out.println(listOfFruits);
-			//System.out.println(); 
-			}
-	}
->>>>>>> origin/master
 
 
 	/**
