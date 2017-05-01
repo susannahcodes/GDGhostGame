@@ -884,8 +884,8 @@ public class FinalBuildTest extends Game {
 		fruitTweenL5.addEventListener(myQuestManager, null);
 		fruitTweenL5.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 		
-		fruitTweenL52.addEventListener(myQuestManager, null);
-		fruitTweenL52.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+//		fruitTweenL52.addEventListener(myQuestManager, null);
+//		fruitTweenL52.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 
 		cherryTween.addEventListener(myQuestManager, null);
 		cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
@@ -1774,28 +1774,6 @@ public class FinalBuildTest extends Game {
 					titleScreen.setVisible(false);
 					titleScreenActive = false;
 				}
-
-//				if (pressedKeys.contains("R") && gameOver.isVisible()) {
-//					// reset doesnt reset
-//					gameOver.setVisible(false);
-//					if (atLevelOne == true) {
-//						fruitCollected = false;
-//						titleScreenActive = true;
-//					}
-//					if (atLevelTwo == true) {
-//						menu2Active = true;
-//					}
-//					if (atLevelThree == true) {
-//						menu3Active = true;
-//					}
-//					if (atLevelFour == true) {
-//						menu4Active = true;
-//					}
-//					if (atLevelFive == true) {
-//						menu5Active = true;
-//					}
-//					// {draw();}
-//				}
 
 				if ((pressedKeys.contains("N") && menu2.isVisible())
 						|| (pressedKeys.contains("N") && menu3.isVisible())
