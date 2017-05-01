@@ -538,8 +538,8 @@ public class FinalBuildTest extends Game {
 		cherry.addEventListener(myQuestManager, null);
 
 		health.setXScale(0.004);
-		l2Wall.setYPos(-300 + 800);
-		l2Wall.setYPos(1300);
+		l2Wall.setXPos(1062);
+		l2Wall.setYPos(540);
 
 		lowerLeft.setXPos(100);
 		lowerLeft.setYPos(400 + 800);
@@ -1570,6 +1570,8 @@ public class FinalBuildTest extends Game {
 
 			}
 		}
+		
+		System.out.println("X pos: " + ghost.getXPos() + " Y pos: " + ghost.getYPos() );
 	}
 
 	/**
@@ -1662,7 +1664,9 @@ public class FinalBuildTest extends Game {
 			atLevelOne = false;
 			collDects.remove(lowerRight);
 			collDects.addAll(Arrays.asList(l2Wall, hallwayBottom, longHallwayRightLevel2, upperRightHallway, topHallwayLevelTwo));
-			ghost.setTrans(0.0f + deltaAlpha);
+			//ghost.setTrans(0.0f + deltaAlpha);
+			ghost.setXPos(5);
+			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			atLevelTwo = true;
 		} else if (atLevelTwo == true) {
 			// System.out.println("entering level 2 (switchlevels)");
@@ -1670,10 +1674,13 @@ public class FinalBuildTest extends Game {
 			maxFood = 1; // supposed to be 6
 			atLevelTwo = false;
 			//collDects.remove(topHallwayLevelTwo);
+			collDects.remove(l2Wall);
 			collDects.add(topHallwayLevelThree);
 			collDects.add(leftSideMiddleRoom);
 			listOfRooms.add(doorwayView1);
-			ghost.setTrans(0.0f + deltaAlpha);
+			//ghost.setTrans(0.0f + deltaAlpha);
+			ghost.setXPos(5);
+			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			atLevelThree = true;
 		} else if (atLevelThree == true) {
 			// System.out.println("entering level 3(switchlevels)");
@@ -1682,14 +1689,18 @@ public class FinalBuildTest extends Game {
 			atLevelThree = false;
 			collDects.remove(topHallwayLevelThree);
 			collDects.addAll(Arrays.asList(longHallwayRight, topHallway, leftHouseTop, houseTop, topRoomBottom));
-			ghost.setTrans(0.0f + deltaAlpha);
+			//ghost.setTrans(0.0f + deltaAlpha);
+			ghost.setXPos(5);
+			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			atLevelFour = true;
 		} else if (atLevelFour == true) {
 			// System.out.println("entering level 4");
 			foodCollected = 0;
 			maxFood = 10;
 			atLevelFour = false;
-			ghost.setTrans(0.0f + deltaAlpha);
+			//ghost.setTrans(0.0f + deltaAlpha);
+			ghost.setXPos(5);
+			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			atLevelFive = true;
 		}
 	}
