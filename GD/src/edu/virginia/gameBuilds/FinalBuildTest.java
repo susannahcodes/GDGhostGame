@@ -691,6 +691,11 @@ public class FinalBuildTest extends Game {
 		bananaL2.setYScale(0.25);
 		bananaL2.setXPos(730);
 		bananaL2.setYPos(-100 + 1200);
+		
+//		bananaL3.setXScale(0.25);
+//		bananaL3.setYScale(0.25);
+//		bananaL3.setXPos(730);
+//		bananaL3.setYPos(-100 + 1200);
 		/***** SHIFTED DOWN BY 800 PIXELS ****/
 		bananaL2.addEventListener(myQuestManager, null);
 
@@ -704,14 +709,21 @@ public class FinalBuildTest extends Game {
 		strawberryL2.setYScale(0.25);
 		strawberryL2.setXPos(1170);
 		strawberryL2.setYPos(300 + 800);
+		
+		
+//		strawberryL3.setXScale(0.25);
+//		strawberryL3.setYScale(0.25);
+//		strawberryL3.setXPos(1170);
+//		strawberryL3.setYPos(300 + 800);
 		/***** SHIFTED DOWN BY 800 PIXELS ****/
 		strawberryL2.addEventListener(myQuestManager, null);
+//		strawberryL3.addEventListener(myQuestManager, null);
 
 		strawberryTween.addEventListener(myQuestManager, null);
 		strawberryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 
-		bananaTween.addEventListener(myQuestManager, null);
-		bananaTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+//		bananaTweenL2.addEventListener(myQuestManager, null);
+//		bananaTweenL2.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 
 		juggler.add(marioTween);
 		juggler.add(fruitTween);
@@ -719,7 +731,7 @@ public class FinalBuildTest extends Game {
 		juggler.add(cherryTween);
 		juggler.add(cherryTweenL2);
 		juggler.add(strawberryTween);
-		juggler.add(bananaTween);
+		//juggler.add(bananaTweenL2);
 
 		
 		gameOver.setVisible(false);
@@ -822,7 +834,7 @@ public class FinalBuildTest extends Game {
 	}
 
 	public void update(ArrayList<String> pressedKeys) {
-
+		System.out.println("Food Collected: " + foodCollected);
 		/**
 		 * we must include a way to check if the walls are not null before they
 		 * are drawn it doesn't truly affect the game but it gives us a lot of
@@ -1279,7 +1291,7 @@ public class FinalBuildTest extends Game {
 					}
 
 					if (foodCollected == maxFood) {
-						healthWidth = 0;
+						//healthWidth = 0;
 						if (atLevelFive == false) {
 							switchLevels();
 						}
@@ -1464,7 +1476,7 @@ public class FinalBuildTest extends Game {
 					}
 				}
 
-				if ((ghost.collidesWith(bananaL2) && solidEnough == true)) {
+				if ((ghost.collidesWith(bananaL2) && bananaL2.isVisible() && solidEnough == true)) {
 					bananaL2.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							bananaL2));
 					if (trippedBanana == false) {
@@ -1485,10 +1497,10 @@ public class FinalBuildTest extends Game {
 					// being overlapped
 				}
 
-				if ((ghost.collidesWith(fruit) && solidEnough == true)
-						|| (ghost.collidesWith(fruitL2) && solidEnough == true)) {
+				if ((ghost.collidesWith(fruit) && solidEnough == true && fruit.isVisible())
+						|| (ghost.collidesWith(fruitL2) && solidEnough == true && fruitL2.isVisible())) {
 
-					if (atLevelOne == true && health.getXScale() < 4
+					if (atLevelOne == true && !(gameOver.isVisible())
 							&& trippedFruit == false) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						fruitCollected = true;
@@ -1526,10 +1538,10 @@ public class FinalBuildTest extends Game {
 					
 				}
 
-				if (((ghost.collidesWith(cherry) && solidEnough == true))
-						|| ((ghost.collidesWith(cherryL2) && solidEnough == true))) {
+				if (((ghost.collidesWith(cherry) && solidEnough == true) && cherry.isVisible())
+						|| ((ghost.collidesWith(cherryL2) && solidEnough == true) && cherryL2.isVisible())) {
 
-					if (atLevelOne == true && health.getXScale() < 4
+					if (atLevelOne == true && !(gameOver.isVisible())
 							&& trippedCherry == false) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						cherryCollected = true;
@@ -1545,6 +1557,10 @@ public class FinalBuildTest extends Game {
 						cherryTween.dispatchEvent(new TweenEvent(
 								TweenEvent.TWEEN_EVENT_COMPLETE, cherryTween));
 					}
+					
+					
+					
+					
 					if (atLevelTwo == true && health.getXScale() < 4
 							&& trippedCherryL2 == false) {
 						cherryL2.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherryL2));
@@ -1567,7 +1583,7 @@ public class FinalBuildTest extends Game {
 					
 				}
 
-				if ((ghost.collidesWith(strawberryL2) && solidEnough == true)) {
+				if ((ghost.collidesWith(strawberryL2) && solidEnough == true && strawberryL2.isVisible())) {
 					strawberryL2.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							strawberryL2));
 					if (trippedStrawberry == false) {
@@ -1628,8 +1644,8 @@ public class FinalBuildTest extends Game {
 		if (titleScreenActive == true && isLoading == false) {
 			titleScreen.setVisible(true);
 			loadingScreen.setVisible(false);
-			System.out.println("titleScreenDrawn" + " visibility: "
-					+ titleScreen.isVisible());
+			//System.out.println("titleScreenDrawn" + " visibility: "
+				//	+ titleScreen.isVisible());
 			titleScreen.draw(g);
 		}
 
