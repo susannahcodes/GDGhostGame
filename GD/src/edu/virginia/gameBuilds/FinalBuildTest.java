@@ -134,26 +134,30 @@ public class FinalBuildTest extends Game {
 	Sprite pearL5 = new Sprite("pearL5", "pear.png");
 	Sprite pearL42 = new Sprite("pearL42", "pear.png");
 	Sprite pearL52 = new Sprite("pearL52", "pear.png");
-	Sprite grass = new Sprite("grass", "grass.jpg");
-	Sprite grass2 = new Sprite("grass2", "grass.jpg");
-	Sprite sky = new Sprite("sky", "sky.png");
-	ghostSprite ghost = new ghostSprite("ghost");
-	Sprite greyCarpet2 = new Sprite("greyCarpet", "greyCarpet.png");
-	Sprite grass3 = new Sprite("grass2", "grass.jpg");
 	Sprite strawberryL2 = new Sprite("strawberryL2", "strawberry.png");
 	Sprite strawberryL3 = new Sprite("strawberryL3", "strawberry.png");
 	Sprite strawberryL4 = new Sprite("strawberryL4", "strawberry.png");
 	Sprite strawberryL5 = new Sprite("strawberryL5", "strawberry.png");
 	Sprite strawberryL42 = new Sprite("strawberryL42", "strawberry.png");
 	Sprite strawberryL52 = new Sprite("strawberryL52", "strawberry.png");
+	Sprite bananaL2 = new Sprite("bananaL2", "banana.png");
+	
+	ArrayList<Sprite> listOfFruits = new ArrayList<Sprite>(Arrays.asList(fruit, cherry));
+	
 	Tween strawberryTweenL2 = new Tween(strawberryL2, new TweenTransition());
 	Tween strawberryTweenL3 = new Tween(strawberryL3, new TweenTransition());
 	Tween strawberryTweenL4 = new Tween(strawberryL4, new TweenTransition());
 	Tween strawberryTweenL5 = new Tween(strawberryL5, new TweenTransition());
 	Tween strawberryTweenL42 = new Tween(strawberryL42, new TweenTransition());
 	Tween strawberryTweenL52 = new Tween(strawberryL52, new TweenTransition());
-	Sprite bananaL2 = new Sprite("bananaL2", "banana.png");
+
 	
+	Sprite grass = new Sprite("grass", "grass.jpg");
+	Sprite grass2 = new Sprite("grass2", "grass.jpg");
+	Sprite sky = new Sprite("sky", "sky.png");
+	ghostSprite ghost = new ghostSprite("ghost");
+	Sprite greyCarpet2 = new Sprite("greyCarpet", "greyCarpet.png");
+	Sprite grass3 = new Sprite("grass2", "grass.jpg");
 
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
@@ -306,6 +310,11 @@ public class FinalBuildTest extends Game {
 	public boolean trippedCherryL42 = false;
 	public boolean trippedCherryL52 = false;
 	public boolean isLoading = true;
+	
+	
+	//check for trippng fruit collide
+	
+	public boolean fruitColliding = false;
 
 	/**** this code for the enemy's movement paths ***/
 
@@ -696,12 +705,16 @@ public class FinalBuildTest extends Game {
 		pearL52.setYPos(300 + 800 - 400);
 		pearL52.addEventListener(myQuestManager, null);
 
-		fruitL2.setXPos(500);
-		fruitL2.setYPos(300 + 800);
+		//fruitL2.setXPos(500);
+		//fruitL2.setYPos(300 + 800);
+		fruitL2.setXPos(630);
+		fruitL2.setYPos(1430);
 		fruitL2.addEventListener(myQuestManager, null);
 
-		fruitL3.setXPos(500);
-		fruitL3.setYPos(300 + 800);
+		//fruitL3.setXPos(500);
+		//fruitL3.setYPos(300 + 800);
+		fruitL3.setXPos(875);
+		fruitL3.setYPos(1070);
 		fruitL3.addEventListener(myQuestManager, null);
 
 		woodFloor2.setXPos(1060);
@@ -726,8 +739,10 @@ public class FinalBuildTest extends Game {
 		cherry.setYPos(310 + 800);
 		cherry.addEventListener(myQuestManager, null);
 
-		cherryL32.setXPos(850);
-		cherryL32.setYPos(310 + 800);
+		//cherryL32.setXPos(850);
+		//cherryL32.setYPos(310 + 800);
+		cherryL32.setXPos(1200);
+		cherryL32.setYPos(850);
 		
 		cherryL42.setXPos(850);
 		cherryL42.setYPos(310 + 800);
@@ -735,12 +750,16 @@ public class FinalBuildTest extends Game {
 		cherryL52.setXPos(850);
 		cherryL52.setYPos(310 + 800);
 
-		cherryL2.setXPos(710);
-		cherryL2.setYPos(310 + 800);
+		//cherryL2.setXPos(710);
+		//cherryL2.setYPos(310 + 800);
+		cherryL2.setXPos(950);
+		cherryL2.setYPos(1070);
 		cherryL2.addEventListener(myQuestManager, null);
 
-		cherryL3.setXPos(710);
-		cherryL3.setYPos(310 + 800);
+		//cherryL3.setXPos(710);
+		//cherryL3.setYPos(310 + 800);
+		cherryL3.setXPos(220);
+		cherryL3.setYPos(1050);
 		cherryL3.addEventListener(myQuestManager, null);
 
 		cherryL4.setXPos(710);
@@ -914,15 +933,19 @@ public class FinalBuildTest extends Game {
 
 		bananaL2.setXScale(0.18);
 		bananaL2.setYScale(0.18);
-		bananaL2.setXPos(300);
-		bananaL2.setYPos(-100 + 1200);
+		//bananaL2.setXPos(300);
+		//bananaL2.setYPos(-100 + 1200);
+		bananaL2.setXPos(405);
+		bananaL2.setYPos(1200);
 		bananaL2.addEventListener(myQuestManager, null);
 		bananaTweenL2.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 
 		bananaL3.setXScale(0.18);
 		bananaL3.setYScale(0.18);
-		bananaL3.setXPos(300);
-		bananaL3.setYPos(-100 + 1200);
+		//bananaL3.setXPos(300);
+		//bananaL3.setYPos(-100 + 1200);
+		bananaL3.setXPos(1075);
+		bananaL3.setYPos(1430);
 		bananaL3.addEventListener(myQuestManager, null);
 		bananaTweenL3.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 		
@@ -961,8 +984,10 @@ public class FinalBuildTest extends Game {
 
 		strawberryL3.setXScale(0.25);
 		strawberryL3.setYScale(0.25);
-		strawberryL3.setXPos(1170);
-		strawberryL3.setYPos(300 + 800);
+		//strawberryL3.setXPos(1170);
+		//strawberryL3.setYPos(300 + 800);
+		strawberryL3.setXPos(420);
+		strawberryL3.setYPos(1215);
 		strawberryL3.addEventListener(myQuestManager, null);
 
 		strawberryL4.setXScale(0.25);
@@ -1141,7 +1166,7 @@ public class FinalBuildTest extends Game {
 	}
 
 	public void update(ArrayList<String> pressedKeys) {
-		System.out.println("Food Collected: " + foodCollected);
+		//System.out.println("Food Collected: " + foodCollected);
 		/**
 		 * we must include a way to check if the walls are not null before they
 		 * are drawn it doesn't truly affect the game but it gives us a lot of
@@ -1917,11 +1942,37 @@ public class FinalBuildTest extends Game {
 
 					}
 				}
+<<<<<<< HEAD
 				}
 				
 				
 				
+=======
+				
+				
+				/************* FRUIT COLLISION DETECTION ************/
+				//boolean collidedAtAll = false;
+				
+				for ( Sprite fruitObject : listOfFruits ) {
+					if ( ghost.collidesWith(fruitObject) && solidEnough && fruitObject.isVisible() ) {
+						//fruitColliding = true;
+						//collidedAtAll = true;
+						System.out.println("enemy colliding with fruit");
+						fruitObject.setVisible(false);
+						System.out.println("before increment: " + foodCollected);
+						foodCollected +=1;
+						System.out.println("after increment: " + foodCollected);
+						System.out.println();
+					}
+				}
+				
+				/*
+				if(collidedAtAll == false){
+					fruitColliding = false;
+				}*/
+>>>>>>> origin/master
 
+				/*
 				if (((ghost.collidesWith(bananaL2) && !(bananaL2 == null) && solidEnough == true))
 						|| (((ghost.collidesWith(bananaL3)
 								&& !(bananaL3 == null) && solidEnough == true)))) {
@@ -2001,8 +2052,14 @@ public class FinalBuildTest extends Game {
 
 				}
 
+<<<<<<< HEAD
 			
 
+=======
+			}
+			
+			
+>>>>>>> origin/master
 			if ((ghost.collidesWith(fruit) && solidEnough == true && fruit
 					.isVisible())
 					|| (ghost.collidesWith(fruitL2) && solidEnough == true && fruitL3
@@ -2011,8 +2068,7 @@ public class FinalBuildTest extends Game {
 							.isVisible())
 					|| (ghost.collidesWith(fruitL4) && solidEnough == true && fruitL4
 							.isVisible())
-					|| (ghost.collidesWith(fruitL5) && solidEnough == true && fruitL5
-							.isVisible())) {
+					|| (ghost.collidesWith(fruitL5) && solidEnough == true && fruitL5.isVisible())) {
 
 				if (atLevelOne == true && !(gameOver.isVisible())
 						&& trippedFruit == false) {
@@ -2033,6 +2089,7 @@ public class FinalBuildTest extends Game {
 					fruitTween.dispatchEvent(new TweenEvent(
 							TweenEvent.TWEEN_EVENT_COMPLETE, fruitTween));
 				}
+				
 				if (atLevelTwo == true && trippedFruitL2 == false) {
 					fruitL2.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							fruitL2));
@@ -2489,6 +2546,7 @@ public class FinalBuildTest extends Game {
 					strawberryTweenL4.dispatchEvent(new TweenEvent(
 							TweenEvent.TWEEN_EVENT_COMPLETE, strawberryTweenL4));
 				}
+				
 				if (atLevelFive == true && trippedStrawberryL5 == false) {
 					strawberryL5.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							strawberryL5));
@@ -2505,14 +2563,23 @@ public class FinalBuildTest extends Game {
 					foodCollected += 1;
 					strawberryTweenL5.dispatchEvent(new TweenEvent(
 							TweenEvent.TWEEN_EVENT_COMPLETE, strawberryTweenL5));
-				}
+				} */
 
 			}
+<<<<<<< HEAD
 	}
 	
+=======
+		}
+		
+		if (pressedKeys.contains(KeyEvent.getKeyText(65))) { 
+			//System.out.println("X pos: " + ghost.getXPos() + " Y pos: " + ghost.getYPos()); 
+			//System.out.println(listOfFruits);
+			//System.out.println(); 
+			}
+	}
+>>>>>>> origin/master
 
-	// System.out.println("X pos: " + ghost.getXPos() + " Y pos: "
-	// + ghost.getYPos());
 
 	/**
 	 * Engine automatically invokes draw() every frame as well. If we want to
@@ -2617,16 +2684,22 @@ public class FinalBuildTest extends Game {
 			foodCollected = 0;
 			maxFood = 4;// supposed to be 4
 			atLevelOne = false;
+			
+			listOfFruits.remove(fruit);
+			listOfFruits.remove(cherry);
+			listOfFruits.addAll(Arrays.asList(fruitL2, cherryL2, bananaL2, strawberryL2));
+			
 			collDects.remove(lowerRight);
 			collDects.addAll(Arrays.asList(l2Wall, hallwayBottom,
 					longHallwayRightLevel2, upperRightHallway,
 					topHallwayLevelTwo));
-			// ghost.setTrans(0.0f + deltaAlpha);
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			health.setXScale(1.94);
 			atLevelTwo = true;
-		} else if (atLevelTwo == true) {
+		} 
+		
+		else if (atLevelTwo == true) {
 			foodCollected = 0;
 			maxFood = 6; // supposed to be 6
 			atLevelTwo = false;
@@ -2640,7 +2713,9 @@ public class FinalBuildTest extends Game {
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			health.setXScale(1.94);
 			atLevelThree = true;
-		} else if (atLevelThree == true) {
+		} 
+		
+		else if (atLevelThree == true) {
 			// System.out.println("entering level 3(switchlevels)");
 			foodCollected = 0;
 			maxFood = 8;
@@ -2653,7 +2728,9 @@ public class FinalBuildTest extends Game {
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			health.setXScale(1.94);
 			atLevelFour = true;
-		} else if (atLevelFour == true) {
+		} 
+		
+		else if (atLevelFour == true) {
 			// System.out.println("entering level 4");
 			foodCollected = 0;
 			maxFood = 10;
