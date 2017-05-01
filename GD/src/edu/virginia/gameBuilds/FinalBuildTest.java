@@ -2688,12 +2688,15 @@ public class FinalBuildTest extends Game {
 			foodCollected = 0;
 			maxFood = 6; // supposed to be 6
 			atLevelTwo = false;
-			// collDects.remove(topHallwayLevelTwo);
+
+			listOfFruits.clear();
+			listOfFruits.addAll(Arrays.asList(fruitL3, pear, cherryL3, cherryL32, strawberryL3, bananaL3));
+
 			collDects.remove(l2Wall);
 			collDects.add(topHallwayLevelThree);
 			collDects.add(leftSideMiddleRoom);
 			listOfRooms.add(doorwayView1);
-			// ghost.setTrans(0.0f + deltaAlpha);
+
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			health.setXScale(1.94);
@@ -2705,6 +2708,10 @@ public class FinalBuildTest extends Game {
 			foodCollected = 0;
 			maxFood = 8;
 			atLevelThree = false;
+			
+			listOfFruits.clear();
+			listOfFruits.addAll(Arrays.asList(fruitL4, cherryL4, cherryL42, strawberryL4, strawberryL42, bananaL4, pearL4, pearL42));
+			
 			collDects.remove(topHallwayLevelThree);
 			collDects.addAll(Arrays.asList(longHallwayRight, topHallway,
 					leftHouseTop, houseTop, topRoomBottom));
@@ -2720,6 +2727,10 @@ public class FinalBuildTest extends Game {
 			foodCollected = 0;
 			maxFood = 10;
 			atLevelFour = false;
+			
+			listOfFruits.clear();
+			listOfFruits.addAll(Arrays.asList(fruitL5, cherryL5, strawberryL5, strawberryL52, cherryL52, bananaL5, pearL5, pearL52, fruitL52, bananaL52));
+			
 			// ghost.setTrans(0.0f + deltaAlpha);
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
