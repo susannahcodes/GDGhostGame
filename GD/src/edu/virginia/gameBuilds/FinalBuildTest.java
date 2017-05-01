@@ -1738,27 +1738,27 @@ public class FinalBuildTest extends Game {
 					titleScreenActive = false;
 				}
 
-				if (pressedKeys.contains("R") && gameOver.isVisible()) {
-					// reset doesnt reset
-					gameOver.setVisible(false);
-					if (atLevelOne == true) {
-						fruitCollected = false;
-						titleScreenActive = true;
-					}
-					if (atLevelTwo == true) {
-						menu2Active = true;
-					}
-					if (atLevelThree == true) {
-						menu3Active = true;
-					}
-					if (atLevelFour == true) {
-						menu4Active = true;
-					}
-					if (atLevelFive == true) {
-						menu5Active = true;
-					}
-					// {draw();}
-				}
+//				if (pressedKeys.contains("R") && gameOver.isVisible()) {
+//					// reset doesnt reset
+//					gameOver.setVisible(false);
+//					if (atLevelOne == true) {
+//						fruitCollected = false;
+//						titleScreenActive = true;
+//					}
+//					if (atLevelTwo == true) {
+//						menu2Active = true;
+//					}
+//					if (atLevelThree == true) {
+//						menu3Active = true;
+//					}
+//					if (atLevelFour == true) {
+//						menu4Active = true;
+//					}
+//					if (atLevelFive == true) {
+//						menu5Active = true;
+//					}
+//					// {draw();}
+//				}
 
 				if ((pressedKeys.contains("N") && menu2.isVisible())
 						|| (pressedKeys.contains("N") && menu3.isVisible())
@@ -2100,7 +2100,6 @@ public class FinalBuildTest extends Game {
 						&& trippedPearL4 == false) {
 					pearL4.dispatchEvent(new Event(Event.COIN_PICKED_UP, pearL4));
 					pearCollectedL4 = true;
-					// health.setXScale(health.getXScale() + 0.95);
 					trippedPearL4 = true;
 					try {
 						soundManager.playSoundEffect("munch");
@@ -2108,7 +2107,7 @@ public class FinalBuildTest extends Game {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					// System.out.println("collected fruit");
+					System.out.println("collected pear");
 					foodCollected += 1;
 					pearTweenL4.dispatchEvent(new TweenEvent(
 							TweenEvent.TWEEN_EVENT_COMPLETE, pearTweenL4));
@@ -2228,8 +2227,7 @@ public class FinalBuildTest extends Game {
 			}
 			
 			if (((ghost.collidesWith(pearL42) && solidEnough == true)
-					&& pearL42.isVisible()) || ((ghost.collidesWith(pearL52) && solidEnough == true)
-							&& pearL52.isVisible())) {
+					&& pearL42.isVisible())) {
 				if (atLevelFour == true && trippedPearL42 == false) {
 					pearL42.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							pearL42));
@@ -2244,6 +2242,7 @@ public class FinalBuildTest extends Game {
 						e.printStackTrace();
 					}
 					foodCollected += 1;
+					System.out.println("collected pear2");
 					pearTweenL42.dispatchEvent(new TweenEvent(
 							TweenEvent.TWEEN_EVENT_COMPLETE, pearTweenL42));
 				}
@@ -2465,21 +2464,17 @@ public class FinalBuildTest extends Game {
 	public void draw(Graphics g) {
 		g.translate((int) -camera.getXPos(), (int) -camera.getYPos());
 		super.draw(g);
-		// if gameOver.isVisible //reset code here
 		if (isLoading == true) {
 			loadingScreen.setVisible(true);
 			titleScreen.setVisible(false);
-			// System.out.println("titleScreenDrawn" + " visibility: "
-			// + titleScreen.isVisible());
 			loadingScreen.draw(g);
 		}
 		if (titleScreenActive == true && isLoading == false) {
 			titleScreen.setVisible(true);
 			loadingScreen.setVisible(false);
-			// System.out.println("titleScreenDrawn" + " visibility: "
-			// + titleScreen.isVisible());
 			titleScreen.draw(g);
 		}
+		//atLevelFour = true;
 
 		if (atLevelOne == true) {
 			// healthBar.setXPos(10);
