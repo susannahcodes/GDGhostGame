@@ -322,13 +322,14 @@ public class FinalBuildTest extends Game {
 		levelOne.add(wall4);
 		levelOne.add(vwall2);
 		levelOne.add(vwall3);
-		levelOne.add(gameOver);
+		//levelOne.add(gameOver);
 		levelOne.add(ghost);
 		levelOne.add(enemy);
 		levelOne.add(health);
 		levelOne.add(healthBar);
 		levelOne.add(titleScreen);
 		levelOne.add(loadingScreen);
+		levelOne.add(gameOver);
 
 		// levelTwo
 		levelTwo.add(grass);
@@ -366,6 +367,7 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(menu2);
 		levelTwo.add(health);
 		levelTwo.add(healthBar);
+		levelTwo.add(gameOver);
 
 		// levelThree
 		levelThree.add(grass);
@@ -402,6 +404,7 @@ public class FinalBuildTest extends Game {
 		levelThree.add(menu3);
 		levelThree.add(health);
 		levelThree.add(healthBar);
+		levelThree.add(gameOver);
 
 		// levelFour
 		levelFour.add(grass);
@@ -426,7 +429,7 @@ public class FinalBuildTest extends Game {
 		levelFour.add(wall4);
 		levelFour.add(vwall2);
 		levelFour.add(vwall3);
-		levelFour.add(gameOver);
+		
 		levelFour.add(ghost);
 		levelFour.add(enemy);
 		levelFour.add(longHallwayRight);
@@ -440,6 +443,7 @@ public class FinalBuildTest extends Game {
 		levelFour.add(menu4);
 		levelFour.add(health);
 		levelFour.add(healthBar);
+		levelFour.add(gameOver);
 
 		// levelFive
 		levelFive.add(grass);
@@ -464,7 +468,7 @@ public class FinalBuildTest extends Game {
 		levelFive.add(wall4);
 		levelFive.add(vwall2);
 		levelFive.add(vwall3);
-		levelFive.add(gameOver);
+		
 		levelFive.add(ghost);
 		levelFive.add(enemy);
 		levelFive.add(longHallwayRight);
@@ -478,10 +482,11 @@ public class FinalBuildTest extends Game {
 		levelFive.add(menu5);
 		levelFive.add(health);
 		levelFive.add(healthBar);
+		levelFive.add(gameOver);
 
 		this.getScenePanel().setBackground(Color.gray);
 
-		healthBar.setXPos(10);
+		// healthBar.setXPos(10);
 		// healthBar.setYPos(10);
 		ghost.setTrans(0.0f);
 		ghost.setXPos(3);
@@ -685,7 +690,7 @@ public class FinalBuildTest extends Game {
 		bananaL2.setXScale(0.25);
 		bananaL2.setYScale(0.25);
 		bananaL2.setXPos(730);
-		bananaL2.setYPos(-100 + 800);
+		bananaL2.setYPos(-100 + 1200);
 		/***** SHIFTED DOWN BY 800 PIXELS ****/
 		bananaL2.addEventListener(myQuestManager, null);
 
@@ -716,10 +721,7 @@ public class FinalBuildTest extends Game {
 		juggler.add(strawberryTween);
 		juggler.add(bananaTween);
 
-		gameOver.setXScale(1.5);
-		gameOver.setYScale(1.5);
-		gameOver.setXPos(170);
-		gameOver.setYPos(300);
+		
 		gameOver.setVisible(false);
 
 		try {
@@ -855,7 +857,7 @@ public class FinalBuildTest extends Game {
 		}
 		super.update(pressedKeys);
 
-		healthBar.setXPos((ghost.getXPos() - VIEWPORT_SIZE_X / 2));
+		healthBar.setXPos((ghost.getXPos() - VIEWPORT_SIZE_X / 2)+10);
 		healthBar.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
 		if (healthBar.getXPos() > offsetMaxX) {
 			healthBar.setXPos(offsetMaxX);
@@ -1442,6 +1444,10 @@ public class FinalBuildTest extends Game {
 					if (enemy.getHitBox().intersects(room)
 							&& ghost.getHitBox().intersects(room)
 							&& !ghostAbilities) {
+						health.setXScale(health.getXScale()-0.002);
+						if (health.getXScale()<0.1) {
+							gameOver.setVisible(true);
+						}
 						// System.out.println("enemy sees you");
 						// System.out.println();
 						if (gameOverB == false) {
@@ -1451,10 +1457,10 @@ public class FinalBuildTest extends Game {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							gameOver.setVisible(true);
 							gameOverB = true;
 							// System.out.println(room);
 						}
+				
 					}
 				}
 
@@ -1462,10 +1468,6 @@ public class FinalBuildTest extends Game {
 					bananaL2.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							bananaL2));
 					if (trippedBanana == false) {
-						if (atLevelOne) {
-					//health.setXScale(health.getXScale() + 2);
-						}
-						// health.setXScale(health.getXScale() + 0.4);
 						bananaCollected = true;
 						trippedBanana = true;
 						try {
@@ -1632,12 +1634,8 @@ public class FinalBuildTest extends Game {
 		}
 
 		if (atLevelOne == true) {
-			healthBar.setXPos(10);
+			//healthBar.setXPos(10);
 			levelOne.draw(g);
-//			g.setColor(Color.red);
-//			g.fillRect(20, 30, healthWidth, 22);
-			
-			//healthBar.draw(g);
 		}
 
 		// else { levelTwo.draw(g);}
@@ -1649,7 +1647,7 @@ public class FinalBuildTest extends Game {
 			} else {
 				menu2.setVisible(false);
 			}
-			healthBar.setXPos(10);
+			//healthBar.setXPos(10);
 			levelTwo.draw(g);
 		}
 		if (atLevelThree == true) {
