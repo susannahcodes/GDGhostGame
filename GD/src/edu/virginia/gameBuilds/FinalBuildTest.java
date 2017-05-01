@@ -128,7 +128,7 @@ public class FinalBuildTest extends Game {
 	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
 	// use this wall's
 	Sprite titleScreen = new Sprite("titleScreen", "titleScreen.png");
-	Sprite loadingScreen = new Sprite("loadingScreen", "loading2.jpg");
+	Sprite loadingScreen = new Sprite("loadingScreen", "loadingScreen.png");
 	Sprite menu2 = new Sprite("menu2", "menu2.png");
 	Sprite menu3 = new Sprite("menu3", "menu3.png");
 	Sprite menu4 = new Sprite("menu4", "menu4.png");
@@ -337,11 +337,7 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(wall2);
 		levelTwo.add(wall4);
 		levelTwo.add(vwall2);
-<<<<<<< HEAD
-		// LevelTwo.add(l2Wall);
-=======
 		levelTwo.add(l2Wall);
->>>>>>> origin/master
 		levelTwo.add(vwall3);
 		levelTwo.add(gameOver);
 		levelTwo.add(ghost);
