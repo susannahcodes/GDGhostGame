@@ -128,6 +128,7 @@ public class FinalBuildTest extends Game {
 	VertWallSprite longHallwayRight = new VertWallSprite("longHallwayRight");
 	// use this wall's
 	Sprite titleScreen = new Sprite("titleScreen", "titleScreen.png");
+	Sprite loadingScreen = new Sprite("loadingScreen", "loading2.jpg");
 	Sprite menu2 = new Sprite("menu2", "menu2.png");
 	Sprite menu3 = new Sprite("menu3", "menu3.png");
 	Sprite menu4 = new Sprite("menu4", "menu4.png");
@@ -189,6 +190,8 @@ public class FinalBuildTest extends Game {
 
 	public boolean trippedCherry = false;
 	public boolean trippedFruit = false;
+	
+	public boolean isLoading = true;
 
 	/**** this code for the enemy's movement paths ***/
 
@@ -311,6 +314,7 @@ public class FinalBuildTest extends Game {
 		levelOne.add(health);
 		levelOne.add(healthBar);
 		levelOne.add(titleScreen);
+		levelOne.add(loadingScreen);
 
 		// levelTwo
 		levelTwo.add(grass);
@@ -333,7 +337,11 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(wall2);
 		levelTwo.add(wall4);
 		levelTwo.add(vwall2);
+<<<<<<< HEAD
 		// LevelTwo.add(l2Wall);
+=======
+		levelTwo.add(l2Wall);
+>>>>>>> origin/master
 		levelTwo.add(vwall3);
 		levelTwo.add(gameOver);
 		levelTwo.add(ghost);
@@ -780,6 +788,8 @@ public class FinalBuildTest extends Game {
 			fPath4.add(temp);
 			q4 -= 1;
 		}
+		
+		isLoading = false;
 
 	}
 
@@ -849,18 +859,36 @@ public class FinalBuildTest extends Game {
 
 		menu2.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		menu2.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
-
-		titleScreen.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
-		titleScreen.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
-		if (titleScreen.getXPos() > offsetMaxX) {
-			titleScreen.setXPos(offsetMaxX);
-		} else if (titleScreen.getXPos() < offsetMinX) {
-			titleScreen.setXPos(offsetMinX);
+		
+		if(isLoading==true){
+			loadingScreen.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+			loadingScreen.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+			if (loadingScreen.getXPos() > offsetMaxX) {
+				loadingScreen.setXPos(offsetMaxX);
+			} else if (loadingScreen.getXPos() < offsetMinX) {
+				loadingScreen.setXPos(offsetMinX);
+			}
+			if (loadingScreen.getYPos() > offsetMaxY) {
+				loadingScreen.setYPos(offsetMaxY);
+			} else if (loadingScreen.getXPos() < offsetMinY) {
+				loadingScreen.setYPos(offsetMinY);
+			}
 		}
-		if (titleScreen.getYPos() > offsetMaxY) {
-			titleScreen.setYPos(offsetMaxY);
-		} else if (titleScreen.getXPos() < offsetMinY) {
-			titleScreen.setYPos(offsetMinY);
+		
+		if(isLoading==false){
+			loadingScreen.setVisible(false);
+			titleScreen.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+			titleScreen.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+			if (titleScreen.getXPos() > offsetMaxX) {
+				titleScreen.setXPos(offsetMaxX);
+			} else if (titleScreen.getXPos() < offsetMinX) {
+				titleScreen.setXPos(offsetMinX);
+			}
+			if (titleScreen.getYPos() > offsetMaxY) {
+				titleScreen.setYPos(offsetMaxY);
+			} else if (titleScreen.getXPos() < offsetMinY) {
+				titleScreen.setYPos(offsetMinY);
+			}
 		}
 
 		menu3.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
@@ -1510,8 +1538,16 @@ public class FinalBuildTest extends Game {
 	public void draw(Graphics g) {
 		g.translate((int) -camera.getXPos(), (int) -camera.getYPos());
 		super.draw(g);
-		if (titleScreenActive == true) {
+		if (isLoading == true) {
+			loadingScreen.setVisible(true);
+			titleScreen.setVisible(false);
+			//System.out.println("titleScreenDrawn" + " visibility: "
+					//+ titleScreen.isVisible());
+			loadingScreen.draw(g);
+		}
+		if (titleScreenActive == true&& isLoading==false) {
 			titleScreen.setVisible(true);
+			loadingScreen.setVisible(false);
 			System.out.println("titleScreenDrawn" + " visibility: "
 					+ titleScreen.isVisible());
 			titleScreen.draw(g);
@@ -1594,6 +1630,7 @@ public class FinalBuildTest extends Game {
 	}
 
 	public static void main(String[] args) {
+		
 		Game beta = new FinalBuildTest();
 		beta.start();
 	}
