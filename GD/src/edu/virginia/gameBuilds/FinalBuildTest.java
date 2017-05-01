@@ -194,7 +194,7 @@ public class FinalBuildTest extends Game {
 
 	/**** this code for the enemy's movement paths ***/
 
-	int enemyMark1X = 350;
+	int enemyMark1X = 250;
 	int enemyMark1Y = 1300;
 
 	int enemyMark2X = 1135;
@@ -951,7 +951,7 @@ public class FinalBuildTest extends Game {
 														// THE SPRITE TO CHANGE
 														// DIRECTIONS
 								// enemyMoveCounter+=1;
-								enemyMoveCounter0a += 5; // increases the
+								enemyMoveCounter0a += 2; // increases the
 															// owner's speed
 							}
 
@@ -973,7 +973,7 @@ public class FinalBuildTest extends Game {
 														// THE SPRITE TO CHANGE
 														// DIRECTIONS
 								// enemyMoveCounter+=1;
-								enemyMoveCounter += 5; // increases the owner's
+								enemyMoveCounter += 2; // increases the owner's
 														// speed
 							}
 
@@ -1649,6 +1649,7 @@ public class FinalBuildTest extends Game {
 			atLevelOne = false;
 			collDects.remove(lowerRight);
 			collDects.addAll(Arrays.asList(l2Wall, hallwayBottom, longHallwayRightLevel2, upperRightHallway, topHallwayLevelTwo));
+			ghost.setTrans(0.0f + deltaAlpha);
 			atLevelTwo = true;
 		} else if (atLevelTwo == true) {
 			// System.out.println("entering level 2 (switchlevels)");
@@ -1659,6 +1660,7 @@ public class FinalBuildTest extends Game {
 			collDects.add(topHallwayLevelThree);
 			collDects.add(leftSideMiddleRoom);
 			listOfRooms.add(doorwayView1);
+			ghost.setTrans(0.0f + deltaAlpha);
 			atLevelThree = true;
 		} else if (atLevelThree == true) {
 			// System.out.println("entering level 3(switchlevels)");
@@ -1667,12 +1669,14 @@ public class FinalBuildTest extends Game {
 			atLevelThree = false;
 			collDects.remove(topHallwayLevelThree);
 			collDects.addAll(Arrays.asList(longHallwayRight, topHallway, leftHouseTop, houseTop, topRoomBottom));
+			ghost.setTrans(0.0f + deltaAlpha);
 			atLevelFour = true;
 		} else if (atLevelFour == true) {
 			// System.out.println("entering level 4");
 			foodCollected = 0;
 			maxFood = 10;
 			atLevelFour = false;
+			ghost.setTrans(0.0f + deltaAlpha);
 			atLevelFive = true;
 		}
 	}
