@@ -247,6 +247,7 @@ public class FinalBuildTest extends Game {
 	Tween bananaTweenL52 = new Tween(bananaL52, new TweenTransition());
 	TweenJuggler juggler = new TweenJuggler();
 
+	boolean safe = true;
 	boolean trippedStrawberryL2 = false;
 	boolean trippedStrawberryL3 = false;
 	boolean trippedStrawberryL4 = false;
@@ -1896,7 +1897,8 @@ public class FinalBuildTest extends Game {
 						}
 						// System.out.println("enemy sees you");
 						// System.out.println();
-						if (gameOverB == false) {
+						safe = false;
+						if (gameOverB == false && safe == false) {
 							try {
 								soundManager.playSoundEffect("caught");
 							} catch (Exception e) {
@@ -1904,11 +1906,21 @@ public class FinalBuildTest extends Game {
 								e.printStackTrace();
 							}
 							gameOverB = true;
-							// System.out.println(room);
 						}
 
 					}
+					if (!(enemy.getHitBox().intersects(room))
+							&& !(ghost.getHitBox().intersects(room)
+							&& ghostAbilities)) {
+								safe = true; }
+						
+
+					}
 				}
+				}
+				
+				
+				
 
 				if (((ghost.collidesWith(bananaL2) && !(bananaL2 == null) && solidEnough == true))
 						|| (((ghost.collidesWith(bananaL3)
@@ -1989,7 +2001,7 @@ public class FinalBuildTest extends Game {
 
 				}
 
-			}
+			
 
 			if ((ghost.collidesWith(fruit) && solidEnough == true && fruit
 					.isVisible())
@@ -2497,7 +2509,7 @@ public class FinalBuildTest extends Game {
 
 			}
 	}
-	}
+	
 
 	// System.out.println("X pos: " + ghost.getXPos() + " Y pos: "
 	// + ghost.getYPos());
