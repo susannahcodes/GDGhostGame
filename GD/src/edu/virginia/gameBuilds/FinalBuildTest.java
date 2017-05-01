@@ -81,6 +81,7 @@ public class FinalBuildTest extends Game {
 	boolean fruitCollected = false;
 	boolean fruitCollectedL4 = false;
 	boolean fruitCollectedL5 = false;
+	boolean fruitCollectedL52 = false;
 	boolean pearCollected = false;
 	boolean pearCollectedL4 = false;
 	boolean pearCollectedL5 = false;
@@ -97,6 +98,7 @@ public class FinalBuildTest extends Game {
 	boolean bananaCollectedL3 = false;
 	boolean bananaCollectedL4 = false;
 	boolean bananaCollectedL5 = false;
+	boolean bananaCollectedL52 = false;
 	boolean fruitCollectedL2 = false;
 	boolean fruitCollectedL3 = false;
 	//boolean strawberryCollectedL2 = false;
@@ -114,6 +116,7 @@ public class FinalBuildTest extends Game {
 	fruitSprite fruitL3 = new fruitSprite("fruitL3");
 	fruitSprite fruitL4 = new fruitSprite("fruitL4");
 	fruitSprite fruitL5 = new fruitSprite("fruitL5");
+	fruitSprite fruitL52 = new fruitSprite("fruitL52");
 	cherrySprite cherry = new cherrySprite("cherry");
 	cherrySprite cherryL2 = new cherrySprite("cherryL2");
 	cherrySprite cherryL3 = new cherrySprite("cherryL3");
@@ -125,6 +128,7 @@ public class FinalBuildTest extends Game {
 	Sprite bananaL3 = new Sprite("bananaL3", "banana.png");
 	Sprite bananaL4 = new Sprite("bananaL4", "banana.png");
 	Sprite bananaL5 = new Sprite("bananaL5", "banana.png");
+	Sprite bananaL52 = new Sprite("bananaL52", "banana.png");
 	Sprite pear = new Sprite("pear", "pear.png");
 	Sprite pearL4 = new Sprite("pearL4", "pear.png");
 	Sprite pearL5 = new Sprite("pearL5", "pear.png");
@@ -149,6 +153,7 @@ public class FinalBuildTest extends Game {
 	Tween strawberryTweenL42 = new Tween(strawberryL42, new TweenTransition());
 	Tween strawberryTweenL52 = new Tween(strawberryL52, new TweenTransition());
 	Sprite bananaL2 = new Sprite("bananaL2", "banana.png");
+	
 
 	WallSprite wall = new WallSprite("testWall");
 	WallSprite wall2 = new WallSprite("testWall2");
@@ -226,6 +231,7 @@ public class FinalBuildTest extends Game {
 	Tween fruitTweenL3 = new Tween(fruitL3, new TweenTransition());
 	Tween fruitTweenL4 = new Tween(fruitL4, new TweenTransition());
 	Tween fruitTweenL5 = new Tween(fruitL5, new TweenTransition());
+	Tween fruitTweenL52 = new Tween(fruitL5, new TweenTransition());
 	Tween cherryTweenL2 = new Tween(cherryL2, new TweenTransition());
 	Tween bananaTweenL3 = new Tween(bananaL3, new TweenTransition());
 	Tween cherryTweenL3 = new Tween(cherryL3, new TweenTransition());
@@ -234,9 +240,11 @@ public class FinalBuildTest extends Game {
 	Tween cherryTweenL32 = new Tween(cherryL32, new TweenTransition());
 	Tween cherryTweenL42 = new Tween(cherryL42, new TweenTransition());
 	Tween cherryTweenL52 = new Tween(cherryL52, new TweenTransition());
+	//Tween bananaTweenL52 = new Tween(cherryL52, new TweenTransition());
 	Tween bananaTweenL2 = new Tween(bananaL2, new TweenTransition());
 	Tween bananaTweenL4 = new Tween(bananaL4, new TweenTransition());
 	Tween bananaTweenL5 = new Tween(bananaL5, new TweenTransition());
+	Tween bananaTweenL52 = new Tween(bananaL52, new TweenTransition());
 	TweenJuggler juggler = new TweenJuggler();
 
 	boolean trippedStrawberryL2 = false;
@@ -249,6 +257,7 @@ public class FinalBuildTest extends Game {
 	boolean trippedBananaL3 = false;
 	boolean trippedBananaL4 = false;
 	boolean trippedBananaL5 = false;
+	boolean trippedBananaL52 = false;
 
 	private GameClock clock;
 
@@ -290,6 +299,7 @@ public class FinalBuildTest extends Game {
 	public boolean trippedFruitL3 = false;
 	public boolean trippedFruitL4 = false;
 	public boolean trippedFruitL5 = false;
+	public boolean trippedFruitL52 = false;
 	public boolean trippedCherryL3 = false;
 	public boolean trippedCherryL32 = false;
 	public boolean trippedCherryL42 = false;
@@ -553,11 +563,13 @@ public class FinalBuildTest extends Game {
 		levelFive.add(table);
 		levelFive.add(beigeCarpet);
 		levelFive.add(fruitL5);
+		levelFive.add(fruitL52);
 		levelFive.add(cherryL5);
 		levelFive.add(strawberryL5);
 		levelFive.add(strawberryL52);
 		levelFive.add(cherryL52);
 		levelFive.add(bananaL5);
+		levelFive.add(bananaL52);
 		levelFive.add(pearL5);
 		levelFive.add(pearL52);
 		levelFive.add(bed);
@@ -649,6 +661,10 @@ public class FinalBuildTest extends Game {
 		fruitL5.setYPos(300 + 800);
 		fruitL5.addEventListener(myQuestManager, null);
 
+		fruitL52.setXPos(500 + 400);
+		fruitL52.setYPos(300 + 800);
+		fruitL52.addEventListener(myQuestManager, null);
+		
 		pear.setXPos(800);
 		pear.setXScale(0.2);
 		pear.setYScale(0.2);
@@ -867,6 +883,9 @@ public class FinalBuildTest extends Game {
 
 		fruitTweenL5.addEventListener(myQuestManager, null);
 		fruitTweenL5.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+		
+		fruitTweenL52.addEventListener(myQuestManager, null);
+		fruitTweenL52.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 
 		cherryTween.addEventListener(myQuestManager, null);
 		cherryTween.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
@@ -919,6 +938,13 @@ public class FinalBuildTest extends Game {
 		bananaL5.setYPos(-100 + 1200);
 		bananaL5.addEventListener(myQuestManager, null);
 		bananaTweenL5.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
+
+		bananaL52.setXScale(0.18);
+		bananaL52.setYScale(0.18);
+		bananaL52.setXPos(300);
+		bananaL52.setYPos(-100 + 700);
+		bananaL52.addEventListener(myQuestManager, null);
+		bananaTweenL52.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 
 		// titleScreen.setVisible(true);
 		menu2.setVisible(false);
@@ -987,6 +1013,7 @@ public class FinalBuildTest extends Game {
 		juggler.add(fruitTweenL3);
 		juggler.add(fruitTweenL4);
 		juggler.add(fruitTweenL5);
+		juggler.add(fruitTweenL52);
 		juggler.add(cherryTween);
 		juggler.add(cherryTweenL2);
 		juggler.add(cherryTweenL3);
@@ -1005,6 +1032,7 @@ public class FinalBuildTest extends Game {
 		juggler.add(bananaTweenL2);
 		juggler.add(bananaTweenL4);
 		juggler.add(bananaTweenL5);
+		juggler.add(bananaTweenL52);
 		juggler.add(pearTween);
 		juggler.add(pearTweenL4);
 		juggler.add(pearTweenL5);
@@ -1632,6 +1660,10 @@ public class FinalBuildTest extends Game {
 						if (fruitCollectedL5 == true) {
 							fruitTweenL5.doTween(myQuestManager.tweenComplete);
 						}
+						
+						if (fruitCollectedL52 == true) {
+							fruitTweenL52.doTween(myQuestManager.tweenComplete);
+						}
 
 						if (cherryCollected == true) {
 							cherryTween.doTween(myQuestManager.tweenComplete);
@@ -1728,6 +1760,9 @@ public class FinalBuildTest extends Game {
 						}
 						if (bananaCollectedL5 == true) {
 							bananaTweenL5.doTween(myQuestManager.tweenComplete);
+						}
+						if (bananaCollectedL52 == true) {
+							bananaTweenL52.doTween(myQuestManager.tweenComplete);
 						}
 						
 					}
@@ -2203,6 +2238,7 @@ public class FinalBuildTest extends Game {
 						e.printStackTrace();
 					}
 					foodCollected += 1;
+					System.out.println("pickedup og cherry");
 					cherryTweenL4.dispatchEvent(new TweenEvent(
 							TweenEvent.TWEEN_EVENT_COMPLETE, cherryTweenL4));
 				}
@@ -2224,6 +2260,51 @@ public class FinalBuildTest extends Game {
 							TweenEvent.TWEEN_EVENT_COMPLETE, cherryTweenL5));
 				}
 			}
+			
+			if (((ghost.collidesWith(bananaL52) && solidEnough == true)
+					&& bananaL52.isVisible())) {
+				if (atLevelFour == true && trippedBananaL52 == false) {
+					bananaL52.dispatchEvent(new Event(Event.COIN_PICKED_UP,
+							bananaL52));
+					bananaCollectedL52 = true;
+					// health.setXScale(health.getXScale() + 0.95);
+					trippedBananaL52 = true;
+					//System.out.println("caught pear3 - 2");
+					try {
+						soundManager.playSoundEffect("munch");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					foodCollected += 1;
+					//System.out.println("collected pear2");
+					bananaTweenL52.dispatchEvent(new TweenEvent(
+							TweenEvent.TWEEN_EVENT_COMPLETE, bananaTweenL52));
+				}
+			}
+			
+			if (((ghost.collidesWith(fruitL52) && solidEnough == true)
+					&& fruitL52.isVisible())) {
+				if (atLevelFive == true && trippedFruitL52 == false) {
+					fruitL52.dispatchEvent(new Event(Event.COIN_PICKED_UP,
+							fruitL52));
+					fruitCollectedL52 = true;
+					// health.setXScale(health.getXScale() + 0.95);
+					trippedFruitL52 = true;
+					System.out.println("caught pear3 - 2");
+					try {
+						soundManager.playSoundEffect("munch");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					foodCollected += 1;
+					//System.out.println("collected pear2");
+					fruitTweenL52.dispatchEvent(new TweenEvent(
+							TweenEvent.TWEEN_EVENT_COMPLETE, fruitTweenL52));
+				}
+			}
+			
 			
 			if (((ghost.collidesWith(pearL42) && solidEnough == true)
 					&& pearL42.isVisible())) {
@@ -2304,8 +2385,7 @@ public class FinalBuildTest extends Game {
 			
 			if (((ghost.collidesWith(cherryL32) && solidEnough == true)
 					&& cherryL32.isVisible()) || ((ghost.collidesWith(cherryL42) && solidEnough == true)
-							&& cherryL42.isVisible()) || ((ghost.collidesWith(cherryL52) && solidEnough == true)
-									&& cherryL52.isVisible())) {
+							&& cherryL42.isVisible())) {
 				if (atLevelThree == true && trippedCherryL32 == false) {
 					cherryL32.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							cherryL32));
@@ -2337,6 +2417,7 @@ public class FinalBuildTest extends Game {
 						e.printStackTrace();
 					}
 					foodCollected += 1;
+					System.out.println("pickedup cherry 2");
 					cherryTweenL42.dispatchEvent(new TweenEvent(
 							TweenEvent.TWEEN_EVENT_COMPLETE, cherryTweenL42));
 				}
