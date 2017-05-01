@@ -2227,8 +2227,9 @@ public class FinalBuildTest extends Game {
 				}
 			}
 			
-			if ((ghost.collidesWith(pearL42) && solidEnough == true)
-					&& pearL42.isVisible()) {
+			if (((ghost.collidesWith(pearL42) && solidEnough == true)
+					&& pearL42.isVisible()) || ((ghost.collidesWith(pearL52) && solidEnough == true)
+							&& pearL52.isVisible())) {
 				if (atLevelFour == true && trippedPearL42 == false) {
 					pearL42.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							pearL42));
@@ -2247,7 +2248,7 @@ public class FinalBuildTest extends Game {
 							TweenEvent.TWEEN_EVENT_COMPLETE, pearTweenL42));
 				}
 				if (atLevelFive == true && trippedPearL52 == false) {
-					cherryL52.dispatchEvent(new Event(Event.COIN_PICKED_UP,
+					pearL52.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							pearL52));
 					pearCollectedL52 = true;
 					// health.setXScale(health.getXScale() + 0.95);
@@ -2303,8 +2304,10 @@ public class FinalBuildTest extends Game {
 				}
 			}
 			
-			if ((ghost.collidesWith(cherryL32) && solidEnough == true)
-					&& cherryL32.isVisible()) {
+			if (((ghost.collidesWith(cherryL32) && solidEnough == true)
+					&& cherryL32.isVisible()) || ((ghost.collidesWith(cherryL42) && solidEnough == true)
+							&& cherryL42.isVisible()) || ((ghost.collidesWith(cherryL52) && solidEnough == true)
+									&& cherryL52.isVisible())) {
 				if (atLevelThree == true && trippedCherryL32 == false) {
 					cherryL32.dispatchEvent(new Event(Event.COIN_PICKED_UP,
 							cherryL32));
