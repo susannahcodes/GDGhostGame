@@ -1642,6 +1642,7 @@ public class FinalBuildTest extends Game {
 						}
 
 						if (pearCollectedL4 == true) {
+							System.out.println("pear L4 is tweening");
 							pearTweenL4.doTween(myQuestManager.tweenComplete);
 						}
 
@@ -1649,6 +1650,7 @@ public class FinalBuildTest extends Game {
 							pearTweenL5.doTween(myQuestManager.tweenComplete);
 						}
 						if (pearCollectedL42 == true) {
+							System.out.println("pear L4.2 is tweening");
 							pearTweenL42.doTween(myQuestManager.tweenComplete);
 						}
 
@@ -1714,7 +1716,7 @@ public class FinalBuildTest extends Game {
 									.doTween(myQuestManager.tweenComplete);
 						}
 						if (bananaCollectedL2 == true) {
-							System.out.println("tweening");
+							//System.out.println("tweening");
 							bananaTweenL2.doTween(myQuestManager.tweenComplete);
 						}
 						if (bananaCollectedL3 == true) {
@@ -2076,11 +2078,9 @@ public class FinalBuildTest extends Game {
 				}
 
 			}
-			if ((ghost.collidesWith(pear) && solidEnough == true && pear
-					.isVisible())) {
+			if ((ghost.collidesWith(pear) && solidEnough == true && pear.isVisible())) {
 
-				if (atLevelThree == true && !(gameOver.isVisible())
-						&& trippedPear == false) {
+				if (atLevelThree == true && !(gameOver.isVisible()) && trippedPear == false) {
 					pear.dispatchEvent(new Event(Event.COIN_PICKED_UP, pear));
 					pearCollected = true;
 					// health.setXScale(health.getXScale() + 0.95);
@@ -2093,11 +2093,10 @@ public class FinalBuildTest extends Game {
 					}
 					// System.out.println("collected fruit");
 					foodCollected += 1;
-					pearTween.dispatchEvent(new TweenEvent(
-							TweenEvent.TWEEN_EVENT_COMPLETE, pearTween));
+					pearTween.dispatchEvent(new TweenEvent(TweenEvent.TWEEN_EVENT_COMPLETE, pearTween));
 				}
-				if (atLevelFour == true && !(gameOver.isVisible())
-						&& trippedPearL4 == false) {
+				
+				if (atLevelFour == true && !(gameOver.isVisible()) && trippedPearL4 == false) {
 					pearL4.dispatchEvent(new Event(Event.COIN_PICKED_UP, pearL4));
 					pearCollectedL4 = true;
 					trippedPearL4 = true;
