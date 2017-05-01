@@ -77,7 +77,7 @@ public class FinalBuildTest extends Game {
 	private SoundManager soundManager;
 	private DisplayObjectContainer camera = new DisplayObjectContainer(
 			"Camera", null);
-
+	public Sprite gameWon = new Sprite ("gameWon", "gameWon.png");
 	boolean fruitCollected = false;
 	boolean fruitCollectedL4 = false;
 	boolean fruitCollectedL5 = false;
@@ -378,7 +378,7 @@ public class FinalBuildTest extends Game {
 															// bottom room
 	ArrayList<Cell> fLevelOnePath1 = new ArrayList<Cell>(); // this is for the
 															// first level ONLY.
-															// enemy just walks
+													// enemy just walks
 															// back and forth in
 															// bottom room
 
@@ -406,7 +406,7 @@ public class FinalBuildTest extends Game {
 		super("Final Build", 1200, 800);
 
 		clock = new GameClock();
-
+gameWon.setVisible(false);
 		// LevelOne
 		levelOne.add(grass);
 		levelOne.add(grass2);
@@ -451,6 +451,7 @@ public class FinalBuildTest extends Game {
 		levelTwo.add(cherryL2);
 		levelTwo.add(bananaL2);
 		levelTwo.add(strawberryL2);
+		
 
 		levelTwo.add(lowerLeft);
 		// levelTwo.add(lowerRight);
@@ -607,6 +608,7 @@ public class FinalBuildTest extends Game {
 		levelFive.add(health);
 		levelFive.add(healthBar);
 		levelFive.add(gameOver);
+		levelFive.add(gameWon);
 
 		this.getScenePanel().setBackground(Color.gray);
 
@@ -1229,6 +1231,20 @@ public class FinalBuildTest extends Game {
 			gameOver.setYPos(offsetMinY);
 		}
 		super.update(pressedKeys);
+		
+		gameWon.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
+		gameWon.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (gameWon.getXPos() > offsetMaxX) {
+			gameWon.setXPos(offsetMaxX);
+		} else if (gameWon.getXPos() < offsetMinX) {
+			gameWon.setXPos(offsetMinX);
+		}
+		if (gameWon.getYPos() > offsetMaxY) {
+			gameWon.setYPos(offsetMaxY);
+		} else if (gameWon.getXPos() < offsetMinY) {
+			gameWon.setYPos(offsetMinY);
+		}
+		super.update(pressedKeys);
 
 		menu2.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		menu2.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
@@ -1648,6 +1664,7 @@ public class FinalBuildTest extends Game {
 						if (atLevelFive == false) {
 							switchLevels();
 						}
+						else gameWon.setVisible(true);
 						// else { //display you've won sprite}
 					}
 
