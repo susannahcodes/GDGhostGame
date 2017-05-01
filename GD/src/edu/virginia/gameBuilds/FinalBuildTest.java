@@ -566,7 +566,7 @@ public class FinalBuildTest extends Game {
 		cherryL2.setYPos(310 + 800);
 		cherryL2.addEventListener(myQuestManager, null);
 
-		health.setXScale(0.004);
+		health.setXScale(1.94);
 		l2Wall.setXPos(1062);
 		l2Wall.setYPos(540);
 
@@ -1463,7 +1463,7 @@ public class FinalBuildTest extends Game {
 							bananaL2));
 					if (trippedBanana == false) {
 						if (atLevelOne) {
-							health.setXScale(health.getXScale() + 2);
+					//health.setXScale(health.getXScale() + 2);
 						}
 						// health.setXScale(health.getXScale() + 0.4);
 						bananaCollected = true;
@@ -1490,7 +1490,7 @@ public class FinalBuildTest extends Game {
 							&& trippedFruit == false) {
 						fruit.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruit));
 						fruitCollected = true;
-						health.setXScale(health.getXScale() + 0.95);
+						//health.setXScale(health.getXScale() + 0.95);
 						trippedFruit = true;
 						try {
 							soundManager.playSoundEffect("munch");
@@ -1506,7 +1506,7 @@ public class FinalBuildTest extends Game {
 							&& trippedFruitL2 == false) {
 						fruitL2.dispatchEvent(new Event(Event.COIN_PICKED_UP, fruitL2));
 						fruitCollectedL2 = true;
-						health.setXScale(health.getXScale() + 0.95);
+						//health.setXScale(health.getXScale() + 0.95);
 						trippedFruitL2 = true;
 						System.out.println("caught fruit 2");
 						try {
@@ -1531,7 +1531,7 @@ public class FinalBuildTest extends Game {
 							&& trippedCherry == false) {
 						cherry.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherry));
 						cherryCollected = true;
-						health.setXScale(health.getXScale() + 0.95);
+						//health.setXScale(health.getXScale() + 0.95);
 						trippedCherry = true;
 						try {
 							soundManager.playSoundEffect("munch");
@@ -1547,7 +1547,7 @@ public class FinalBuildTest extends Game {
 							&& trippedCherryL2 == false) {
 						cherryL2.dispatchEvent(new Event(Event.COIN_PICKED_UP, cherryL2));
 						cherryCollectedL2 = true;
-						health.setXScale(health.getXScale() + 0.95);
+						//health.setXScale(health.getXScale() + 0.95);
 						trippedCherryL2 = true;
 						System.out.println("caught fruit 2");
 						try {
@@ -1632,10 +1632,12 @@ public class FinalBuildTest extends Game {
 		}
 
 		if (atLevelOne == true) {
+			healthBar.setXPos(10);
 			levelOne.draw(g);
-			g.setColor(Color.red);
-			g.fillRect(20, 30, healthWidth, 22);
-			healthBar.draw(g);
+//			g.setColor(Color.red);
+//			g.fillRect(20, 30, healthWidth, 22);
+			
+			//healthBar.draw(g);
 		}
 
 		// else { levelTwo.draw(g);}
@@ -1647,6 +1649,7 @@ public class FinalBuildTest extends Game {
 			} else {
 				menu2.setVisible(false);
 			}
+			healthBar.setXPos(10);
 			levelTwo.draw(g);
 		}
 		if (atLevelThree == true) {
@@ -1656,6 +1659,7 @@ public class FinalBuildTest extends Game {
 			} else {
 				menu3.setVisible(false);
 			}
+			healthBar.setXPos(10);
 			levelThree.draw(g);
 		}
 		if (atLevelFour == true) {
@@ -1665,6 +1669,7 @@ public class FinalBuildTest extends Game {
 			} else {
 				menu4.setVisible(false);
 			}
+			healthBar.setXPos(10);
 			levelFour.draw(g);
 		}
 		if (atLevelFive == true) { // atLevelFive
@@ -1673,6 +1678,7 @@ public class FinalBuildTest extends Game {
 			} else {
 				menu5.setVisible(false);
 			}
+			healthBar.setXPos(10);
 			levelFive.draw(g);
 		}
 
@@ -1690,6 +1696,7 @@ public class FinalBuildTest extends Game {
 			// ghost.setTrans(0.0f + deltaAlpha);
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
+			health.setXScale(1.94);
 			atLevelTwo = true;
 		} else if (atLevelTwo == true) {
 			// System.out.println("entering level 2 (switchlevels)");
@@ -1704,6 +1711,7 @@ public class FinalBuildTest extends Game {
 			// ghost.setTrans(0.0f + deltaAlpha);
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
+			health.setXScale(1.94);
 			atLevelThree = true;
 		} else if (atLevelThree == true) {
 			// System.out.println("entering level 3(switchlevels)");
@@ -1716,6 +1724,7 @@ public class FinalBuildTest extends Game {
 			// ghost.setTrans(0.0f + deltaAlpha);
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
+			health.setXScale(1.94);
 			atLevelFour = true;
 		} else if (atLevelFour == true) {
 			// System.out.println("entering level 4");
@@ -1725,6 +1734,7 @@ public class FinalBuildTest extends Game {
 			// ghost.setTrans(0.0f + deltaAlpha);
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
+			health.setXScale(1.94);
 			atLevelFive = true;
 		}
 	}
