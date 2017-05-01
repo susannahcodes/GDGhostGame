@@ -1113,6 +1113,16 @@ public class FinalBuildTest extends Game {
 
 		menu5.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		menu5.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (menu5.getXPos() > offsetMaxX) {
+			menu5.setXPos(offsetMaxX);
+		} else if (menu5.getXPos() < offsetMinX) {
+			menu5.setXPos(offsetMinX);
+		}
+		if (menu5.getYPos() > offsetMaxY) {
+			menu5.setYPos(offsetMaxY);
+		} else if (menu5.getXPos() < offsetMinY) {
+			menu5.setYPos(offsetMinY);
+		}
 
 		camera.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		camera.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
