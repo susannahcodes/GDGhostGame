@@ -878,6 +878,7 @@ public class FinalBuildTest extends Game {
 			soundManager = new SoundManager();
 			soundManager.loadSoundEffect("caught", "resources/caught.wav");
 			soundManager.loadSoundEffect("munch", "resources/munch.wav");
+			soundManager.loadSoundEffect("gameOver", "resources/gameOver.wav");
 			soundManager.loadMusic("bgroundmusic", "resources/bground.wav");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1663,7 +1664,14 @@ public class FinalBuildTest extends Game {
 								&& !ghostAbilities) {
 							health.setXScale(health.getXScale() - 0.002);
 							if (health.getXScale() < 0.1) {
+								try {
+									soundManager.playSoundEffect("gameOver");
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								gameOver.setVisible(true);
+								health.setXScale(1.9);
 							}
 							// System.out.println("enemy sees you");
 							// System.out.println();
