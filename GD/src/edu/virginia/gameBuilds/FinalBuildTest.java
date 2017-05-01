@@ -695,10 +695,10 @@ gameWon.setVisible(false);
 		pearL5.setYPos(300 + 800 - 400);
 		pearL5.addEventListener(myQuestManager, null);
 		
-		pearL42.setXPos(800);
+		pearL42.setXPos(300);
 		pearL42.setXScale(0.2);
 		pearL42.setYScale(0.2);
-		pearL42.setYPos(300 + 800 - 700);
+		pearL42.setYPos(300 + 800 - 800);
 		pearL42.addEventListener(myQuestManager, null);
 
 		pearL52.setXPos(800);
@@ -747,7 +747,7 @@ gameWon.setVisible(false);
 		cherryL32.setYPos(850);
 		
 		cherryL42.setXPos(850);
-		cherryL42.setYPos(310 + 800);
+		cherryL42.setYPos(310);
 		
 		cherryL52.setXPos(850);
 		cherryL52.setYPos(310 + 800);
@@ -968,7 +968,7 @@ gameWon.setVisible(false);
 		bananaL52.setXScale(0.18);
 		bananaL52.setYScale(0.18);
 		bananaL52.setXPos(300);
-		bananaL52.setYPos(-100 + 700);
+		bananaL52.setYPos(-100 + 300);
 		bananaL52.addEventListener(myQuestManager, null);
 		bananaTweenL52.animate(TweenableParam.FADE_OUT, 1.0f, 0.0f, 6000);
 
