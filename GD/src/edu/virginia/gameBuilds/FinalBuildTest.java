@@ -855,6 +855,18 @@ public class FinalBuildTest extends Game {
 
 		menu2.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 		menu2.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
+		if (menu2.getXPos() > offsetMaxX) {
+			menu2.setXPos(offsetMaxX);
+		} else if (menu2.getXPos() < offsetMinX) {
+			menu2.setXPos(offsetMinX);
+		}
+		if (menu2.getYPos() > offsetMaxY) {
+			menu2.setYPos(offsetMaxY);
+		} else if (menu2.getXPos() < offsetMinY) {
+			menu2.setYPos(offsetMinY);
+		}
+		
+		
 		
 		if(isLoading==true){
 			loadingScreen.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
@@ -1286,10 +1298,10 @@ public class FinalBuildTest extends Game {
 					if (myQuestManager.questCompleted) {
 						if (fruitCollected == true && !gameOver.isVisible()) {
 							fruitTween.doTween(myQuestManager.tweenComplete);
-						} else if (cherryCollected == true
-								&& !gameOver.isVisible()) {
-							cherryTween.doTween(myQuestManager.tweenComplete);
-						} else if (strawberryCollected == true
+						} 
+						
+						else if (cherryCollected == true) {cherryTween.doTween(myQuestManager.tweenComplete);}
+						else if (strawberryCollected == true
 								&& !gameOver.isVisible()) {
 							strawberryTween.doTween(myQuestManager.tweenComplete);
 						} else if (bananaCollected == true) {
