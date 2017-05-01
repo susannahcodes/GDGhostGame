@@ -46,21 +46,17 @@ public class FinalBuildTest extends Game {
 			"LevelFive", "health.png");
 
 	/******* these rooms check when the enemy and ghost are in the same room */
-	// Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
-	// Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
-	Rectangle leftMiddleRoom = new Rectangle(135, 215, 400, 465);
-	Rectangle rightMiddleRoom = new Rectangle(625, 215, 420, 465);
-	// Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
-	Rectangle bottomRoom = new Rectangle(130, 510, 900, 180);
-	// Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100); //if the
-	// enemy is not in the top middle room, but can "see" into it from the
-	// vertical hallway, ghost is caught
-	// Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700); //if the
-	// enemy is not in the top room, but can "see" into it from top middle
-	// rorom, ghost is caught
-
-	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(
-			leftMiddleRoom, rightMiddleRoom, bottomRoom));
+	Rectangle topRoom = new Rectangle(140, 175, 1160, 315);
+	Rectangle topMiddleRoom = new Rectangle(620, 550, 435, 400);
+	Rectangle leftMiddleRoom = new Rectangle(135, 1015, 400, 465);
+	Rectangle rightMiddleRoom = new Rectangle(625, 1015, 420, 465);
+	Rectangle verticalHallway = new Rectangle(1110, 550, 180, 940);
+	Rectangle bottomRoom = new Rectangle(130, 1310, 1160, 180); 	
+	Rectangle doorwayView1 = new Rectangle(620, 550, 660, 100);		//if the enemy is not in the top middle room, but can "see" into it from the vertical hallway, ghost is caught 
+	Rectangle doorwayView2 = new Rectangle(820, 225, 100, 700);		//if the enemy is not in the top room, but can "see" into it from top middle rorom, ghost is caught 
+	
+	ArrayList<Rectangle> listOfRooms = new ArrayList<Rectangle>(Arrays.asList(topRoom, topMiddleRoom, leftMiddleRoom, rightMiddleRoom, 
+																										verticalHallway, bottomRoom, doorwayView2));
 
 	healthBarSprite healthBar = new healthBarSprite("healthBar");
 	Sprite health = new Sprite("health", "health.png");
@@ -107,9 +103,6 @@ public class FinalBuildTest extends Game {
 	// for collision detection
 	// ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall,
 	// wall2,vwall,vwall2,wall3,wall4));
-	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,
-			vwall, vwall2, wall4, lowerLeft, lowerRight, rightTop, leftBottom,
-			rightBottom, vwall3));
 
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
 	Sprite woodFloor = new Sprite("wood", "wood.jpg");
@@ -152,6 +145,12 @@ public class FinalBuildTest extends Game {
 	Sprite l2Wall = new Sprite("l2Wall", "updownwall.png");
 	Sprite redCarpet = new Sprite("redCarpet", "redCarpet.jpg");
 	enemySprite enemy = new enemySprite("EnemyOne");
+	
+	/***** LIST OF WALLS ******/
+	//ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall2,vwall,vwall2,wall4, lowerLeft, rightTop, leftBottom, rightBottom, vwall3, topHallway, hallwayBottom, leftSideMiddleRoom, 
+			//longHallwayRight, upperRightHallway, wall2, vwall3, leftHouseTop, leftSideMiddleRoom,houseTop,topRoomBottom));
+	
+	ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(lowerLeft, lowerRight, rightTop, leftBottom, rightBottom, vwall, wall2, wall4, vwall2, vwall3));
 
 	Tween marioTween = new Tween(ghost, new TweenTransition());
 	Tween fruitTween = new Tween(fruit, new TweenTransition());
@@ -1235,39 +1234,72 @@ public class FinalBuildTest extends Game {
 					 */
 
 					juggler.nextFrame();
+					
+					/*if ( atLevelOne ) {
+						for (Sprite wall : collDectsL1) { 
 
-					for (Sprite wall : collDects) { // does code have ability to
-													// cycle through every wall
-													// object in 1/60 of a
-													// second?
+							if (ghost.collidesWith(wall) && ghostAbilities == false) {
+
+								collisionOccured = true;
+
+								if (ghost.getRightHitBox().intersects(
+										wall.getHitBox())) {
+									stopR = true;
+								}
+
+								if (ghost.getLeftHitBox().intersects(
+										wall.getHitBox())) {
+									stopL = true;
+								}
+
+								if (ghost.getBottomHitBox().intersects(
+										wall.getHitBox())) {
+									stopD = true;
+								}
+
+								if (ghost.getTopHitBox().intersects(
+										wall.getHitBox())) {
+									stopU = true;
+								}
+
+								break; 
+							}
+						}
+					}*/
+
+
+					for (Sprite wall : collDects) { 
 
 						if (ghost.collidesWith(wall) && ghostAbilities == false) {
-
+							
+							System.out.println(wall.getId());
 							collisionOccured = true;
 
-							if (ghost.getRightHitBox().intersects(
-									wall.getHitBox())) {
+							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
+								System.out.println("collision from the right");
 								stopR = true;
 							}
 
-							if (ghost.getLeftHitBox().intersects(
-									wall.getHitBox())) {
+							if (ghost.getLeftHitBox().intersects(wall.getHitBox())) {
+								System.out.println("collision from the left");
 								stopL = true;
 							}
 
-							if (ghost.getBottomHitBox().intersects(
-									wall.getHitBox())) {
+							if (ghost.getBottomHitBox().intersects(wall.getHitBox())) {
+								System.out.println("collision from the bottom");
 								stopD = true;
 							}
 
-							if (ghost.getTopHitBox().intersects(
-									wall.getHitBox())) {
+							if (ghost.getTopHitBox().intersects(wall.getHitBox())) {
+								System.out.println("collision from the top");
 								stopU = true;
 							}
 
-							break; // what does this break do?
+							break; 
 						}
 					}
+
+
 
 					if (foodCollected == maxFood) {
 						healthWidth = 0;
@@ -1615,18 +1647,26 @@ public class FinalBuildTest extends Game {
 			foodCollected = 0;
 			maxFood = 1;// supposed to be 4
 			atLevelOne = false;
+			collDects.remove(lowerRight);
+			collDects.addAll(Arrays.asList(l2Wall, hallwayBottom, longHallwayRightLevel2, upperRightHallway, topHallwayLevelTwo));
 			atLevelTwo = true;
 		} else if (atLevelTwo == true) {
 			// System.out.println("entering level 2 (switchlevels)");
 			foodCollected = 0;
 			maxFood = 1; // supposed to be 6
 			atLevelTwo = false;
+			//collDects.remove(topHallwayLevelTwo);
+			collDects.add(topHallwayLevelThree);
+			collDects.add(leftSideMiddleRoom);
+			listOfRooms.add(doorwayView1);
 			atLevelThree = true;
 		} else if (atLevelThree == true) {
 			// System.out.println("entering level 3(switchlevels)");
 			foodCollected = 0;
 			maxFood = 8;
 			atLevelThree = false;
+			collDects.remove(topHallwayLevelThree);
+			collDects.addAll(Arrays.asList(longHallwayRight, topHallway, leftHouseTop, houseTop, topRoomBottom));
 			atLevelFour = true;
 		} else if (atLevelFour == true) {
 			// System.out.println("entering level 4");
