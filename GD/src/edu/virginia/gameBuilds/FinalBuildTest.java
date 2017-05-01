@@ -979,7 +979,7 @@ public class FinalBuildTest extends Game {
 		strawberryL2.setXScale(0.25);
 		strawberryL2.setYScale(0.25);
 		strawberryL2.setXPos(1170);
-		strawberryL2.setYPos(300 + 800);
+		strawberryL2.setYPos(300 + 300);
 		strawberryL2.addEventListener(myQuestManager, null);
 
 		strawberryL3.setXScale(0.25);
