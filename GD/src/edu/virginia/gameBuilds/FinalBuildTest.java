@@ -100,9 +100,6 @@ public class FinalBuildTest extends Game {
 	LongWallSprite rightTop = new LongWallSprite("rightTop");
 	LongWallSprite leftBottom = new LongWallSprite("leftBottom");
 	LongWallSprite rightBottom = new LongWallSprite("rightBottom");
-	// for collision detection
-	// ArrayList<Sprite> collDects = new ArrayList<Sprite>(Arrays.asList(wall,
-	// wall2,vwall,vwall2,wall3,wall4));
 
 	Sprite gameOver = new Sprite("gameOver", "gameOver.png");
 	Sprite woodFloor = new Sprite("wood", "wood.jpg");
@@ -131,6 +128,7 @@ public class FinalBuildTest extends Game {
 	public boolean menu3Active = true;
 	public boolean menu4Active = true;
 	public boolean menu5Active = true;
+	public boolean willPlayMusic = true;
 	VertWallSprite longHallwayRightLevel2 = new VertWallSprite(
 			"longHallwayRight"); // us
 	VertWallSprite upperRightHallway = new VertWallSprite("upperRightHallway"); // use
@@ -695,7 +693,6 @@ public class FinalBuildTest extends Game {
 			soundManager.loadSoundEffect("caught", "resources/caught.wav");
 			soundManager.loadSoundEffect("munch", "resources/munch.wav");
 			soundManager.loadMusic("bgroundmusic", "resources/bground.wav");
-			soundManager.playMusic("bgroundmusic");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -884,6 +881,12 @@ public class FinalBuildTest extends Game {
 		
 		if(isLoading==false){
 			loadingScreen.setVisible(false);
+			if (willPlayMusic == true){
+				System.out.println("playing music");
+				playMusic();
+				willPlayMusic = false;
+			}
+				
 			titleScreen.setXPos(ghost.getXPos() - VIEWPORT_SIZE_X / 2);
 			titleScreen.setYPos(ghost.getYPos() - VIEWPORT_SIZE_Y / 2);
 			if (titleScreen.getXPos() > offsetMaxX) {
@@ -1574,6 +1577,16 @@ public class FinalBuildTest extends Game {
 	 * make sure ghost gets drawn to the screen, we need to make sure to
 	 * override this method and call ghost's draw method.
 	 * */
+	
+	public void playMusic() {
+		try {
+			soundManager.playMusic("bgroundmusic");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	@Override
 	public void draw(Graphics g) {
 		g.translate((int) -camera.getXPos(), (int) -camera.getYPos());
