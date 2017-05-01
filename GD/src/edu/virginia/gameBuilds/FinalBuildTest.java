@@ -1910,7 +1910,7 @@ public class FinalBuildTest extends Game {
 					if (enemy.getHitBox().intersects(room)
 							&& ghost.getHitBox().intersects(room)
 							&& !ghostAbilities) {
-						health.setXScale(health.getXScale() - 0.002);
+						health.setXScale(health.getXScale() - 0.01);
 						if (health.getXScale() < 0.1) {
 							try {
 								soundManager.playSoundEffect("gameOver");
@@ -1953,14 +1953,17 @@ public class FinalBuildTest extends Game {
 				
 				for ( Sprite fruitObject : listOfFruits ) {
 					if ( ghost.collidesWith(fruitObject) && solidEnough && fruitObject.isVisible() ) {
-						//fruitColliding = true;
-						//collidedAtAll = true;
-						System.out.println("enemy colliding with fruit");
+
 						fruitObject.setVisible(false);
-						System.out.println("before increment: " + foodCollected);
+						
+						try {
+							soundManager.playSoundEffect("munch");
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
 						foodCollected +=1;
-						System.out.println("after increment: " + foodCollected);
-						System.out.println();
 					}
 				}
 				
