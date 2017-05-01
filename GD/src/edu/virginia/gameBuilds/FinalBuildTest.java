@@ -2119,6 +2119,7 @@ public class FinalBuildTest extends Game {
 			}
 			// healthBar.setXPos(10);
 			levelTwo.draw(g);
+			g.setColor(Color.white);
 			g.drawString("FruitCollected:" + foodCollected + "/" + maxFood, (int)ghost.getXPos(), (int) ghost.getYPos());
 		}
 		if (atLevelThree == true) {
@@ -2130,6 +2131,7 @@ public class FinalBuildTest extends Game {
 			}
 			// healthBar.setXPos(10);
 			levelThree.draw(g);
+			g.setColor(Color.white);
 			g.drawString("FruitCollected:" + foodCollected + "/" + maxFood, (int)ghost.getXPos(), (int) ghost.getYPos());
 		}
 		if (atLevelFour == true) {
@@ -2141,6 +2143,7 @@ public class FinalBuildTest extends Game {
 			}
 			// healthBar.setXPos(10);
 			levelFour.draw(g);
+			g.setColor(Color.white);
 			g.drawString("FruitCollected:" + foodCollected + "/" + maxFood, (int)ghost.getXPos(), (int) ghost.getYPos());
 		}
 		if (atLevelFive == true) { // atLevelFive
@@ -2151,6 +2154,7 @@ public class FinalBuildTest extends Game {
 			}
 			// healthBar.setXPos(10);
 			levelFive.draw(g);
+			g.setColor(Color.white);
 			g.drawString("FruitCollected:" + foodCollected + "/" + maxFood, (int)ghost.getXPos(), (int) ghost.getYPos());
 		}
 
