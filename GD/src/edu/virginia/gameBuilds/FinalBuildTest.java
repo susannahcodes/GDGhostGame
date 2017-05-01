@@ -999,7 +999,7 @@ public class FinalBuildTest extends Game {
 													// SPRITE TO CHANGE
 													// DIRECTIONS
 							// enemyMoveCounter+=1;
-							enemyMoveCounter0b += 5; // increases the owner's
+							enemyMoveCounter0b += 2; // increases the owner's
 														// speed
 						}
 
@@ -1084,7 +1084,7 @@ public class FinalBuildTest extends Game {
 							enemy.goForward(true); // THIS IS WHERE TO TELL THE
 													// SPRITE TO CHANGE
 													// DIRECTIONS
-							enemyMoveCounter4 += 5; // makes the owner move
+							enemyMoveCounter4 += 3; // makes the owner move
 													// faster
 						}
 
@@ -1158,7 +1158,7 @@ public class FinalBuildTest extends Game {
 							enemy.goForward(true); // THIS IS WHERE TO TELL THE
 													// SPRITE TO CHANGE
 													// DIRECTIONS
-							enemyMoveCounter7 += 3; // makes the owner move
+							enemyMoveCounter7 += 5; // makes the owner move
 													// faster
 						}
 
@@ -1185,7 +1185,7 @@ public class FinalBuildTest extends Game {
 							enemy.goForward(true); // THIS IS WHERE TO TELL THE
 													// SPRITE TO CHANGE
 													// DIRECTIONS
-							enemyMoveCounter8 += 5; // makes the owner move
+							enemyMoveCounter8 += 3; // makes the owner move
 													// faster
 						}
 
@@ -1272,26 +1272,26 @@ public class FinalBuildTest extends Game {
 
 						if (ghost.collidesWith(wall) && ghostAbilities == false) {
 							
-							System.out.println(wall.getId());
+							//System.out.println(wall.getId());
 							collisionOccured = true;
 
 							if (ghost.getRightHitBox().intersects(wall.getHitBox())) {
-								System.out.println("collision from the right");
+								//System.out.println("collision from the right");
 								stopR = true;
 							}
 
 							if (ghost.getLeftHitBox().intersects(wall.getHitBox())) {
-								System.out.println("collision from the left");
+								//System.out.println("collision from the left");
 								stopL = true;
 							}
 
 							if (ghost.getBottomHitBox().intersects(wall.getHitBox())) {
-								System.out.println("collision from the bottom");
+								//System.out.println("collision from the bottom");
 								stopD = true;
 							}
 
 							if (ghost.getTopHitBox().intersects(wall.getHitBox())) {
-								System.out.println("collision from the top");
+								//System.out.println("collision from the top");
 								stopU = true;
 							}
 
@@ -1454,9 +1454,9 @@ public class FinalBuildTest extends Game {
 
 				for (Rectangle room : listOfRooms) {
 
-					if (enemy.getHitBox().intersects(room)
-							&& ghost.getHitBox().intersects(room)
-							&& !ghostAbilities) {
+					if (enemy.getHitBox().intersects(room) && ghost.getHitBox().intersects(room) && !ghostAbilities) {
+						//System.out.println("enemy sees you");
+						//System.out.println();
 						if (gameOverB == false) {
 							try {
 								soundManager.playSoundEffect("caught");
@@ -1467,7 +1467,7 @@ public class FinalBuildTest extends Game {
 							gameOver.setVisible(true);
 							gameOverB = true;
 							// System.out.println(room);
-						}
+						} 
 					}
 				}
 
