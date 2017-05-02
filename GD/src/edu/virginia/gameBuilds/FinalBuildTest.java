@@ -1940,8 +1940,8 @@ gameWon.setVisible(false);
 						}
 						// System.out.println("enemy sees you");
 						// System.out.println();
-						safe = false;
-						if (gameOverB == false && safe == false) {
+						//safe = false;
+						if (gameOverB == false) {
 							try {
 								soundManager.playSoundEffect("caught");
 							} catch (Exception e) {
@@ -1952,13 +1952,7 @@ gameWon.setVisible(false);
 						}
 
 					}
-					if (!(enemy.getHitBox().intersects(room))
-							&& !(ghost.getHitBox().intersects(room)
-							&& ghostAbilities)) {
-								safe = true; }
-						
-
-					}
+				}
 				}
 
 		}
@@ -2720,7 +2714,9 @@ gameWon.setVisible(false);
 			ghost.setXPos(5);
 			ghost.setYPos(780 - ghost.getScaledHeight() + 800);
 			health.setXScale(1.94);
+			gameOverB = false;
 			atLevelThree = true;
+			
 		} 
 		
 		else if (atLevelThree == true) {
@@ -2728,6 +2724,7 @@ gameWon.setVisible(false);
 			foodCollected = 0;
 			maxFood = 8;
 			atLevelThree = false;
+			gameOverB = false;
 			
 			listOfFruits.clear();
 			listOfFruits.addAll(Arrays.asList(fruitL4, cherryL4, cherryL42, strawberryL4, strawberryL42, bananaL4, pearL4, pearL42));
@@ -2746,6 +2743,7 @@ gameWon.setVisible(false);
 			// System.out.println("entering level 4");
 			foodCollected = 0;
 			maxFood = 10;
+			gameOverB = false;
 			atLevelFour = false;
 			
 			listOfFruits.clear();
