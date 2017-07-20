@@ -4,8 +4,8 @@ CS 4730 Project by Will Savino, Amanda Seiken, and Susannah Jones
 
 ## Controls
 
-*To move: Arrow keys
-*To fade in/out to pass through walls: Rapidly press Z/X
+* To move: Arrow keys
+* To fade in/out to pass through walls: Rapidly press Z/X
 
 ## Rules
 
